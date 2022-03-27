@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  volunteer:
+    image: ${DOCKER_REGISTRY-}volunteer
+    build:
+      context: .
+      dockerfile: Volunteer/Dockerfile
+
+  organization:
+    image: ${DOCKER_REGISTRY-}organization
+    build:
+      context: .
+      dockerfile: Organization/Dockerfile
+

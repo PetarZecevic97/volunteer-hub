@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  volunteer:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "4000:80"
+
+  organization:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "4001:80"
+
