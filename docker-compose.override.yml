@@ -2,14 +2,26 @@ version: '3.4'
 
 services:
   volunteer:
+    container_name: volunteer
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "4000:80"
 
   organization:
+    container_name: organization
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "4001:80"
 
+  organizationdb:
+    container_name: organizationdb
+    environment:
+      - SA_PASSWORD=Volunteerhub12345
+      - ACCEPT_EULA=Y
+    restart: always
+    ports:
+      - "1433:1433" 
+    volumes:
+      - organizationdb_data:/var/opt/mssql/data 

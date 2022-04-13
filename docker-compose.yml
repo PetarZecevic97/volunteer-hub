@@ -13,3 +13,8 @@ services:
       context: .
       dockerfile: Organization/Dockerfile
 
+  organizationdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
+volumes:
+  organizationdb_data:
