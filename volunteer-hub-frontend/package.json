@@ -1,5 +1,5 @@
 {
-  "name": "organization-frontend",
+  "name": "volunteer-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,9 +11,13 @@
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "jest-editor-support": "^30.0.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-icons": "^4.3.1",
+    "react-is": "^16.13.1",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "styled-components": "^5.3.5",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"
   },
@@ -40,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/styled-components-react-native": "^5.1.3"
   }
 }
