@@ -20,12 +20,12 @@ const Navbar = () => {
         <Bars />
         <NavMenu>
           <NavLink to="/about">About</NavLink>
-          <NavLink to="/Events">Events</NavLink>
+          <NavLink to="/events">Events</NavLink>
           <NavLink to="/sign-up">Sign Up</NavLink>
           <NavLink to="/profile">Profile</NavLink>
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to="/signin">Sign In</NavBtnLink>
+          <NavBtnLink to="/sign-in">Sign In</NavBtnLink>
         </NavBtn>
       </Nav>
     </>
