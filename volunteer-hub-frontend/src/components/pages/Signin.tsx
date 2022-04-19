@@ -8,6 +8,7 @@ import {
   LoginSubmit,
   LoginInputText,
   LoginContainer,
+  SignUpBtn,
 } from "../Login/styles/LoginStyles";
 
 interface IErrorMessages {
@@ -90,8 +91,12 @@ const Signup = () => {
           {renderErrorMessage("pass")}
         </LoginInputContainer>
         <LoginButton>
-          <LoginSubmit type="submit"/>
+          <LoginSubmit type="submit" value="Log in"/>
         </LoginButton>
+        
+        <SignUpBtn>
+          <a href="/sign-up">Sign up</a>
+        </SignUpBtn>
       </form>
 
   );

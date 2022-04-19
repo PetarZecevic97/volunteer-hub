@@ -13,18 +13,37 @@ export const Nav = styled.nav`
   /* justify-content: flex-start; */
 `;
 
-
 export const NavLink = styled(Link)`
   color: #ffbb00;
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0 1rem;
+  padding: 1 1rem;
   height: 100%;
   cursor: pointer;
   &.active {
     color: #9233ff;
   }
+`;
+
+export const Grid = styled.div`
+  color: #ffbb00;
+  text-decoration: none;
+  margin: 0 auto;
+  padding: 0;
+  height: 100%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  grid-template-areas: "inner-div";
+`;
+
+export const TextRow = styled.p`
+  color: #ffbb00;
+  display: flex;
+  cursor: pointer;
+  margin: 0 auto;
+  padding: 0;
 `;
 
 export const Bars = styled(FaBars)`
@@ -72,7 +91,6 @@ export const NavBtnLink = styled(Link)`
   background: #7600ff;
   padding: 10px 22px;
   color: #fff;
-  outline: none;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;

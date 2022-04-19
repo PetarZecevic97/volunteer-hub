@@ -13,6 +13,18 @@ export const LoginContainer = styled.div`
   background-color: #171616;
 `;
 
+export const SignUpBtn = styled.nav`
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+  /* Third Nav */
+  /* justify-content: flex-end;
+  width: 100vw; */
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
 export const LoginInputText = styled.input`
   height: 25px;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -47,6 +59,7 @@ export const LoginForm = styled.div`
   background-color: #7600ff;
   padding: 2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
   &:hover {
     background: #7600ff;
   }

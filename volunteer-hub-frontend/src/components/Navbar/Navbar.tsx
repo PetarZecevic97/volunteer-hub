@@ -5,24 +5,29 @@ import {
   Bars,
   NavMenu,
   NavBtn,
-  NavBtnLink
+  NavBtnLink,
+  Grid,
+  TextRow,
 } from "./styles/NavbarStyles";
+import "./styles/Navbar.css";
 
 const Navbar = () => {
   return (
     <>
-      <Nav>
-        <NavLink to="/">
-
-            <img src={require('../../images/logo-small.png')} alt="logo" />
-
+      <Nav className="navbar">
+        <NavLink to="/" className="navbar-logo">
+          <img src={require("../../images/logo-small.png")} alt="logo" />
+          <Grid>
+            <TextRow className="primary">Volunteer</TextRow>
+            <TextRow className="secondary">Hub</TextRow>
+          </Grid>
         </NavLink>
         <Bars />
         <NavMenu>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/events">Events</NavLink>
-          <NavLink to="/sign-up">Sign Up</NavLink>
-          <NavLink to="/profile">Profile</NavLink>
+          <NavLink className="nav-links" to="/about">About</NavLink>
+          <NavLink className="nav-links" to="/events">Events</NavLink>
+          <NavLink className="nav-links" to="/sign-up">Sign Up</NavLink>
+          <NavLink className="nav-links" to="/profile">Profile</NavLink>
         </NavMenu>
         <NavBtn>
           <NavBtnLink to="/sign-in">Sign In</NavBtnLink>
