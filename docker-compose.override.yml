@@ -10,6 +10,8 @@ services:
 
   organization:
     container_name: organization
+    depends_on:
+        - organizationdb
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
