@@ -2,7 +2,7 @@
 
 namespace Organization.Entities
 {
-    public class Organization
+    public class OrganizationEntity
     {
         public int Id { get; private set; }
         public string OrganizationName { get; set; }
@@ -10,7 +10,7 @@ namespace Organization.Entities
         public DateTime JoinedOn { get; set; }
         public string Description { get; set; }
 
-        public Organization(int id, string organizationName, string organizationId, DateTime joinedOn, string description)
+        public OrganizationEntity(int id, string organizationName, string organizationId, DateTime joinedOn, string description)
         {
             Id = id;
             OrganizationName = organizationName ?? throw new ArgumentNullException(nameof(organizationName));

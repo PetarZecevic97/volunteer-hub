@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using Organization.Entities;
 
 namespace Organization.Persistence.EntityConfigurations
 {
-    public class OrganizationEntityTypeConfiguration : IEntityTypeConfiguration<Entities.Organization>
+    public class OrganizationEntityTypeConfiguration : IEntityTypeConfiguration<OrganizationEntity>
     {
-        public void Configure(EntityTypeBuilder<Entities.Organization> builder)
+        public void Configure(EntityTypeBuilder<OrganizationEntity> builder)
         {
             builder.ToTable("Organization");
             builder.HasKey(o => o.Id);

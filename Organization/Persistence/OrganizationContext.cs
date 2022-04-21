@@ -2,6 +2,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Organization.Entities;
+
 
 namespace Organization.Persistence
 {
@@ -11,12 +13,12 @@ namespace Organization.Persistence
         {
         }
         
-        public DbSet<Entities.Organization> Organizations { get; set; }
+        public DbSet<OrganizationEntity> Organizations { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             //For evry new organization in datebase we set JoinedOn property to be current time
-            foreach (var entity in ChangeTracker.Entries<Entities.Organization>())
+            foreach (var entity in ChangeTracker.Entries<OrganizationEntity>())
             {
                 switch (entity.State) {
                     case EntityState.Added:
