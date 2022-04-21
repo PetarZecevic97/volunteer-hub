@@ -12,23 +12,36 @@ namespace Organization.Persistence.EntityConfigurations
             builder.ToTable("Organization");
             builder.HasKey(o => o.Id);
             builder.Property(o => o.Id).UseHiLo("organizationseq");
-            
-            builder.Property<string>("OrganizationName")
-                .HasColumnType("VARCHAR(30)")
-                .HasColumnName("OrganizationName")
-                .IsRequired();
 
             builder.Property<string>("OrganizationId")
                 .HasColumnType("VARCHAR(30)")
-                .HasColumnName("OrganizationId");
+                .HasColumnName("organization_id");
 
-            builder.Property<DateTime>("JoinedOn")
-                .HasColumnType("datetime")
-                .HasColumnName("JoinedOn");
+            builder.Property<string>("OrganizationName")
+                .HasColumnType("VARCHAR(30)")
+                .HasColumnName("organization_name")
+                .IsRequired();
 
             builder.Property<string>("Description")
                 .HasColumnType("VARCHAR(100)")
-                .HasColumnName("Description");            
+                .HasColumnName("description");
+
+            builder.Property<DateTime>("CreatedDate")
+                .HasColumnType("datetime")
+                .HasColumnName("created_date");
+            
+            builder.Property<string>("CreatedBy")
+                .HasColumnType("VARCHAR(30)")
+                .HasColumnName("created_by");
+
+            builder.Property<DateTime>("LastModifiedDate")
+                .HasColumnType("datetime")
+                .HasColumnName("last_modified_date");
+
+            builder.Property<string>("LastModifiedBy")
+                .HasColumnType("VARCHAR(30)")
+                .HasColumnName("last_Modified_by");
+
         }
     }
 }
