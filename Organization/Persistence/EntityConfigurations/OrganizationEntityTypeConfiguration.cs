@@ -24,7 +24,7 @@ namespace Organization.Persistence.EntityConfigurations
 
             builder.Property<string>("Description")
                 .HasColumnType("VARCHAR(100)")
-                .HasColumnName("description");
+                .HasColumnName("summary");
 
             builder.Property<DateTime>("CreatedDate")
                 .HasColumnType("datetime")

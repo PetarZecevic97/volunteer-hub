@@ -8,7 +8,7 @@ namespace Organization.Entities
         public string OrganizationId { get; private set; }
         public string Description { get; set; }
 
-        public OrganizationEntity(int id, string createdBy, DateTime createdDate, string lastModifiedBy, DateTime? lastModifiedDate, string organizationName, string organizationId, string description)
+        public OrganizationEntity(int id, string createdBy, DateTime createdDate, string lastModifiedBy, DateTime lastModifiedDate, string organizationName, string organizationId, string description)
             :base(id, createdBy, createdDate, lastModifiedBy, lastModifiedDate)
         {
             OrganizationName = organizationName ?? throw new ArgumentNullException(nameof(organizationName));

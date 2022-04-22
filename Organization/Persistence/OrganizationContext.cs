@@ -40,7 +40,7 @@ namespace Organization.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Adding configuration defined for Organization tabel
-            modelBuilder.ApplyConfiguration(new OrganizationEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new OrganizationEntityTypeConfiguration());            
             base.OnModelCreating(modelBuilder);
         }
     }
