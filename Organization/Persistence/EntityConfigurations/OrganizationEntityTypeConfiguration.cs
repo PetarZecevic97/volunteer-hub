@@ -22,7 +22,7 @@ namespace Organization.Persistence.EntityConfigurations
                 .HasColumnName("organization_name")
                 .IsRequired();
 
-            builder.Property<string>("Description")
+            builder.Property<string>("Summary")
                 .HasColumnType("VARCHAR(100)")
                 .HasColumnName("summary");
 
