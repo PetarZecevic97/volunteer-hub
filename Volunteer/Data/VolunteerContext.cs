@@ -1,15 +1,17 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 using Volunteer.Entities;
 
 namespace Volunteer.Data
 {
     public class VolunteerContext : IVolunteerContext
     {
-        public VolunteerContext()
+        public VolunteerContext(IConfiguration configuration)
         {
-            var client = new MongoClient("mongo://localhost:27017");
+            var client = new MongoClient(configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
             var database = client.GetDatabase("Volunteer");
             Volunteers = database.GetCollection<VolunteerInfo>("VolunteersInfo");
+            VolunteerContextSeed.SeedData(Volunteers);
         }
 
         public IMongoCollection<VolunteerInfo> Volunteers { get; }
