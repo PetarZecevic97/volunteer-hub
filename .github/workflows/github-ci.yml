@@ -40,40 +40,22 @@ jobs:
     - name: Test
       run: dotnet test Organization --no-build --verbosity normal
       
-  volunteer-frontend:
+  volunteer-hub-frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: volunteer-frontend
+        working-directory: volunteer-hub-frontend
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Set up Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 16.x
     - name: Install dependencies
       run: npm install
     - name: Run the tests
-      run: npm test
+      run: npm test a
     - name: Build
       run: npm run build
       
-  organization-frontend:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: organization-frontend
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - name: Install dependencies
-      run: npm install
-    - name: Run the tests
-      run: npm test
-    - name: Build
-      run: npm run build
