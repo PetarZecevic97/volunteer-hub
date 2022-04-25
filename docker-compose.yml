@@ -1,6 +1,9 @@
 version: '3.4'
 
 services:
+  volunteerdb:
+    image: mongo
+
   volunteer:
     image: ${DOCKER_REGISTRY-}volunteer
     build:
@@ -12,4 +15,7 @@ services:
     build:
       context: .
       dockerfile: Organization/Dockerfile
+
+volumes:
+  mongo_data:
 
