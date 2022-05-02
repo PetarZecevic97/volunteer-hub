@@ -1,15 +1,41 @@
 version: '3.4'
 
 services:
+  volunteerdb:
+    container_name: volunteerdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
   volunteer:
+    container_name: volunteer
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://volunteerdb:27017"
+    depends_on:
+      - volunteerdb
     ports:
       - "4000:80"
 
   organization:
+    container_name: organization
+    depends_on:
+        - organizationdb
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrganizationConnectionString=Server=organizationdb;Database=OrganizationDb;User Id=sa;Password=Volunteerhub12345"
     ports:
       - "4001:80"
 
+  organizationdb:
+    container_name: organizationdb
+    environment:
+      - SA_PASSWORD=Volunteerhub12345
+      - ACCEPT_EULA=Y
+    restart: always
+    ports:
+      - "1433:1433" 
+    volumes:
+      - organizationdb_data:/var/opt/mssql/data 

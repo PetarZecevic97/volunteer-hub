@@ -1,6 +1,9 @@
 version: '3.4'
 
 services:
+  volunteerdb:
+    image: mongo
+
   volunteer:
     image: ${DOCKER_REGISTRY-}volunteer
     build:
@@ -13,3 +16,9 @@ services:
       context: .
       dockerfile: Organization/Dockerfile
 
+  organizationdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
+volumes:
+  organizationdb_data:
+  mongo_data:

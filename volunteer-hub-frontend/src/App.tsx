@@ -5,7 +5,7 @@ import logo from './logo.svg';
 import Navbar from './components/Navbar/Navbar'
 import Home from './components/pages/Home';
 import About from './components/pages/About';
-import Signup from './components/pages/Signup';
+import Signin from './components/pages/Signin';
 import Events from './components/pages/Events';
 import Profile from './components/pages/Profile';
 
@@ -18,8 +18,9 @@ function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/about" element={<About/>}/>
             <Route path="/events" element={<Events/>}/>
-            <Route path="/sign-up" element={<Signup/>}/>
+            <Route path="/sign-up" element={<Signin/>}/>
             <Route path="/profile" element={<Profile/>}/>
+            <Route path="/sign-in" element={<Signin/>}/>
           </Routes>
       </Router>
   );
