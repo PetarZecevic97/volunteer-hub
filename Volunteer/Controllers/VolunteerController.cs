@@ -24,21 +24,21 @@ namespace Volunteer.Controllers
         [ProducesResponseType(typeof(IEnumerable<VolunteerInfo>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<VolunteerInfo>>> GetVolunteers()
         {
-            var products = await _repository.GetVolunteers();
-            return Ok(products);
+            var volunteers = await _repository.GetVolunteers();
+            return Ok(volunteers);
         }
 
-        [HttpGet("{id:length(24)}", Name = "GetProduct")] 
+        [HttpGet("{id:length(24)}", Name = "GetVolunteer")] 
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<VolunteerInfo>> GetVolunteerById(string id)
         {
-            var product = await _repository.GetVolunteer(id);
-            if (product == null)
+            var volunteer = await _repository.GetVolunteer(id);
+            if (volunteer == null)
             {
                 return NotFound(null);
             }
-            return Ok(product);
+            return Ok(volunteer);
         }
 
         [Route("[action]/{skills}")]
@@ -46,8 +46,8 @@ namespace Volunteer.Controllers
         [ProducesResponseType(typeof(IEnumerable<VolunteerInfo>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<VolunteerInfo>>> GetVolunteersBySkill(string skills)
         {
-            var products = await _repository.GetVolunteersBySkills(skills);
-            return Ok(products);
+            var volunteers = await _repository.GetVolunteersBySkills(skills);
+            return Ok(volunteers);
         }
 
         [HttpPost]
@@ -56,7 +56,7 @@ namespace Volunteer.Controllers
         {
             await _repository.CreateVolunteer(volunteer);
 
-            return CreatedAtRoute("GetProduct", new { id = volunteer.Id }, volunteer);
+            return CreatedAtRoute("GetVolunteer", new { id = volunteer.Id }, volunteer);
         }
 
         [HttpPut]
@@ -66,7 +66,7 @@ namespace Volunteer.Controllers
             return Ok(await _repository.UpdateVolunteer(volunteer));
         }
 
-        [HttpDelete("{id:length(24)}", Name = "DeleteProduct")]
+        [HttpDelete("{id:length(24)}", Name = "DeleteVolunteer")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteVolunteer(string id)
         {
