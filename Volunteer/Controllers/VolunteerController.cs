@@ -72,5 +72,12 @@ namespace Volunteer.Controllers
         {
             return Ok(await _repository.DeleteVolunteer(id));
         }
+
+        [HttpDelete(Name = "DeleteAllVolunteer")]
+        [ProducesResponseType(typeof(IEnumerable<VolunteerInfo>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteAllVolunteers()
+        {
+            return Ok(await _repository.DeleteAllVolunteers());
+        }
     }
 }

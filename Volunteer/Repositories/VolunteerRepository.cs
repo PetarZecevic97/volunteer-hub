@@ -50,5 +50,10 @@ namespace Volunteer.Repositories
             var deleteResult = await _context.Volunteers.DeleteOneAsync(p => p.Id.Equals(id));
             return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
         }
+        public async Task<bool> DeleteAllVolunteers()
+        {
+            var deleteResult = await _context.Volunteers.DeleteManyAsync(Builders<VolunteerInfo>.Filter.Empty);
+            return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
+        }
     }
 }

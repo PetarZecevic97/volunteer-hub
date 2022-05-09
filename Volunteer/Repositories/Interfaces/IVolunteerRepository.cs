@@ -7,6 +7,7 @@ namespace Volunteer.Repositories.Interfaces
     public interface IVolunteerRepository
     {
         Task<IEnumerable<VolunteerInfo>> GetVolunteers();
+        Task<bool> DeleteAllVolunteers();
 
         Task<VolunteerInfo> GetVolunteer(string id);
 
