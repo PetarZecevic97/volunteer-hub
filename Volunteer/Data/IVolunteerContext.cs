@@ -6,5 +6,6 @@ namespace Volunteer.Data
     public interface IVolunteerContext
     {
         IMongoCollection<VolunteerInfo> Volunteers { get; }
+        IMongoCollection<VolunteerCV> VolunteerCVs { get; }
     }
 }

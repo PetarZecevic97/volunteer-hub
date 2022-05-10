@@ -1,6 +1,7 @@
 using Volunteer.Entities;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace Volunteer.Repositories.Interfaces
 {
@@ -18,5 +19,16 @@ namespace Volunteer.Repositories.Interfaces
         Task<bool> UpdateVolunteer(VolunteerInfo product);
 
         Task<bool> DeleteVolunteer(string id);
+
+        Task<IEnumerable<VolunteerCV>> GetCVs();
+        Task<bool> DeleteCVs();
+
+        Task<VolunteerCV> GetCV(string id);
+
+        Task<VolunteerCV> UploadCV(string id, IFormFile resume);
+
+        Task<bool> ChangeCV(string id, IFormFile resume);
+
+        Task<bool> DeleteCV(string id);
     }
 }

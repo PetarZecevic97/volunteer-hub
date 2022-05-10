@@ -18,5 +18,8 @@ RUN dotnet publish "Volunteer.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY ["Volunteer/VladimirBatocaninCV.pdf", "."]
+COPY ["Volunteer/NikolaPericCV.pdf", "."]
+COPY ["Volunteer/PetarZecevicCV.pdf", "."]
 COPY ["Volunteer/AleksandraRuzicCV.pdf", "."]
 ENTRYPOINT ["dotnet", "Volunteer.dll"]

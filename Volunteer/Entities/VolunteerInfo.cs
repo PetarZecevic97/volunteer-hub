@@ -12,8 +12,5 @@ namespace Volunteer.Entities
         public string LastName { get; set; }
         public string[] Skills { get; set; }
         public string Adress { get; set; }
-        
-        [BsonRepresentation(BsonType.Binary)]
-        public Byte[] Resume { get; set; }
     }
 }
