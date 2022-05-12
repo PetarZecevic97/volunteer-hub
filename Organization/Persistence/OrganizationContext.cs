@@ -18,19 +18,19 @@ namespace Organization.Persistence
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             //For every new organization in datebase we set CreatedDate property to be current time and
-            //we do the same for LastModifiedDate if organization is modified
+            //we do the same for LastModifiedDate if organization is modified            
             foreach (var entity in ChangeTracker.Entries<OrganizationEntity>())
             {
                 switch (entity.State) {
                     case EntityState.Added:
                         entity.Entity.CreatedDate = DateTime.Now;
-                        entity.Entity.CreatedBy = "nikola-created(hardcoded)";
+                        entity.Entity.CreatedBy = "[PH]nikola-created";
                         entity.Entity.LastModifiedDate = DateTime.Now;
-                        entity.Entity.LastModifiedBy = "nikola-created(hardcoded)";
+                        entity.Entity.LastModifiedBy = "[PH]nikola-modified(inital)";
                         break;
                     case EntityState.Modified:
                         entity.Entity.LastModifiedDate = DateTime.Now;
-                        entity.Entity.LastModifiedBy = "nikola-modified(hardcoded)";
+                        entity.Entity.LastModifiedBy = "[PH]nikola-modified(real)";
                         break;
 
 
