@@ -29,7 +29,7 @@ namespace Organization.Persistence.EntityConfigurations
             builder.Property<DateTime>("CreatedDate")
                 .HasColumnType("datetime")
                 .HasColumnName("created_date");
-            
+                            
             builder.Property<string>("CreatedBy")
                 .HasColumnType("VARCHAR(30)")
                 .HasColumnName("created_by");
