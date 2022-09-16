@@ -11,6 +11,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "volunteer-hub-frontend", "volunteer-hub-frontend\volunteer-hub-frontend.esproj", "{7162F213-BC04-4FC7-8611-DDD9777EB397}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolunteerHubBackend", "VolunteerHubBackend\VolunteerHubBackend.csproj", "{53F23694-1D53-4CE8-82E0-A5D838B2F8BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{7162F213-BC04-4FC7-8611-DDD9777EB397}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7162F213-BC04-4FC7-8611-DDD9777EB397}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7162F213-BC04-4FC7-8611-DDD9777EB397}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{53F23694-1D53-4CE8-82E0-A5D838B2F8BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53F23694-1D53-4CE8-82E0-A5D838B2F8BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53F23694-1D53-4CE8-82E0-A5D838B2F8BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53F23694-1D53-4CE8-82E0-A5D838B2F8BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

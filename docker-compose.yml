@@ -19,6 +19,13 @@ services:
   organizationdb:
     image: mcr.microsoft.com/mssql/server:2017-latest
 
+  volunteerhubbackend:
+    image: ${DOCKER_REGISTRY-}volunteerhubbackend
+    build:
+      context: .
+      dockerfile: VolunteerHubBackend/Dockerfile
+
 volumes:
   organizationdb_data:
   mongo_data:
+
