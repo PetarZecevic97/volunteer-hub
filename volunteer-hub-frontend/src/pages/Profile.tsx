@@ -1,5 +1,5 @@
 import React from 'react';
-import UserProfile from '../Profile/UserProfile';
+import UserProfile from '../components/Profile/UserProfile';
 
 const Profile = () => {
   return (

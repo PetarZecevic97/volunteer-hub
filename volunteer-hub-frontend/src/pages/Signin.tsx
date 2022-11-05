@@ -9,7 +9,7 @@ import {
   LoginInputText,
   LoginContainer,
   SignUpBtn,
-} from "../Login/styles/LoginStyles";
+} from "../components/Login/styles/LoginStyles";
 
 interface IErrorMessages {
   name?: string;
@@ -18,7 +18,7 @@ interface IErrorMessages {
   message?: string;
 }
 
-const Signup = () => {
+const Signin = () => {
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -111,4 +111,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signin;
