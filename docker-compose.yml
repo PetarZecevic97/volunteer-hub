@@ -25,6 +25,12 @@ services:
       context: .
       dockerfile: VolunteerHubBackend/Dockerfile
 
+  volunteerhubcore:
+    image: ${DOCKER_REGISTRY-}volunteerhubcore
+    build:
+      context: .
+      dockerfile: VolunteerHubCore/Dockerfile
+
 volumes:
   organizationdb_data:
   mongo_data:

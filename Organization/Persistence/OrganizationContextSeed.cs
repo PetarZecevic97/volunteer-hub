@@ -25,11 +25,11 @@ namespace Organization.Persistence
 
         private static IEnumerable<OrganizationEntity> GetPredefinedOrganizations()
         {
-            var organization1 = new OrganizationEntity(1, "nikola", DateTime.Now, "...", DateTime.Now, "organization_1", "asd1234", "This is a very cool organization!");
-            var organization2 = new OrganizationEntity(2, "nikola", DateTime.Now, "...", DateTime.Now, "organization_2", "ghjk8890", "We love dogs, come help us pet them!");
-            var organization3 = new OrganizationEntity(3, "nikola", DateTime.Now, "...", DateTime.Now, "organization_3", "xyz987", "The government is lying to you, help us spread the word!");
-            var organization4 = new OrganizationEntity(4, "nikola", DateTime.Now, "...", DateTime.Now, "organization_4", "www333", "We have a really cool description here!");
-            var organization5 = new OrganizationEntity(5, "nikola", DateTime.Now, "...", DateTime.Now, "organization_5", "bnm789", "Yet another description!");
+            var organization1 = new OrganizationEntity("organization_1", "asd1234", "This is a very cool organization!");
+            var organization2 = new OrganizationEntity("organization_2", "ghjk8890", "We love dogs, come help us pet them!");
+            var organization3 = new OrganizationEntity("organization_3", "xyz987", "The government is lying to you, help us spread the word!");
+            var organization4 = new OrganizationEntity("organization_4", "www333", "We have a really cool description here!");
+            var organization5 = new OrganizationEntity("organization_5", "bnm789", "Yet another description!");
 
             return new List<OrganizationEntity> { organization1, organization2, organization3, organization4, organization5 };
         }

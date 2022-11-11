@@ -39,9 +39,16 @@ services:
       - "1433:1433" 
     volumes:
       - organizationdb_data:/var/opt/mssql/data 
+
   volunteerhubbackend:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "4002:80"
+
+  volunteerhubcore:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "4003:80"
 
