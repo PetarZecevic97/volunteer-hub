@@ -30,12 +30,12 @@ namespace Organization.Controllers
         }
 
 
-        [Route("[action]/{organizationId}")]
+        [Route("[action]/{id}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<OrganizationEntity>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<OrganizationEntity>> GetOrganizationById(string organizationId)
+        public async Task<ActionResult<OrganizationEntity>> GetOrganizationById(int id)
         {
-            var result = await _organizationRepository.GetByIdAsync(Int32.Parse(organizationId));
+            var result = await _organizationRepository.GetByIdAsync(id);
             return Ok(result);  
         }
         
@@ -45,7 +45,6 @@ namespace Organization.Controllers
         [ProducesResponseType(typeof(IEnumerable<OrganizationEntity>), StatusCodes.Status201Created)]
         public async Task<ActionResult<OrganizationEntity>> CreateOrganization([FromBody] OrganizationEntity organization)
         {            
-
             var res = await _organizationRepository.AddAsync(organization);
             return Ok(res);
 
