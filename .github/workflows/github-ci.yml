@@ -39,6 +39,36 @@ jobs:
       run: dotnet build Organization --no-restore
     - name: Test
       run: dotnet test Organization --no-build --verbosity normal
+
+  volunteer-hub-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore VolunteerHubBackend
+    - name: Build
+      run: dotnet build VolunteerHubBackend --no-restore
+    - name: Test
+      run: dotnet test VolunteerHubBackend --no-build --verbosity normal
+
+  volunteer-hub-core:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore VolunteerHubCore
+    - name: Build
+      run: dotnet build VolunteerHubCore --no-restore
+    - name: Test
+      run: dotnet test VolunteerHubCore --no-build --verbosity normal
       
   volunteer-hub-frontend:
     runs-on: ubuntu-latest
