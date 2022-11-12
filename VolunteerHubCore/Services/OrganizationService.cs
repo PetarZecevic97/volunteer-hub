@@ -38,11 +38,6 @@ namespace VolunteerHubCore.Services
                 Content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = await _httpClient.SendAsync(request);
-            if (response.IsSuccessStatusCode)
-            {
-                Console.Write(response);
-                result = await response.Content.ReadFromJsonAsync<string>();
-            }
             return result;
         }
 
@@ -52,8 +47,8 @@ namespace VolunteerHubCore.Services
             HttpResponseMessage response = await _httpClient.GetAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/GetOrganizationById/" + Id);
             if (response.IsSuccessStatusCode)
             {
-                Console.Write(response);
-                product = await response.Content.ReadFromJsonAsync<Organization>();
+                if (!response.StatusCode.ToString().Equals("NoContent"))
+                    product = await response.Content.ReadFromJsonAsync<Organization>();
             }
             return product ?? throw new Exception();
         }
@@ -74,11 +69,6 @@ namespace VolunteerHubCore.Services
         {
             string result = "";
             HttpResponseMessage response = await _httpClient.PutAsJsonAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/UpdateOrganization", product);
-            if (response.IsSuccessStatusCode)
-            {
-                Console.Write(response);
-                result = await response.Content.ReadFromJsonAsync<string>();
-            }
             return result;
         }
     }
