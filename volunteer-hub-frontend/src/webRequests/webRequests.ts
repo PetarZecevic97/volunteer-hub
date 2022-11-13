@@ -2,6 +2,12 @@ import { WebRequestsInterface } from "./webRequests-int";
 import axios from 'axios'
 
 export class WebRequest implements WebRequestsInterface {
+    getUser(email: string, password: string) {
+        throw new Error("Method not implemented.");
+    }
+    createUser(email: string, password: string) {
+        throw new Error("Method not implemented.");
+    }
     getAllOrganizations() {
         return axios.get((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Organization/GetAllOrganizations');
     }

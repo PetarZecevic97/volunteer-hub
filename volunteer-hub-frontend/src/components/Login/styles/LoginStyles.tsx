@@ -13,16 +13,27 @@ export const LoginContainer = styled.div`
   background-color: #171616;
 `;
 
-export const SignUpBtn = styled.nav`
+export const SignUpBtn = styled.input`
+  width:90%;
   display: flex;
-  align-items: center;
-  margin-right: 24px;
-  /* Third Nav */
-  /* justify-content: flex-end;
-  width: 100vw; */
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
+  justify-content: center;
+  margin-top: 10px;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background: #ffbb00;
+  color: #00000;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  &:hover {
+    border : 1px solid #fff;
+    transition: all 0.2s ease-in-out;
+    background: #7600ff;
+    color: #000000;
+}
 `;
 
 export const LoginInputText = styled.input`
@@ -31,6 +42,9 @@ export const LoginInputText = styled.input`
 `;
 
 export const LoginSubmit = styled.input`
+  width:90%;
+  display: flex;
+  justify-content: center;
   margin-top: 10px;
   cursor: pointer;
   padding: 10px 20px;
@@ -50,7 +64,7 @@ export const LoginSubmit = styled.input`
   }
 `;
 
-export const LoginButton = styled.div`
+export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
