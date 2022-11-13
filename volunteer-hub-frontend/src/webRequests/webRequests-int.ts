@@ -1,13 +1,13 @@
 export interface WebRequestsInterface {
     getAllOrganizations():any
-    getOrganizationById(oraganizationId: string): any
-    createOrganization(organizationData: any): any
-    updateOrganization(oraganizationId: string, organizationData: any): any
-    deleteOrganization(organizationId: string): any
+    getOrganizationById(id: number): any
+    createOrganization(data: any): any
+    updateOrganization(data: any): any
+    deleteOrganization(data: any): any
     getAllVolunteers():any
-    getVolunteerById(volunteerId: string):any
+    getVolunteerById(id: string):any
     getVolunteerBySkill(skills: any): any
-    createVolunteer(volunteerData: any): any
-    updateVolunteer(volunteerId: string, volunteerData: any): any
-    deleteVolunteer(volunteerId: string): any
+    createVolunteer(data: any): any
+    updateVolunteer(data: any): any
+    deleteVolunteer(id: string): any
 }

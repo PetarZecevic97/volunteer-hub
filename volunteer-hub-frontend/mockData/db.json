@@ -3,6 +3,6 @@
       { "id": 1, "name": "Organization 1", "summary": "Very good organization" }
     ],
     "volunteers": [
-      { "id": 1, "FirstName": "John", "LastName": "Doe", "Skills": ["math", "science"] }
+      { "id": "1", "FirstName": "John", "LastName": "Doe", "Skills": ["math", "science"] }
     ]
 }

@@ -9,7 +9,7 @@ using VolunteerHubCore.Services.Interfaces;
 namespace VolunteerHubCore.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/[controller]")]
     public class OrganizationController : ControllerBase
     {
 

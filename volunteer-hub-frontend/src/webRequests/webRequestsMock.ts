@@ -5,34 +5,34 @@ export class WebRequestMock implements WebRequestsInterface {
     getAllOrganizations() {
         return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations');
     }
-    getOrganizationById(oraganizationId: string) {
-        return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations/'+oraganizationId);
+    getOrganizationById(id: number) {
+        return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations/'+id);
     }
-    createOrganization(organizationData: any) {
-        return axios.post((process.env.REACT_APP_MOCK_SERVER_URL as string)+'organizations', organizationData);
+    createOrganization(data: any) {
+        return axios.post((process.env.REACT_APP_MOCK_SERVER_URL as string)+'organizations', data);
     }
-    updateOrganization(oraganizationId: string, organizationData: any) {
-        return axios.put((process.env.REACT_APP_MOCK_SERVER_URL as string)+'organizations/'+oraganizationId, organizationData);
+    updateOrganization(data: any) {
+        return axios.put((process.env.REACT_APP_MOCK_SERVER_URL as string)+'organizations/'+data.id, data);
     }
-    deleteOrganization(organizationId: string) {
-        return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations/'+organizationId);
+    deleteOrganization(data: any) {
+        return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations/'+data.id);
     }
     getAllVolunteers() {
         return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/volunteers');
     }
-    getVolunteerById(volunteerId: string) {
-        return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/volunteers/'+volunteerId);
+    getVolunteerById(id: string) {
+        return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/volunteers/'+id);
     }
     getVolunteerBySkill(skills: any) {
         return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations');
     }
-    createVolunteer(volunteerData: any) {
-        return axios.post((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations', volunteerData);
+    createVolunteer(data: any) {
+        return axios.post((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations', data);
     }
-    updateVolunteer(volunteerId: string, volunteerData: any) {
-        return axios.put((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations/'+volunteerId, volunteerData);
+    updateVolunteer(data: any) {
+        return axios.put((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations/'+data.id, data);
     }
-    deleteVolunteer(volunteerId: string) {
-        return axios.delete((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations/'+volunteerId);
+    deleteVolunteer(id: string) {
+        return axios.delete((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations/'+id);
     }
 }
