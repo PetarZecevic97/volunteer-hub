@@ -30,6 +30,7 @@ namespace VolunteerHubCore
             services.AddScoped<IVolunteerService, VolunteerService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
             services.AddHttpClient<HttpClient>();
+            services.AddCors();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -47,7 +48,12 @@ namespace VolunteerHubCore
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VolunteerHubCore v1"));
             }
-
+            app.UseCors(builder => {
+                builder.WithOrigins("http://localhost:3000/")
+                       .AllowCredentials()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
             app.UseRouting();
 
             app.UseAuthorization();
