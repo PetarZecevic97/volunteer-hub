@@ -13,10 +13,8 @@ const Volunteer = ({id}: {id : string}) => {
   async function fetchVolunteer(_id: string) {
     const response = await userService.getVolunteerById(_id);
     
-    const qurac = await response.data;
-    console.log(qurac)
-    console.log("Alex");
-    setVolunteerData(qurac);
+    const sampleVolunteerData = await response.data;
+    setVolunteerData(sampleVolunteerData);
   }
 
   useEffect(() => {
@@ -29,11 +27,11 @@ const Volunteer = ({id}: {id : string}) => {
     <>
       <PageContainer>
         <Grid>
-          <Avatar size="50" round={true} name={volunteerData != undefined ? volunteerData.firstName : "qurac"} />
+          <Avatar size="50" round={true} name={volunteerData != undefined ? volunteerData.firstName : "sampleVolunteerData"} />
 
-          <h1>First name: {volunteerData != undefined ? volunteerData.firstName : "qurac"}</h1>
-          <h1>Last name: {volunteerData != undefined ? volunteerData.lastName : "qurac"}</h1>
-          <h1>Password: {volunteerData != undefined ? volunteerData.skills : "qurac"}</h1>
+          <h1>First name: {volunteerData != undefined ? volunteerData.firstName : "sampleVolunteerData"}</h1>
+          <h1>Last name: {volunteerData != undefined ? volunteerData.lastName : "sampleVolunteerData"}</h1>
+          <h1>Password: {volunteerData != undefined ? volunteerData.skills : "sampleVolunteerData"}</h1>
         </Grid>
       </PageContainer>
     </>
