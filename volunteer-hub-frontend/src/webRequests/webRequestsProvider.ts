@@ -6,3 +6,5 @@ const webRequest = new WebRequestMock()
 const getWebRequest = () : WebRequestsInterface => {
     return webRequest;
 }
+
+export default getWebRequest;

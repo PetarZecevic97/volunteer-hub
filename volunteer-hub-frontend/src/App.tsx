@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Signin from './pages/Signin';
 import Events from './pages/Events';
-import Profile from './pages/Profile';
+import Volunteer from './components/Profile/Volunteer';
 
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
             <Route path="/about" element={<About/>}/>
             <Route path="/events" element={<Events/>}/>
             <Route path="/sign-up" element={<Signin/>}/>
-            <Route path="/profile" element={<Profile/>}/>
+            <Route path="/volunteer" element={<Volunteer id={"1"}/>}/>
             <Route path="/sign-in" element={<Signin/>}/>
           </Routes>
       </Router>
