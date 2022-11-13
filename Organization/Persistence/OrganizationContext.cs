@@ -25,6 +25,8 @@ namespace Organization.Persistence
                     case EntityState.Added:
                         entity.Entity.CreatedDate = DateTime.Now;
                         entity.Entity.CreatedBy = "nikola-created(hardcoded)";
+                        entity.Entity.LastModifiedDate = DateTime.Now;
+                        entity.Entity.LastModifiedBy = "nikola-created(hardcoded)";
                         break;
                     case EntityState.Modified:
                         entity.Entity.LastModifiedDate = DateTime.Now;

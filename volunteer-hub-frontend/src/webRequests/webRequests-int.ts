@@ -1,15 +1,15 @@
 export interface WebRequestsInterface {
     getUser(email: string, password: string): any;
     createUser(email: string, password: string): any;
-    getAllOrganizations(): any
-    getOrganizationById(organizationId: number): any
-    createOrganization(organizationData: any): any
-    updateOrganization(organizationId: number, organizationData: any): any
-    deleteOrganization(organizationId: number): any
-    getAllVolunteers(): any
-    getVolunteerById(volunteerId: string): any
+    getAllOrganizations():any
+    getOrganizationById(id: number): any
+    createOrganization(data: any): any
+    updateOrganization(data: any): any
+    deleteOrganization(data: any): any
+    getAllVolunteers():any
+    getVolunteerById(id: string):any
     getVolunteerBySkill(skills: any): any
-    createVolunteer(volunteerData: any): any
-    updateVolunteer(volunteerId: string, volunteerData: any): any
-    deleteVolunteer(volunteerId: string): any
+    createVolunteer(data: any): any
+    updateVolunteer(data: any): any
+    deleteVolunteer(id: string): any
 }

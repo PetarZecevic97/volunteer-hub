@@ -1,9 +1,10 @@
+import { WebRequest } from "./webRequests";
 import { WebRequestsInterface } from "./webRequests-int";
 import { WebRequestMock } from "./webRequestsMock";
 
-const webRequest = new WebRequestMock()
+const webRequest = process.env.REACT_APP_MOCK_BACKEND === 'true' ? new WebRequestMock() : new WebRequest()
 
-const getWebRequest = () : WebRequestsInterface => {
+export const getWebRequest = () : WebRequestsInterface => {
     return webRequest;
 }
 
