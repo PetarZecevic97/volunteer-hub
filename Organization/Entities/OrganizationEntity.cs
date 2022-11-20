@@ -13,6 +13,8 @@ namespace Organization.Entities
             OrganizationName = organizationName ?? throw new ArgumentNullException(nameof(organizationName));
             OrganizationId = organizationId ?? throw new ArgumentNullException(nameof(organizationId));
             Summary = summary ?? throw new ArgumentNullException(nameof(summary));
+            CreatedDate = DateTime.Now;
+            LastModifiedDate = DateTime.Now;
         }
     }
 }
