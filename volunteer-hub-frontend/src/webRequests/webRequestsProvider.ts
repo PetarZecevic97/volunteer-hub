@@ -7,3 +7,5 @@ const webRequest = process.env.REACT_APP_MOCK_BACKEND === 'true' ? new WebReques
 export const getWebRequest = () : WebRequestsInterface => {
     return webRequest;
 }
+
+export default getWebRequest;

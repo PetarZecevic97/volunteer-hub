@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import React from 'react';
 import logo from './logo.svg';
 import Navbar from './components/Navbar/Navbar'
-import Home from './components/pages/Home';
-import About from './components/pages/About';
-import Signin from './components/pages/Signin';
-import Events from './components/pages/Events';
-import Profile from './components/pages/Profile';
+import Home from './pages/Home';
+import About from './pages/About';
+import Signin from './pages/Signin';
+import Events from './pages/Events';
+import Volunteer from './components/Profile/Volunteer';
 
 
 function App() {
@@ -18,8 +18,7 @@ function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/about" element={<About/>}/>
             <Route path="/events" element={<Events/>}/>
-            <Route path="/sign-up" element={<Signin/>}/>
-            <Route path="/profile" element={<Profile/>}/>
+            <Route path="/volunteer" element={<Volunteer id={"1"}/>}/>
             <Route path="/sign-in" element={<Signin/>}/>
           </Routes>
       </Router>

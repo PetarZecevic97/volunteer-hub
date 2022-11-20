@@ -1,4 +1,6 @@
 export interface WebRequestsInterface {
+    getUser(email: string, password: string): any;
+    createUser(email: string, password: string): any;
     getAllOrganizations():any
     getOrganizationById(id: number): any
     createOrganization(data: any): any
