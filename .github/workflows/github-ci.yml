@@ -69,6 +69,21 @@ jobs:
       run: dotnet build VolunteerHubCore --no-restore
     - name: Test
       run: dotnet test VolunteerHubCore --no-build --verbosity normal
+
+  identity-server:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore IdentityServer
+    - name: Build
+      run: dotnet build IdentityServer --no-restore
+    - name: Test
+      run: dotnet test IdentityServer --no-build --verbosity normal
       
   volunteer-hub-frontend:
     runs-on: ubuntu-latest
