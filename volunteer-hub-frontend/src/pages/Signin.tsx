@@ -11,8 +11,8 @@ import {
   ButtonWrapper,
 } from "../components/Login/styles/LoginStyles";
 import IUser from "../Entities/User";
+import SessionService from "../utility/Services/SessionService";
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
-import { WebRequestMock } from "../webRequests/webRequestsMock";
 import getWebRequest from "../webRequests/webRequestsProvider";
 
 interface IErrorMessages {
@@ -24,7 +24,6 @@ interface IErrorMessages {
 
 const Signin = () => {
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isNewUser, setNewUser] = useState(false);
 
   const [sessionInfo, setSessionInfo] = useState<IUser>();
@@ -55,6 +54,9 @@ const Signin = () => {
 
     if (userData) {
       setSessionInfo(userData.data[0]);
+      SessionService.setUserInfo(userData.data[0]["email"], userData.data[0][""])
+      // console.log(userData.data);
+      
     } else {
       // email not found
       setErrorMessages({ name: "login", message: "Sranje ti login" });

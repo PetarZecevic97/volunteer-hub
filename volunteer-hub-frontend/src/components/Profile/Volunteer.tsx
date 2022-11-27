@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import IVolunteer from "../../Entities/Volunteer";
-import Avatar, { Cache, ConfigProvider } from "react-avatar";
+import Avatar from "react-avatar";
 import { Grid, PageContainer } from "./styles/ProfileStyles";
 import { WebRequestsInterface } from "../../webRequests/webRequests-int";
 import getWebRequest from "../../webRequests/webRequestsProvider";

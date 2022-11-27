@@ -80,6 +80,11 @@
       "isAdmin": false,
       "role": "volunteer",
       "id": 7
+    },
+    {
+      "email": "pak@pak.com",
+      "password": "pakistan",
+      "id": 8
     }
   ]
 }

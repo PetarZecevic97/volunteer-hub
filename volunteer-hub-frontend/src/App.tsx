@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React from 'react';
 import Profile from './pages/Profile';
@@ -8,7 +7,7 @@ import About from './pages/About';
 import Signin from './pages/Signin';
 import Events from './pages/Events';
 import Volunteer from './components/Profile/Volunteer';
-import IOrganization from './Entities/Organization';
+import Organization from './components/Profile/Organization';
 
 
 function App() {
@@ -26,6 +25,7 @@ function App() {
             <Route path="/about" element={<About/>}/>
             <Route path="/events" element={<Events/>}/>
             <Route path="/volunteer" element={<Volunteer id={"1"}/>}/>
+            <Route path="/organization" element={<Organization id={"1"}/>}/>
             <Route path="/sign-in" element={<Signin/>}/>
             <Route path="/profile" element={<Profile {...props} />}/>
           </Routes>

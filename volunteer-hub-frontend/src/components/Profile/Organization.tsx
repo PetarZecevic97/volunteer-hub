@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Avatar, { Cache, ConfigProvider } from "react-avatar";
+import Avatar from "react-avatar";
 import { Grid, PageContainer } from "./styles/ProfileStyles";
 import getWebRequest from "../../webRequests/webRequestsProvider";
 import IOrganization from "../../Entities/Organization";

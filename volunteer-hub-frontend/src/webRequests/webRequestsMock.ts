@@ -1,13 +1,17 @@
 import { WebRequestsInterface } from "./webRequests-int";
 import axios from 'axios'
+import IUser from "../Entities/User";
 
 export class WebRequestMock implements WebRequestsInterface {
 
     async getUser(email: string, password: string) {
         const params = {"email": email, "password": password };
-        return await axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/users', 
+        
+        const tmp = await axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/users', 
         { params }
         );
+        console.log(tmp);
+        return tmp;
     }
     async createUser(email: string, password: string) {
         const data = { email: email, password: password }
