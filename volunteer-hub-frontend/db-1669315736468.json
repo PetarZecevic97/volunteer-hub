@@ -72,14 +72,6 @@
       "email": "kurac@kuracInc.bu",
       "password": "kurcomir",
       "id": 6
-    },
-    {
-      "username": "crnojko",
-      "password": "crnidjoka123",
-      "email": "crnojko@gmail.com",
-      "isAdmin": false,
-      "role": "volunteer",
-      "id": 7
     }
   ]
 }

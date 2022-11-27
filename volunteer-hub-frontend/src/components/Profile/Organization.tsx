@@ -5,31 +5,35 @@ import getWebRequest from "../../webRequests/webRequestsProvider";
 import IOrganization from "../../Entities/Organization";
 import { WebRequestsInterface } from "../../webRequests/webRequests-int";
 
-const organization = (id: number) => {
+const Organization = ({id}: {id : string}) => {
   const userService: WebRequestsInterface = getWebRequest();
   const [organizationData, setOrganizationData] = useState<IOrganization>();
 
-  async function fetchOrganization(_id: number) {
+  const isVolatile = (param: any) => {
+    return param === null || param === undefined;
+  }
+
+  async function fetchOrganization(_id: string) {
     const response = await userService.getOrganizationById(_id);
     setOrganizationData(await response.data);
   }
 
   useEffect(() => {
     fetchOrganization(id);
-  }, []);
+  }, [id]);
 
   return (
     <>
       <PageContainer>
         <Grid>
-          <Avatar size="50" round={true} name={organizationData?.name} />
+          <Avatar size="50" round={true} name={organizationData == null || organizationData == undefined ? "" : organizationData.name} />
 
-          <h1>Username: {organizationData?.name}</h1>
-          <p>Email: {organizationData?.summary}</p>
+          <h1>Username: {organizationData == null || organizationData == undefined ? "" : organizationData.name}</h1>
+          <p>Email: {organizationData == null || organizationData == undefined ? "" : organizationData.summary}</p>
         </Grid>
       </PageContainer>
     </>
   );
 };
 
-export default organization;
+export default Organization;

@@ -2,7 +2,7 @@ export interface WebRequestsInterface {
     getUser(email: string, password: string): any;
     createUser(email: string, password: string): any;
     getAllOrganizations():any
-    getOrganizationById(id: number): any
+    getOrganizationById(id: string): any
     createOrganization(data: any): any
     updateOrganization(data: any): any
     deleteOrganization(data: any): any

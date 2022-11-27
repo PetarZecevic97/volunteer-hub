@@ -16,7 +16,7 @@ export class WebRequestMock implements WebRequestsInterface {
     async getAllOrganizations() {
         return await axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/organizations');
     }
-    getOrganizationById(id: number) {
+    getOrganizationById(id: string) {
         return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string)+'/organizations/'+id);
     }
     createOrganization(data: any) {

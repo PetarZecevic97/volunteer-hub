@@ -132,7 +132,8 @@ const Signin = () => {
     return (
       <LoginContainer>
         <LoginForm>
-          <LoginTitle>Sign In</LoginTitle>
+          {!isNewUser && (<LoginTitle>Log In</LoginTitle>) }
+          { isNewUser && (<LoginTitle>Sign Up</LoginTitle>) }
           {renderForm}
         </LoginForm>
       </LoginContainer>
