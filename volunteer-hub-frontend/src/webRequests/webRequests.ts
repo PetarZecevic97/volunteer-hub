@@ -1,7 +1,7 @@
 import { WebRequestsInterface } from "./webRequests-int";
 import http from "../utility/Http";
 export class WebRequest implements WebRequestsInterface {
-    getUser(email: string, password: string) {
+    getUser(email: string, password: string, username: string) {
 
         var params = new URLSearchParams();
         params.append("email", email);

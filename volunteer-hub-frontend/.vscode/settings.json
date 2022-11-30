@@ -3,5 +3,6 @@
             "Signin",
             "signup",
             "Sranje"
-      ]
+      ],
+      "svn.ignoreMissingSvnWarning": true
 }
