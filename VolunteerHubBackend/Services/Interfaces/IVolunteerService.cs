@@ -1,4 +1,6 @@
-﻿using VolunteerHubBackend.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using VolunteerHubBackend.Entities;
 
 namespace VolunteerHubBackend.Services.Interfaces
 {

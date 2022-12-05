@@ -1,4 +1,4 @@
-namespace VolunteerHubCore.Entities
+namespace VolunteerHubBackend.Entities
 {
     public class OrganizationCreate
     {

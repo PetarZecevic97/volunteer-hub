@@ -1,11 +1,16 @@
-using VolunteerHubCore.Entities;
-using VolunteerHubCore.Services.Interfaces;
+using VolunteerHubBackend.Entities;
+using VolunteerHubBackend.Services.Interfaces;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Text;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System;
+using System.Net.Http.Json;
+using System.Collections.Generic;
 
-namespace VolunteerHubCore.Services
+namespace VolunteerHubBackend.Services
 {
     public class OrganizationService : IOrganizationService
     {
