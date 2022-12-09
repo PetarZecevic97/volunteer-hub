@@ -7,15 +7,18 @@ import {
   NavBtn,
   NavBtnLink,
   Grid,
-  TextRow,
+  TextRow
 } from "./styles/NavbarStyles";
 import "./styles/Navbar.css";
 import SessionService from "../../utility/Services/SessionService";
+import { SearchBar } from "../SearchBar/SearchBar";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     SessionService.checkIsLoggedIn()
   );
+
+  const [searchOpened, setSearchOpened] = useState(false);
 
   const clearSession = () => {
     SessionService.clearSessionInfo();
@@ -23,20 +26,12 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    setIsLoggedIn(SessionService.checkIsLoggedIn());
-
-    // Respond to the `storage` event
-    const storageEventHandler = (event: any) => {
-      if (event.key === "email" || event.key === "username") {
-        setIsLoggedIn(event.newValue !== undefined ? true: false);
-      }
-    };
-    // Hook up the event handler
-    window.addEventListener("storage", storageEventHandler);
-    return () => {
-      // Remove the handler when the component unmounts
-      window.removeEventListener("storage", storageEventHandler);
-    };
+    window.addEventListener("session", () => {
+      console.log(SessionService.checkIsLoggedIn());
+      console.log(SessionService.getUserInfo());
+      setIsLoggedIn(SessionService.checkIsLoggedIn());
+    });
+    removeEventListener("session", () => {});
   }, []);
 
   return (
@@ -44,6 +39,7 @@ const Navbar = () => {
       <Nav className="navbar">
         <NavLink to="/" className="navbar-logo">
           <img src={require("../../images/logo-small.png")} alt="logo" />
+          <SearchBar data={[]}/>
           <Grid>
             <TextRow className="primary">Volunteer</TextRow>
             <TextRow className="secondary">Hub</TextRow>

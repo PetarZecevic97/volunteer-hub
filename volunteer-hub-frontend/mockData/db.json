@@ -57,6 +57,12 @@
       "email": "jevrej@šekel.com",
       "password": "7ff58e3c356059a2b2d5723f0fc4d6607f91ffe90ad293d23a00d278e654e6ab",
       "id": 13
+    },
+    {
+      "username": "taša",
+      "email": "tasica@smacica.com",
+      "password": "fda7c32b69f08b0f7f94feddb4c2d65643564f2baf04e719396eabf12f79b76b",
+      "id": 14
     }
   ]
 }

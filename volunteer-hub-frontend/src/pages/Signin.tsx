@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LoginInputContainer,
   LoginTitle,
@@ -9,7 +9,6 @@ import {
   LoginContainer,
   ButtonWrapper,
 } from "../components/Login/styles/LoginStyles";
-import IUser from "../Entities/User";
 import SessionService from "../utility/Services/SessionService";
 import HashingAlgService from "../utility/Services/HashingAlgService";
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
@@ -27,12 +26,23 @@ const Signin = () => {
 
   const [sessionInfo, setSessionInfo] = useState(SessionService.getUserInfo());
 
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    SessionService.checkIsLoggedIn()
+  );
+
   const userService: WebRequestsInterface = getWebRequest();
   
 
   const handleSubmit = (event: any) => {
     login(event);
   };
+
+  useEffect(() => {
+    window.addEventListener("session", () => {
+      setIsLoggedIn(SessionService.checkIsLoggedIn());
+    });
+    removeEventListener("session", () => {});
+  }, []);
 
   const login = async (event: any) => {
     //Prevent page reload
@@ -50,7 +60,8 @@ const Signin = () => {
                      undefined;
 
     if (userData) {
-      console.dir(userData.data[0]);
+      // console.dir(userData.data[0]);
+      
       SessionService.setUserInfo(userData.data[0]["username"], userData.data[0]["email"]);
       setSessionInfo(SessionService.getUserInfo());
       // console.log(userData.data);
@@ -92,7 +103,7 @@ const Signin = () => {
     </form>
   );
   
-  if (SessionService.checkIsLoggedIn()) {
+  if (isLoggedIn) {
     return <LoginContainer>{sessionInfo.username} is logged in</LoginContainer>;
   } else {
     return (

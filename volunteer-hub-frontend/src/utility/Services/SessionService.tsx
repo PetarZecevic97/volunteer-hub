@@ -4,6 +4,7 @@ const SessionService = {
   setUserInfo: (username: string, email: string) => {
     sessionStorage.setItem("email", email);
     sessionStorage.setItem("username", username);
+    dispatchEvent(new Event("session"));
   },
   getUserInfo: () => {
     const email = sessionStorage.getItem("email");
@@ -15,11 +16,15 @@ const SessionService = {
   },
   clearSessionInfo: () => {
     sessionStorage.clear();
+    dispatchEvent(new Event("session"));
   },
   checkIsLoggedIn: () => {
     return !(
-      sessionStorage.getItem("email") == undefined &&
-      sessionStorage.getItem("username") == undefined
+      (sessionStorage.getItem("email") === "" &&
+      sessionStorage.getItem("username") === "")
+      ||
+      (sessionStorage.getItem("email") === null &&
+      sessionStorage.getItem("username") === null)
     );
   },
 };
