@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using VolunteerHubBackend.Entities;
 using VolunteerHubBackend.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VolunteerHubBackend.Controllers
 {
+    [Authorize(Roles = "User")]
     [ApiController]
     [Route("api/[controller]")]
     public class OrganizationController : ControllerBase
