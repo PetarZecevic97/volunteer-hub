@@ -1,4 +1,6 @@
-namespace VolunteerHubCore.Entities
+using System;
+
+namespace VolunteerHubBackend.Entities
 {
     public class Organization
     {

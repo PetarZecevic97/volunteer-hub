@@ -1,6 +1,8 @@
-using VolunteerHubCore.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using VolunteerHubBackend.Entities;
 
-namespace VolunteerHubCore.Services.Interfaces
+namespace VolunteerHubBackend.Services.Interfaces
 {
     public interface IOrganizationService
     {

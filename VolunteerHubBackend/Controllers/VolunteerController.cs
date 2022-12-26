@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using VolunteerHubBackend.Entities;
 using VolunteerHubBackend.Services.Interfaces;
 
@@ -6,6 +11,7 @@ using VolunteerHubBackend.Services.Interfaces;
 
 namespace VolunteerHubBackend.Controllers
 {
+    [Authorize(Roles = "User")]
     [Route("api/[controller]")]
     [ApiController]
     public class VolunteerController : ControllerBase
