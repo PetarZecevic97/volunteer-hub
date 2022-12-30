@@ -20,10 +20,11 @@ namespace Organization.Repositories.Interfaces
 
         public virtual async Task<IReadOnlyList<T>> GetAllAsync()
         {
+            Console.WriteLine("get all async repository");
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public virtual async Task<T> GetByIdAsync(int id)
+        public virtual async Task<T> GetByIdAsync(string id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }

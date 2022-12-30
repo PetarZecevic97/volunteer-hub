@@ -8,7 +8,7 @@ namespace VolunteerHubBackend.Services.Interfaces
     {
         Task<IEnumerable<Organization>> GetAllOrganizations();
 
-        Task<Organization> GetOrganizationById(int Id);
+        Task<Organization> GetOrganizationById(string Id);
 
         Task<Organization> CreateOrganization(OrganizationCreate product);
 

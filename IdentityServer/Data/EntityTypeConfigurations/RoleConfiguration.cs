@@ -11,8 +11,13 @@ namespace IdentityServer.Data.EntityTypeConfigurations
             builder.HasData(
                 new IdentityRole
                 {
-                    Name = "User",
-                    NormalizedName = "USER"
+                    Name = "Organization",
+                    NormalizedName = "ORGANIZATION"
+                },
+                new IdentityRole
+                {
+                    Name = "Volunteer",
+                    NormalizedName = "VOLUNTEER"
                 },
                 new IdentityRole
                 {

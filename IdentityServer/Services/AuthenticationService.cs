@@ -87,6 +87,7 @@ namespace IdentityServer.Services
             {
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
             };
 
             var roles = await _userManager.GetRolesAsync(user);

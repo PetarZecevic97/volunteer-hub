@@ -24,24 +24,28 @@ namespace Volunteer.Data
             {
                 new VolunteerInfo()
                 {
+                    Id = "40fc9e55-b637-4689-9bd1-b5dab86b9b18",
                     FirstName = "Vlada",
                     LastName = "Batoćanin",
                     Skills = new string[] { "programer", "kuvar", "ocd manager"}
                 },
                 new VolunteerInfo()
                 {
+                    Id = "bd636489-803a-4667-b739-b9bde3664d6b",
                     FirstName = "Džoni",
                     LastName = "Perić",
                     Skills = new string[] { "programer", "muzicki poznavalac", "otelotvorenje rant-a"}
                 },
                 new VolunteerInfo()
                 {
+                    Id = "b36fd818-1ddb-4f3c-8ada-e791fee5993c",
                     FirstName = "Petar",
                     LastName = "Zečević",
                     Skills = new string[] { "programer", "WoW entusiast", "skuplja račune i maramice po džepovima"}
                 },
                 new VolunteerInfo()
                 {
+                    Id = "ca982b53-48df-44b3-ba0b-6904ee92defc",
                     FirstName = "Aleksandra",
                     LastName = "Ružić",
                     Skills = new string[] { "programer", "aikidoka", "profesionalni pesimista"}

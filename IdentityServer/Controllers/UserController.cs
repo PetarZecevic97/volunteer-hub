@@ -37,7 +37,7 @@ namespace IdentityServer.Controllers
             return Ok(_mapper.Map<IEnumerable<UserDetails>>(users));  
         }
 
-        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Administrator,Organization,Volunteer")]
         [HttpGet("{username}")]
         [ProducesResponseType(typeof(UserDetails), StatusCodes.Status200OK)]
         public async Task<ActionResult<UserDetails>> GetUser(string username)

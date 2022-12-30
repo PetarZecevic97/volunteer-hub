@@ -12,7 +12,7 @@ namespace VolunteerHubBackend.Services.Interfaces
 
         Task<IEnumerable<VolunteerInfo>> GetVolunteersBySkills(string skills);
 
-        Task<VolunteerInfo> CreateVolunteer(VolunteerInfoCreate product);
+        Task<VolunteerInfo> CreateVolunteer(VolunteerInfo product);
 
         Task<bool> UpdateVolunteer(VolunteerInfo product);
 
