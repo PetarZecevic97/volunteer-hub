@@ -23,6 +23,10 @@ namespace Volunteer.Repositories
 
         public async Task<VolunteerInfo> GetVolunteer(string id)
         {
+            Console.WriteLine("Begin");
+            Console.WriteLine(id);
+            var volunteers = await _context.Volunteers.FindAsync<VolunteerInfo>(Builders<VolunteerInfo>.Filter.Empty).Result.ToListAsync<VolunteerInfo>();
+            volunteers.ForEach(v => Console.WriteLine(v.Id));
             return await _context.Volunteers.Find(p => p.Id.Equals(id)).FirstOrDefaultAsync();
         }
 

@@ -11,7 +11,7 @@ namespace Organization.Persistence.EntityConfigurations
         {
             builder.ToTable("Organization");
             builder.HasKey(o => o.Id);
-            builder.Property(o => o.Id).UseHiLo("organizationseq");
+            builder.Property(o => o.Id);
 
             builder.Property<string>("OrganizationId")
                 .HasColumnType("VARCHAR(30)")

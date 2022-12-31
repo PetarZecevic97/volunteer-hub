@@ -46,7 +46,7 @@ namespace VolunteerHubBackend.Services
             return result;
         }
 
-        public async Task<Organization> GetOrganizationById(int Id)
+        public async Task<Organization> GetOrganizationById(string Id)
         {
             Organization product = new Organization();
             HttpResponseMessage response = await _httpClient.GetAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/GetOrganizationById/" + Id);

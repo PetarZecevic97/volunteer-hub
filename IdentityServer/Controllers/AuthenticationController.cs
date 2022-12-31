@@ -28,9 +28,18 @@ namespace IdentityServer.Controllers
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterUser([FromBody] NewUserDto newUser)
+        public async Task<IActionResult> RegisterOrganization([FromBody] NewUserDto newUser)
         {
-            return await RegisterNewUserWithRoles(newUser, new string[] { "User" });
+            return await RegisterNewUserWithRoles(newUser, new string[] { "Organization" });
+
+        }
+
+        [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> RegisterVolunteer([FromBody] NewUserDto newUser)
+        {
+            return await RegisterNewUserWithRoles(newUser, new string[] { "Volunteer" });
 
         }
 

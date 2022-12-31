@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityServer.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20221205220707_AddedRefreshTokensToUsers")]
+    [Migration("20221230211832_AddedRefreshTokensToUsers")]
     partial class AddedRefreshTokensToUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -143,15 +143,22 @@ namespace IdentityServer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7c13bdf5-103f-49e3-b2d3-f2e6da940783",
-                            ConcurrencyStamp = "6ced127f-a69f-491b-a0c7-5d6547e5cb59",
-                            Name = "User",
-                            NormalizedName = "USER"
+                            Id = "4ef9459e-83e2-457d-94ae-8bd5fa539a82",
+                            ConcurrencyStamp = "f341ec46-20ba-4748-bd2c-a7a316a0ee37",
+                            Name = "Organization",
+                            NormalizedName = "ORGANIZATION"
                         },
                         new
                         {
-                            Id = "312cb50c-f05a-44e4-a49e-90ce969c725e",
-                            ConcurrencyStamp = "ff439b9f-9c33-4b5e-ad7c-5b79d8a8a802",
+                            Id = "4bd85b36-a556-4512-be2a-216f2e4cecc4",
+                            ConcurrencyStamp = "87038573-cfb3-420c-9ccb-757a7885ec4e",
+                            Name = "Volunteer",
+                            NormalizedName = "VOLUNTEER"
+                        },
+                        new
+                        {
+                            Id = "87da69c8-ed74-4393-90a8-7814282455a3",
+                            ConcurrencyStamp = "c673d9ff-6090-441d-a528-589be6dbf326",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

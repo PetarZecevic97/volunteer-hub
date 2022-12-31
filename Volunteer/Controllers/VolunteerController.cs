@@ -28,7 +28,7 @@ namespace Volunteer.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id:length(24)}", Name = "GetProduct")] 
+        [HttpGet("{id}", Name = "GetProduct")] 
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<VolunteerInfo>> GetVolunteerById(string id)
@@ -66,7 +66,7 @@ namespace Volunteer.Controllers
             return Ok(await _repository.UpdateVolunteer(volunteer));
         }
 
-        [HttpDelete("{id:length(24)}", Name = "DeleteProduct")]
+        [HttpDelete("{id}", Name = "DeleteProduct")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteVolunteer(string id)
         {

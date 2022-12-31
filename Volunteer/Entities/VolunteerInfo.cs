@@ -6,7 +6,7 @@ namespace Volunteer.Entities
 {
     public class VolunteerInfo
     {
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonId]
         public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

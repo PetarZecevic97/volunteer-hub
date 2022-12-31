@@ -14,6 +14,11 @@ using Microsoft.AspNetCore.Builder;
 using IdentityServer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Polly;
+using System;
 
 namespace IdentityServer.Extensions
 {
@@ -83,6 +88,48 @@ namespace IdentityServer.Extensions
             return services;
 
         }
-    }
 
+        public static IHost MigrateDatabase<TContext>(this IHost host) where TContext : IdentityContext
+        {
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var logger = services.GetRequiredService<ILogger<TContext>>();
+                var context = services.GetService<TContext>();
+
+                try
+                {
+                    logger.LogInformation("Migrating database associated with context {DbContextName}...", typeof(TContext).Name);
+
+                    var retry = Policy.Handle<SqlException>()
+                        .WaitAndRetry(
+                            retryCount: 5,
+                            sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                            onRetry: (exception, retryCount, context) =>
+                            {
+                                logger.LogError($"Retry {retryCount} of {context.PolicyKey} at {context.OperationKey}, due to {exception}.");
+                            }
+                        );
+
+                    retry.Execute(() => InvokeSeeder(context, services));
+
+                    logger.LogInformation("Migrating database associated with context {DbContextName} was successful", typeof(TContext).Name);
+                }
+                catch (SqlException e)
+                {
+                    logger.LogError(e, "An error occured while migrating the database used on context {DbContextName}", typeof(TContext).Name);
+                }
+
+            }
+
+            return host;
+
+        }
+
+        private static void InvokeSeeder<TContext>(TContext context, IServiceProvider services) where TContext : DbContext
+        {
+            context.Database.Migrate();
+        }
+    }
 }

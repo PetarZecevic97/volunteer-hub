@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using VolunteerHubBackend.Entities;
 using VolunteerHubBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace VolunteerHubBackend.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "Organization,Volunteer")]
     [ApiController]
     [Route("api/[controller]")]
     public class OrganizationController : ControllerBase
@@ -35,36 +36,51 @@ namespace VolunteerHubBackend.Controllers
         [Route("[action]/{id}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Organization>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Organization>> GetOrganizationById(int id)
+        public async Task<ActionResult<Organization>> GetOrganizationById(string id)
         {
             var result = await _organizationService.GetOrganizationById(id);
             return Ok(result);
         }
 
+        [Authorize(Roles = "Organization")]
         [Route("[action]")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<Organization>), StatusCodes.Status201Created)]
         public async Task<ActionResult<Organization>> CreateOrganization([FromBody] OrganizationCreate organization)
         {
+            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != organization.Id)
+            {
+                return Forbid();
+            }
             var res = await _organizationService.CreateOrganization(organization);
             return Ok(res);
 
         }
 
+        [Authorize(Roles = "Organization")]
         [Route("[action]")]
         [HttpPut]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateOrganization([FromBody] Organization organization)
         {
+            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != organization.Id)
+            {
+                return Forbid();
+            }
             await _organizationService.UpdateOrganization(organization);
             return Ok("Organization updated!");
         }
 
+        [Authorize(Roles = "Organization")]
         [Route("[action]")]
         [HttpDelete]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteOrganization([FromBody] Organization organization)
         {
+            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != organization.Id)
+            {
+                return Forbid();
+            }
             await _organizationService.DeleteOrganization(organization);
             return Ok("Organization deleted!");
         }

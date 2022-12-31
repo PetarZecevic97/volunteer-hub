@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityServer.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20221119180027_AddedRolesToDb")]
+    [Migration("20221230211824_AddedRolesToDb")]
     partial class AddedRolesToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,28 @@ namespace IdentityServer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("IdentityServer.Entities.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
 
             modelBuilder.Entity("IdentityServer.Entities.User", b =>
                 {
@@ -121,15 +143,22 @@ namespace IdentityServer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2823a0cd-b8d5-4337-9454-188084463d32",
-                            ConcurrencyStamp = "8b195256-52de-4c09-ab32-a140deba9fe4",
-                            Name = "User",
-                            NormalizedName = "USER"
+                            Id = "41067355-0056-4bf4-8a13-798f89679295",
+                            ConcurrencyStamp = "a52c245e-3173-4957-8856-febd34d6153e",
+                            Name = "Organization",
+                            NormalizedName = "ORGANIZATION"
                         },
                         new
                         {
-                            Id = "7f9bf593-7a25-4ffb-82f1-a983b38b2bd0",
-                            ConcurrencyStamp = "40942e6d-e9f3-4d7d-8f01-e18355d8e3ca",
+                            Id = "2d0a48c7-e050-468c-a6e4-b08bd2dc60db",
+                            ConcurrencyStamp = "eeb92bac-311b-4be6-8916-72c04df418c3",
+                            Name = "Volunteer",
+                            NormalizedName = "VOLUNTEER"
+                        },
+                        new
+                        {
+                            Id = "ba2a6af7-8dd7-4186-bc05-161cb337d821",
+                            ConcurrencyStamp = "61f5baad-a22f-4b2e-8105-9a21fde16d7e",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -239,6 +268,13 @@ namespace IdentityServer.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("IdentityServer.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("IdentityServer.Entities.User", null)
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -288,6 +324,11 @@ namespace IdentityServer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("IdentityServer.Entities.User", b =>
+                {
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

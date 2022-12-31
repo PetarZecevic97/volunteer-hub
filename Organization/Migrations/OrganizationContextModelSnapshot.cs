@@ -24,11 +24,10 @@ namespace Organization.Migrations
 
             modelBuilder.Entity("Organization.Entities.OrganizationEntity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:HiLoSequenceName", "organizationseq")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.SequenceHiLo);
+                    b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("id");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("VARCHAR(30)")

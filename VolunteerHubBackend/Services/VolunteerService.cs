@@ -19,7 +19,7 @@ namespace VolunteerHubBackend.Services
         {
             _configuration = configuration;
         }
-        public async Task<VolunteerInfo> CreateVolunteer(VolunteerInfoCreate product)
+        public async Task<VolunteerInfo> CreateVolunteer(VolunteerInfo product)
         {
             VolunteerInfo newProduct = new VolunteerInfo();
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_configuration.GetValue<string>("VolunteerSettings:BasePath") + "/Volunteer", product);
