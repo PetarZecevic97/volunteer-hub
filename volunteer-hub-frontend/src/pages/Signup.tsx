@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   LoginInputContainer,
   LoginTitle,
@@ -26,25 +26,12 @@ const Signup = () => {
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
 
   const [sessionInfo, setSessionInfo] = useState(SessionService.getUserInfo());
-  
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    SessionService.checkIsLoggedIn()
-  );
 
   const userService: WebRequestsInterface = getWebRequest();
 
   const handleSubmit = (event: any) => {
     signup(event);
   };
-
-  useEffect(() => {
-    window.addEventListener("session", () => {
-      console.log(SessionService.checkIsLoggedIn());
-      console.log(SessionService.getUserInfo());
-      setIsLoggedIn(SessionService.checkIsLoggedIn());
-    });
-    removeEventListener("session", () => {});
-  }, []);
 
   const signup = async (event: any) => {
     //Prevent page reload
