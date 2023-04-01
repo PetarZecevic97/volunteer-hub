@@ -17,7 +17,7 @@ services:
       dockerfile: Organization/Dockerfile
 
   mssql:
-    image: mcr.microsoft.com/mssql/server:2017-latest
+    image: mcr.microsoft.com/azure-sql-edge:latest
 
   volunteerhubbackend:
     image: ${DOCKER_REGISTRY-}volunteerhubbackend

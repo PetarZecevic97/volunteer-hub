@@ -38,7 +38,8 @@ services:
     ports:
       - "1433:1433" 
     volumes:
-      - mssql_data:/var/opt/mssql/data 
+      - mssql_data:/var/opt/mssql
+      - ./setup.sql:/usr/config/setup.sql
 
   volunteerhubbackend:
     environment:
