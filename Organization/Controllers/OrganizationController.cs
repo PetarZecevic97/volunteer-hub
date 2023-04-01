@@ -33,7 +33,7 @@ namespace Organization.Controllers
         [Route("[action]/{id}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<OrganizationEntity>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<OrganizationEntity>> GetOrganizationById(int id)
+        public async Task<ActionResult<OrganizationEntity>> GetOrganizationById(string id)
         {
             var result = await _organizationRepository.GetByIdAsync(id);
             return Ok(result);  

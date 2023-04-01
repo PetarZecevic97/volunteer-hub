@@ -1,4 +1,6 @@
-﻿using VolunteerHubBackend.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using VolunteerHubBackend.Entities;
 
 namespace VolunteerHubBackend.Services.Interfaces
 {
@@ -10,7 +12,7 @@ namespace VolunteerHubBackend.Services.Interfaces
 
         Task<IEnumerable<VolunteerInfo>> GetVolunteersBySkills(string skills);
 
-        Task<VolunteerInfo> CreateVolunteer(VolunteerInfoCreate product);
+        Task<VolunteerInfo> CreateVolunteer(VolunteerInfo product);
 
         Task<bool> UpdateVolunteer(VolunteerInfo product);
 

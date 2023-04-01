@@ -15,7 +15,7 @@ namespace Organization.Migrations
                 name: "Organization",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     organization_name = table.Column<string>(type: "VARCHAR(30)", nullable: false),
                     organization_id = table.Column<string>(type: "VARCHAR(30)", nullable: true),
                     summary = table.Column<string>(type: "VARCHAR(100)", nullable: true),

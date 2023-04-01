@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using VolunteerHubBackend.Entities;
 using VolunteerHubBackend.Services.Interfaces;
 
@@ -6,6 +12,7 @@ using VolunteerHubBackend.Services.Interfaces;
 
 namespace VolunteerHubBackend.Controllers
 {
+    [Authorize(Roles = "Organization,Volunteer")]
     [Route("api/[controller]")]
     [ApiController]
     public class VolunteerController : ControllerBase
@@ -25,7 +32,7 @@ namespace VolunteerHubBackend.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id:length(24)}", Name = "GetProduct")]
+        [HttpGet("{id}", Name = "GetProduct")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
         public async Task<ActionResult<VolunteerInfo>> GetVolunteerById(string id)
         {
@@ -42,26 +49,41 @@ namespace VolunteerHubBackend.Controllers
             return Ok(products);
         }
 
+        [Authorize(Roles = "Volunteer")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<VolunteerInfo>), StatusCodes.Status201Created)]
-        public async Task<ActionResult<VolunteerInfo>> CreateVolunteer([FromBody] VolunteerInfoCreate volunteer)
+        public async Task<ActionResult<VolunteerInfo>> CreateVolunteer([FromBody] VolunteerInfo volunteer)
         {
+            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != volunteer.Id)
+            {
+                return Forbid();
+            }
             var product = await _service.CreateVolunteer(volunteer);
 
             return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
         }
 
+        [Authorize(Roles = "Volunteer")]
         [HttpPut]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateVolunteer([FromBody] VolunteerInfo volunteer)
         {
+            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != volunteer.Id)
+            {
+                return Forbid();
+            }
             return Ok(await _service.UpdateVolunteer(volunteer));
         }
 
-        [HttpDelete("{id:length(24)}", Name = "DeleteProduct")]
+        [Authorize(Roles = "Volunteer")]
+        [HttpDelete("{id}", Name = "DeleteProduct")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteVolunteer(string id)
         {
+            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != id)
+            {
+                return Forbid();
+            }
             return Ok(await _service.DeleteVolunteer(id));
         }
     }

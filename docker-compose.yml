@@ -16,8 +16,8 @@ services:
       context: .
       dockerfile: Organization/Dockerfile
 
-  organizationdb:
-    image: mcr.microsoft.com/mssql/server:2017-latest
+  mssql:
+    image: mcr.microsoft.com/azure-sql-edge:latest
 
   volunteerhubbackend:
     image: ${DOCKER_REGISTRY-}volunteerhubbackend
@@ -25,13 +25,14 @@ services:
       context: .
       dockerfile: VolunteerHubBackend/Dockerfile
 
-  volunteerhubcore:
-    image: ${DOCKER_REGISTRY-}volunteerhubcore
+  identityserver:
+    image: ${DOCKER_REGISTRY-}identityserver
     build:
       context: .
-      dockerfile: VolunteerHubCore/Dockerfile
+      dockerfile: IdentityServer/Dockerfile
 
 volumes:
-  organizationdb_data:
+  mssql_data:
   mongo_data:
+
 

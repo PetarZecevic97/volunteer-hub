@@ -2,6 +2,11 @@
 using VolunteerHubBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System;
+using System.Net.Http.Json;
+using System.Collections.Generic;
 
 namespace VolunteerHubBackend.Services
 {
@@ -14,7 +19,7 @@ namespace VolunteerHubBackend.Services
         {
             _configuration = configuration;
         }
-        public async Task<VolunteerInfo> CreateVolunteer(VolunteerInfoCreate product)
+        public async Task<VolunteerInfo> CreateVolunteer(VolunteerInfo product)
         {
             VolunteerInfo newProduct = new VolunteerInfo();
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_configuration.GetValue<string>("VolunteerSettings:BasePath") + "/Volunteer", product);
