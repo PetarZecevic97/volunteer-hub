@@ -1,6 +1,6 @@
 export interface WebRequestsInterface {
-    signUpAsOrganization(firstName: string, lastName: string, userName: string, password: string, email: string, phoneNumber: string): any,
-    signUpAsVolunteer(firstName: string, lastName: string, userName: string, password: string, email: string, phoneNumber: string): any,
+    signUpAsOrganization(data: any): any,
+    signUpAsVolunteer(data: any): any,
     logIn(userName: string, password: string): any,
     getUser(id: any): any;
     createUser(username: string, email: string, password: string): any;

@@ -6,8 +6,7 @@ export class WebRequest implements WebRequestsInterface {
        return http.post((process.env.REACT_APP_IDENTITY_SERVER_PATH as string) + '/RegisterOrganization', organization);
     }
     signUpAsVolunteer(volunteer: any): any {
-       const request = http.post((process.env.REACT_APP_IDENTITY_SERVER_PATH as string) + '/RegisterVolunteer', volunteer);
-       request.then(v => v.data.accessToken);
+       return http.post((process.env.REACT_APP_IDENTITY_SERVER_PATH as string) + '/RegisterVolunteer', volunteer);
     }
     logIn(userName: string, password: string): any {
         const logInfo = {userName, password};
@@ -36,23 +35,35 @@ export class WebRequest implements WebRequestsInterface {
         return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/users/', user);
     }
     getAllOrganizations() {
-        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organizations/');
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/GetAllOrganizations', {headers});
     }
     getOrganizationById(id: string) {
-        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organizations/' + id);
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/GetOrganizationById/' + id, {headers});
     }
     createOrganization(data: any) {
-        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organizations/', data);
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/CreateOrganization', data, {headers});
     }
     updateOrganization(data: any) {
-        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organizations/', data);
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/UpdateOrganization', data, {headers});
     }
     deleteOrganization(data: any) {
-        return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organizations/',
-            { data: data });
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/DeleteOrganization',
+            { data, headers });
     }
     getAllVolunteers() {
-        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer');
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer', {headers});
     }
     getVolunteerById(id: string) {
         const token = sessionStorage.getItem('token');
@@ -60,16 +71,25 @@ export class WebRequest implements WebRequestsInterface {
         return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer/' + id, {headers});
     }
     getVolunteerBySkill(skills: any) {
+        const data = {data: skills}
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
         // TODO: EDIT SO THAT SKILLS IS A PARAM
-        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteers/', skills);
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteers/', {data, headers});
     }
     createVolunteer(data: any) {
-        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer', data);
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer', data, {headers});
     }
     updateVolunteer(data: any) {
-        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer/', data);
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer/', data, {headers});
     }
     deleteVolunteer(id: string) {
-        return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer/' + id);
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer/' + id,  {headers});
     }
 }

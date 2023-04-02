@@ -37,16 +37,53 @@ const Signup = () => {
     //Prevent page reload
     event.preventDefault();
 
+    var firstName = event.currentTarget.firstName.value;
+    var lastName = event.currentTarget.lastName.value;
     var username = event.currentTarget.username.value;
     var email = event.currentTarget.email.value;
-    var pass = event.currentTarget.pass.value;
+    var password = event.currentTarget.pass.value;
+    var role = event.currentTarget.role.value;
+    var phoneNumber = event.currentTarget.phone.value;
+    const dataForSignup = {
+      firstName,
+      lastName,
+      username,
+      email,
+      password,
+      phoneNumber,
+    }
 
-    // var pass = HashingAlgService.getHash(event.currentTarget.pass.value);
-    // Find user login info
-    const userData = await userService.createUser(username, email, pass);
+    if(role === 'Organization') {
+      await userService.signUpAsOrganization(dataForSignup);
+      await userService.logIn(username, password);
+      const dataForCreate = {
+        id: sessionStorage.getItem('id'),
+        organizationName: username,
+        organizationId: sessionStorage.getItem('id'),
+        summary: "",
+      }
 
-    if (userData) {
-      SessionService.setUserInfo(userData.data.username, userData.data.email);
+      await userService.createOrganization(dataForCreate);
+    } else {
+      await userService.signUpAsVolunteer(dataForSignup);
+      await userService.logIn(username, password);
+      const dataForCreate = {
+        id: sessionStorage.getItem('id'),
+        firstName,
+        lastName,
+        skils: [],
+      }
+      await userService.createVolunteer(dataForCreate);
+    }
+    const userStr = sessionStorage.getItem('user');
+    const user = userStr ? JSON.parse(userStr) : undefined;
+    const id = sessionStorage.getItem('id');
+
+    if (user && id) {
+      const userData = role === 'Organization' ? await userService.getOrganizationById(id) : await userService.getVolunteerById(id);
+      sessionStorage.setItem('userData', JSON.stringify(userData));
+      SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+                                user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
       setSessionInfo(SessionService.getUserInfo());
     } else {
       // email not found
@@ -68,6 +105,16 @@ const Signup = () => {
   // Generate JSX code for login form
   const renderForm = (
     <form onSubmit={handleSubmit}>
+    <LoginInputContainer>
+      <label>First name</label>
+      <LoginInputText name="firstName" required />
+      {renderErrorMessage("firstName")}
+    </LoginInputContainer>
+      <LoginInputContainer>
+        <label>Last name</label>
+        <LoginInputText name="lastName" required />
+        {renderErrorMessage("lastName")}
+      </LoginInputContainer>
       <LoginInputContainer>
         <label>Username</label>
         <LoginInputText name="username" required />
@@ -82,6 +129,16 @@ const Signup = () => {
         <label>Password </label>
         <LoginInputText name="pass" required />
         {renderErrorMessage("pass")}
+      </LoginInputContainer>
+      <LoginInputContainer>
+        <label>Role </label>
+        <LoginInputText name="role" required />
+        {renderErrorMessage("role")}
+      </LoginInputContainer>
+      <LoginInputContainer>
+        <label>Phone number </label>
+        <LoginInputText name="phone" required />
+        {renderErrorMessage("phone")}
       </LoginInputContainer>
 
       <ButtonWrapper>
