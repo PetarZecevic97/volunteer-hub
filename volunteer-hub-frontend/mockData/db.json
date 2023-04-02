@@ -35,43 +35,28 @@
   ],
   "users": [
     {
-      "id": 1,
-      "username": "jox123",
-      "password": "cepismrdi",
-      "isAdmin": false,
-      "role": "volunteer",
-      "email": "jox123@gmail.com"
+      "username": "lil_plumbus",
+      "email": "lil@plumbus.com",
+      "password": "e321c705bf952136a4f46b5de9584ca7e137ef23038e7310827cab8403f02685",
+      "id": 10
     },
     {
-      "id": 2,
-      "username": "zeka",
-      "password": "zeppe",
-      "isAdmin": true,
-      "role": "volunteer",
-      "email": "zeka@gmail.com"
+      "username": "alexAsleep",
+      "email": "alex@asleep.com",
+      "password": "8b735a2dad217f6bc3b495260b152d62201ef75f0a0d94888bb35b3e19ae45f5",
+      "id": 11
     },
     {
-      "id": 3,
-      "username": "HRKuracHub",
-      "password": "sisamkurac123",
-      "isAdmin": false,
-      "role": "organization",
-      "email": "HRKuracHub@gmail.com"
+      "username": "covekKojiJePitao",
+      "email": "manjina@gmail.com",
+      "password": "7bdc647ba05cd8ab7e06f47352ef847474000c2a2949d9a72d5ead8425c5573b",
+      "id": 12
     },
     {
-      "email": "kurac@kuracInc.bu",
-      "password": "kurcomir",
-      "id": 4
-    },
-    {
-      "email": "kurac@kuracInc.bu",
-      "password": "kurcomir",
-      "id": 5
-    },
-    {
-      "email": "kurac@kuracInc.bu",
-      "password": "kurcomir",
-      "id": 6
+      "username": "vladex",
+      "email": "jevrej@šekel.com",
+      "password": "7ff58e3c356059a2b2d5723f0fc4d6607f91ffe90ad293d23a00d278e654e6ab",
+      "id": 13
     }
   ]
 }

@@ -10,10 +10,10 @@ import {
   ButtonWrapper,
 } from "../components/Login/styles/LoginStyles";
 import IUser from "../Entities/User";
-import SessionService from "../utility/Services/SessionService";
-import HashingAlgService from "../utility/Services/HashingAlgService";
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
+import HashingAlgService from "../utility/Services/HashingAlgService";
+import SessionService from "../utility/Services/SessionService";
 
 interface IErrorMessages {
   name?: string;
@@ -22,42 +22,33 @@ interface IErrorMessages {
   message?: string;
 }
 
-const Signin = () => {
+const Signup = () => {
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
 
   const [sessionInfo, setSessionInfo] = useState(SessionService.getUserInfo());
 
   const userService: WebRequestsInterface = getWebRequest();
-  
 
   const handleSubmit = (event: any) => {
-    login(event);
+    signup(event);
   };
 
-  const login = async (event: any) => {
+  const signup = async (event: any) => {
     //Prevent page reload
     event.preventDefault();
-    
-    var pass = event.currentTarget.pass.value;
-    var hashPass = HashingAlgService.getHash(pass);
-    
-    var username = event.currentTarget.username.value;
 
-    const isValid = await HashingAlgService.isLoginValid(pass, username);
+    var username = event.currentTarget.username.value;
+    var email = event.currentTarget.email.value;
+    var pass = HashingAlgService.getHash(event.currentTarget.pass.value);
     // Find user login info
-    const userData = isValid ? 
-                     await userService.getUser("", hashPass, username) : 
-                     undefined;
+    const userData = await userService.createUser(username, email, pass);
 
     if (userData) {
-      console.dir(userData.data[0]);
-      SessionService.setUserInfo(userData.data[0]["username"], userData.data[0]["email"]);
+      SessionService.setUserInfo(userData.data.username, userData.data.email);
       setSessionInfo(SessionService.getUserInfo());
-      // console.log(userData.data);
-      
     } else {
       // email not found
-      setErrorMessages({ name: "login", message: "Sranje ti login" });
+      setErrorMessages({ name: "signup", message: "Sranje ti signup" });
     }
   };
 
@@ -75,9 +66,14 @@ const Signin = () => {
   // Generate JSX code for login form
   const renderForm = (
     <form onSubmit={handleSubmit}>
-        <LoginInputContainer>
-        <label>Username </label>
+      <LoginInputContainer>
+        <label>Username</label>
         <LoginInputText name="username" required />
+        {renderErrorMessage("uname")}
+      </LoginInputContainer>
+      <LoginInputContainer>
+        <label>E-mail </label>
+        <LoginInputText name="email" required />
         {renderErrorMessage("uname")}
       </LoginInputContainer>
       <LoginInputContainer>
@@ -91,14 +87,14 @@ const Signin = () => {
       </ButtonWrapper>
     </form>
   );
-  
+
   if (SessionService.checkIsLoggedIn()) {
     return <LoginContainer>{sessionInfo.username} is logged in</LoginContainer>;
   } else {
     return (
       <LoginContainer>
         <LoginForm>
-          <LoginTitle>Log In</LoginTitle>
+          <LoginTitle>Sign Up</LoginTitle>
           {renderForm}
         </LoginForm>
       </LoginContainer>
@@ -106,5 +102,4 @@ const Signin = () => {
   }
 };
 
-export default Signin;
-
+export default Signup;

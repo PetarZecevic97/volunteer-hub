@@ -1,0 +1,77 @@
+{
+  "organizations": [
+    {
+      "id": 1,
+      "name": "Organization 1",
+      "summary": "Very good organization",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "name": "Organization 2",
+      "summary": "Very bad organization",
+      "userId": 2
+    }
+  ],
+  "volunteers": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "skills": [
+        "math",
+        "science"
+      ]
+    },
+    {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "skills": [
+        "math",
+        "sviranje kurcu"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "jox123",
+      "password": "cepismrdi",
+      "isAdmin": false,
+      "role": "volunteer",
+      "email": "jox123@gmail.com"
+    },
+    {
+      "id": 2,
+      "username": "zeka",
+      "password": "zeppe",
+      "isAdmin": true,
+      "role": "volunteer",
+      "email": "zeka@gmail.com"
+    },
+    {
+      "id": 3,
+      "username": "HRKuracHub",
+      "password": "sisamkurac123",
+      "isAdmin": false,
+      "role": "organization",
+      "email": "HRKuracHub@gmail.com"
+    },
+    {
+      "email": "kurac@kuracInc.bu",
+      "password": "kurcomir",
+      "id": 4
+    },
+    {
+      "email": "kurac@kuracInc.bu",
+      "password": "kurcomir",
+      "id": 5
+    },
+    {
+      "email": "kurac@kuracInc.bu",
+      "password": "kurcomir",
+      "id": 6
+    }
+  ]
+}

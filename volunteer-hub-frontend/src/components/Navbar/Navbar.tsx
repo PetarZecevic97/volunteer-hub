@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Nav,
   NavLink,
@@ -10,8 +10,35 @@ import {
   TextRow,
 } from "./styles/NavbarStyles";
 import "./styles/Navbar.css";
+import SessionService from "../../utility/Services/SessionService";
 
 const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    SessionService.checkIsLoggedIn()
+  );
+
+  const clearSession = () => {
+    SessionService.clearSessionInfo();
+    setIsLoggedIn(false);
+  };
+
+  useEffect(() => {
+    setIsLoggedIn(SessionService.checkIsLoggedIn());
+
+    // Respond to the `storage` event
+    const storageEventHandler = (event: any) => {
+      if (event.key === "email" || event.key === "username") {
+        setIsLoggedIn(event.newValue !== undefined ? true: false);
+      }
+    };
+    // Hook up the event handler
+    window.addEventListener("storage", storageEventHandler);
+    return () => {
+      // Remove the handler when the component unmounts
+      window.removeEventListener("storage", storageEventHandler);
+    };
+  }, []);
+
   return (
     <>
       <Nav className="navbar">
@@ -24,13 +51,24 @@ const Navbar = () => {
         </NavLink>
         <Bars />
         <NavMenu>
-          <NavLink className="nav-links" to="/about">About</NavLink>
-          <NavLink className="nav-links" to="/events">Events</NavLink>
-          <NavLink className="nav-links" to="/sign-up">Sign Up</NavLink>
-          <NavLink className="nav-links" to="/profile">Profile</NavLink>
+          <NavLink className="nav-links" to="/about">
+            About
+          </NavLink>
+          <NavLink className="nav-links" to="/events">
+            Events
+          </NavLink>
+          <NavLink className="nav-links" to="/profile">
+            Profile
+          </NavLink>
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to="/sign-in">Sign In</NavBtnLink>
+          {!isLoggedIn && <NavBtnLink to="/sign-up">Sign Up</NavBtnLink>}
+          {!isLoggedIn && <NavBtnLink to="/sign-in">Log In</NavBtnLink>}
+          {isLoggedIn && (
+            <NavBtnLink to="/sign-in" onClick={clearSession}>
+              Log Out
+            </NavBtnLink>
+          )}
         </NavBtn>
       </Nav>
     </>

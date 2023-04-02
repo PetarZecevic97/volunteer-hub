@@ -1,45 +1,61 @@
 import { WebRequestsInterface } from "./webRequests-int";
-import axios from 'axios'
-
+import http from "../utility/Http";
 export class WebRequest implements WebRequestsInterface {
-    getUser(email: string, password: string) {
-        throw new Error("Method not implemented.");
+    getUser(email: string, password: string, username: string) {
+
+        var params = new URLSearchParams();
+        params.append("email", email);
+        params.append("password", password);
+        var request = {
+            params: params
+        };
+
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/users/', request);
     }
     createUser(email: string, password: string) {
-        throw new Error("Method not implemented.");
+        var user = {
+            username: email.split('@')[0],
+            password: password,
+            email: email,
+            isAdmin: false,
+            role: "volunteer",
+        }
+
+        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/users/', user);
     }
     getAllOrganizations() {
-        return axios.get((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Organization/GetAllOrganizations');
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organizations/');
     }
-    getOrganizationById(id: number) {
-        return axios.get((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Organization/GetOrganizationById/'+id);
+    getOrganizationById(id: string) {
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organizations/' + id);
     }
     createOrganization(data: any) {
-        return axios.post((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Organization/CreateOrganization', data);
+        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organizations/', data);
     }
     updateOrganization(data: any) {
-        return axios.put((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Organization/UpdateOrganization', data);
+        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organizations/', data);
     }
     deleteOrganization(data: any) {
-        return axios.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Organization/DeleteOrganization', 
-        {data: data});
+        return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organizations/',
+            { data: data });
     }
     getAllVolunteers() {
-        return axios.get((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Volunteer');
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteers');
     }
     getVolunteerById(id: string) {
-        return axios.get((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Volunteer/'+id);
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteers/' + id);
     }
     getVolunteerBySkill(skills: any) {
-        return axios.get((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Volunteer/GetVolunteersBySKill/' + skills);
+        // TODO: EDIT SO THAT SKILLS IS A PARAM
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteers/', skills);
     }
     createVolunteer(data: any) {
-        return axios.post((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Volunteer', data);
+        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteers', data);
     }
     updateVolunteer(data: any) {
-        return axios.put((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Volunteer/', data);
+        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteers/', data);
     }
     deleteVolunteer(id: string) {
-        return axios.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string)+'/Volunteer/'+id);
+        return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteers/' + id);
     }
 }
