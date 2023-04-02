@@ -27,7 +27,6 @@ namespace Organization
         {   
             //Adding dependency injection for Organization microservices
             services.AddOrganizationServices(Configuration);
-            services.AddCors();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -45,13 +44,6 @@ namespace Organization
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Organization v1"));
             }
-
-
-            app.UseCors(builder => {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            });
             app.UseRouting();
 
             app.UseAuthorization();

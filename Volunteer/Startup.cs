@@ -30,7 +30,6 @@ namespace Volunteer
         {
             services.AddScoped<IVolunteerContext, VolunteerContext>();
             services.AddScoped<IVolunteerRepository, VolunteerRepository>();
-            services.AddCors();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -48,13 +47,6 @@ namespace Volunteer
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Volunteer v1"));
             }
-
-
-            app.UseCors(builder => {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            });
             app.UseRouting();
 
             app.UseAuthorization();
