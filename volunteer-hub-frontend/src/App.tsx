@@ -11,11 +11,6 @@ import Volunteer from "./components/Profile/Volunteer";
 import Organization from "./components/Profile/Organization";
 
 function App() {
-  var props = {
-    p_id: "1",
-    p_role: "volunteer",
-  };
-
   return (
     <Router>
       <Navbar />
@@ -23,11 +18,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/volunteer" element={<Volunteer id={"1"} />} />
-        <Route path="/organization" element={<Organization id={"1"} />} />
+        <Route path="/volunteer/:volunteerId" element={<Volunteer />} />
+        <Route path="/organization/:organizationId" element={<Organization />} />
         <Route path="/sign-in" element={<Signin />} />
         <Route path="/sign-up" element={<Signup />} />
-        <Route path="/profile" element={<Profile {...props} />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

@@ -9,11 +9,10 @@ import {
   LoginContainer,
   ButtonWrapper,
 } from "../components/Login/styles/LoginStyles";
-import IUser from "../Entities/User";
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
-import HashingAlgService from "../utility/Services/HashingAlgService";
 import SessionService from "../utility/Services/SessionService";
+import { useNavigate } from 'react-router-dom';
 
 interface IErrorMessages {
   name?: string;
@@ -26,6 +25,7 @@ const Signup = () => {
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
 
   const [sessionInfo, setSessionInfo] = useState(SessionService.getUserInfo());
+  const navigate = useNavigate();
 
   const userService: WebRequestsInterface = getWebRequest();
 
@@ -37,14 +37,53 @@ const Signup = () => {
     //Prevent page reload
     event.preventDefault();
 
-    var username = event.currentTarget.username.value;
-    var email = event.currentTarget.email.value;
-    var pass = HashingAlgService.getHash(event.currentTarget.pass.value);
-    // Find user login info
-    const userData = await userService.createUser(username, email, pass);
+    const firstName = event.currentTarget.firstName.value;
+    const lastName = event.currentTarget.lastName.value;
+    const username = event.currentTarget.username.value;
+    const email = event.currentTarget.email.value;
+    const password = event.currentTarget.pass.value;
+    const role = event.currentTarget.role.value;
+    const phoneNumber = event.currentTarget.phone.value;
+    const dataForSignup = {
+      firstName,
+      lastName,
+      username,
+      email,
+      password,
+      phoneNumber,
+    }
 
-    if (userData) {
-      SessionService.setUserInfo(userData.data.username, userData.data.email);
+    if(role === 'Organization') {
+      await userService.signUpAsOrganization(dataForSignup);
+      await userService.logIn(username, password);
+      const dataForCreate = {
+        id: sessionStorage.getItem('id'),
+        organizationName: username,
+        organizationId: sessionStorage.getItem('id'),
+        summary: "",
+      }
+
+      await userService.createOrganization(dataForCreate);
+    } else {
+      await userService.signUpAsVolunteer(dataForSignup);
+      await userService.logIn(username, password);
+      const dataForCreate = {
+        id: sessionStorage.getItem('id'),
+        firstName,
+        lastName,
+        skils: [],
+      }
+      await userService.createVolunteer(dataForCreate);
+    }
+    const userStr = sessionStorage.getItem('user');
+    const user = userStr ? JSON.parse(userStr) : undefined;
+    const id = sessionStorage.getItem('id');
+
+    if (user && id) {
+      const userData = role === 'Organization' ? await userService.getOrganizationById(id) : await userService.getVolunteerById(id);
+      sessionStorage.setItem('userData', JSON.stringify(userData));
+      SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+                                user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
       setSessionInfo(SessionService.getUserInfo());
     } else {
       // email not found
@@ -66,6 +105,16 @@ const Signup = () => {
   // Generate JSX code for login form
   const renderForm = (
     <form onSubmit={handleSubmit}>
+    <LoginInputContainer>
+      <label>First name</label>
+      <LoginInputText name="firstName" required />
+      {renderErrorMessage("firstName")}
+    </LoginInputContainer>
+      <LoginInputContainer>
+        <label>Last name</label>
+        <LoginInputText name="lastName" required />
+        {renderErrorMessage("lastName")}
+      </LoginInputContainer>
       <LoginInputContainer>
         <label>Username</label>
         <LoginInputText name="username" required />
@@ -81,6 +130,16 @@ const Signup = () => {
         <LoginInputText name="pass" required />
         {renderErrorMessage("pass")}
       </LoginInputContainer>
+      <LoginInputContainer>
+        <label>Role </label>
+        <LoginInputText name="role" required />
+        {renderErrorMessage("role")}
+      </LoginInputContainer>
+      <LoginInputContainer>
+        <label>Phone number </label>
+        <LoginInputText name="phone" required />
+        {renderErrorMessage("phone")}
+      </LoginInputContainer>
 
       <ButtonWrapper>
         <LoginSubmit type="submit" value="Submit" />
@@ -89,7 +148,8 @@ const Signup = () => {
   );
 
   if (SessionService.checkIsLoggedIn()) {
-    return <LoginContainer>{sessionInfo.username} is logged in</LoginContainer>;
+    navigate('/profile', { replace: true });
+    return <></>
   } else {
     return (
       <LoginContainer>

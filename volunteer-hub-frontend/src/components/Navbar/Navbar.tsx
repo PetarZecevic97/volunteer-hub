@@ -19,6 +19,7 @@ const Navbar = () => {
 
   const clearSession = () => {
     SessionService.clearSessionInfo();
+    sessionStorage.clear()
     setIsLoggedIn(false);
   };
 

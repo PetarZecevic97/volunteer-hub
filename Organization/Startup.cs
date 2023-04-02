@@ -44,7 +44,6 @@ namespace Organization
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Organization v1"));
             }
-
             app.UseRouting();
 
             app.UseAuthorization();

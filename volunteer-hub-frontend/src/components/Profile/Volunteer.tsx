@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useParams } from 'react-router-dom';
 import IVolunteer from "../../Entities/Volunteer";
 import Avatar from "react-avatar";
 import { Grid, PageContainer } from "./styles/ProfileStyles";
@@ -6,23 +7,24 @@ import { WebRequestsInterface } from "../../webRequests/webRequests-int";
 import getWebRequest from "../../webRequests/webRequestsProvider";
 
 
-const Volunteer = ({id}: {id : string}) => {
+const Volunteer = () => {
   const userService: WebRequestsInterface = getWebRequest();
   const [volunteerData, setVolunteerData] = useState<IVolunteer>();
-
-  async function fetchVolunteer(_id: string) {
-    const response = await userService.getVolunteerById(_id);
-    
-    const sampleVolunteerData = await response.data;
-    setVolunteerData(sampleVolunteerData);
+  const location = useLocation();
+  const { volunteerId } = useParams();
+  const userId = sessionStorage.getItem('id');
+  const id = location.pathname === '/profile' ? userId : volunteerId;
+  async function fetchVolunteer() {
+    if(id) {
+      const volunteer = await userService.getVolunteerById(id);
+      setVolunteerData(volunteer);
+    }
   }
 
   useEffect(() => {
-    fetchVolunteer(id);
+    fetchVolunteer();
   }, [id]);
 
-
-  
   return (
     <>
       <PageContainer>
@@ -31,7 +33,6 @@ const Volunteer = ({id}: {id : string}) => {
 
           <h1>First name: {volunteerData != undefined ? volunteerData.firstName : "sampleVolunteerData"}</h1>
           <h1>Last name: {volunteerData != undefined ? volunteerData.lastName : "sampleVolunteerData"}</h1>
-          <h1>Password: {volunteerData != undefined ? volunteerData.skills : "sampleVolunteerData"}</h1>
         </Grid>
       </PageContainer>
     </>

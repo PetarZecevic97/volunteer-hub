@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,  } from "react";
+import { useLocation, useParams } from 'react-router-dom';
 import Avatar from "react-avatar";
 import { Grid, PageContainer } from "./styles/ProfileStyles";
 import getWebRequest from "../../webRequests/webRequestsProvider";
 import IOrganization from "../../Entities/Organization";
 import { WebRequestsInterface } from "../../webRequests/webRequests-int";
 
-const Organization = ({id}: {id : string}) => {
+const Organization = () => {
   const userService: WebRequestsInterface = getWebRequest();
-  const [organizationData, setOrganizationData] = useState<IOrganization>();
-
-  const isVolatile = (param: any) => {
-    return param === null || param === undefined;
-  }
-
-  async function fetchOrganization(_id: string) {
-    const response = await userService.getOrganizationById(_id);
-    setOrganizationData(await response.data);
+  const [organizationData, setOrganizationData] = useState<IOrganization>(); const location = useLocation();
+  const { organizationId } = useParams();
+  const userId = sessionStorage.getItem('id');
+  const id = location.pathname === '/profile' ? userId : organizationId;
+  async function fetchOrganization() {
+    if(id) {
+      const org = await userService.getOrganizationById(id);
+      setOrganizationData(org);
+    }
   }
 
   useEffect(() => {
-    fetchOrganization(id);
+    fetchOrganization();
   }, [id]);
 
   return (

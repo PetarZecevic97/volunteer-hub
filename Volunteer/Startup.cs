@@ -47,7 +47,6 @@ namespace Volunteer
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Volunteer v1"));
             }
-
             app.UseRouting();
 
             app.UseAuthorization();

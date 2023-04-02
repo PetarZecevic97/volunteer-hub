@@ -1,30 +1,28 @@
 import { WebRequestsInterface } from "./webRequests-int";
 import axios from 'axios'
-import IUser from "../Entities/User";
 
 export class WebRequestMock implements WebRequestsInterface {
 
-    async getUser(_email: string, _password: string, _username: string) {
+    signUpAsOrganization(organization: any): any {
+        return 'OK';
+     }
+     signUpAsVolunteer(volunteer: any): any {
+        return 'OK';
+     }
+    logIn(userName: string, password: string): any {
         const params: any = {};
-        if (_username !== "") {
-            params.username = _username;
+        if (userName !== "") {
+            params.username = userName;
         }
-        if (_password !== "") {
-            params.password = _password;
-        }
-        if (_email !== "") {
-            params.email = _email;
+        if (password !== "") {
+            params.password = password;
         }
 
-        const tmp = await axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/users',
+        const tmp = axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/users',
             { params }
         );
-        return tmp;
-    }
-    async createUser(_username: string, _email: string, _password: string) {
-        const data = { username: _username, email: _email, password: _password }
-        return await axios.post((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/users', data);
-    }
+        return tmp.then(v => v.data.id).catch(e => undefined);
+     }
     async getAllOrganizations() {
         return await axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/organizations');
     }

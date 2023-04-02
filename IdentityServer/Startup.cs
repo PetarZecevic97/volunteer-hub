@@ -32,6 +32,7 @@ namespace IdentityServer
             services.ConfigurePersistence(Configuration);
             services.ConfigureIdentity();
             services.ConfigureJWT(Configuration);
+            services.AddCors();
 
             services.ConfigureMiscellaneousServices();
             services.AddControllers();
@@ -75,6 +76,11 @@ namespace IdentityServer
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityServer v1"));
             }
 
+            app.UseCors(builder => {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
             app.UseRouting();
 
             app.UseAuthentication();
