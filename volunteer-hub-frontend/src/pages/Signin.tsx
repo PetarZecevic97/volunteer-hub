@@ -37,8 +37,8 @@ const Signin = () => {
     //Prevent page reload
     event.preventDefault();
     
-    var pass = event.currentTarget.pass.value;    
-    var username = event.currentTarget.username.value;
+    const pass = event.currentTarget.pass.value;    
+    const username = event.currentTarget.username.value;
 
     // Find user login info
     await userService.logIn(username, pass);
@@ -92,8 +92,7 @@ const Signin = () => {
     </form>
   );
   if (SessionService.checkIsLoggedIn()) {
-    const role = sessionStorage.getItem('role');
-    role === 'Organization' ? navigate('/organization', { replace: true }) : navigate('/volunteer', { replace: true });
+    navigate('/profile', { replace: true });
     return <></>
   } else {
     return (

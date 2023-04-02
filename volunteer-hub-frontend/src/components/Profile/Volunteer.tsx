@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useParams } from 'react-router-dom';
 import IVolunteer from "../../Entities/Volunteer";
 import Avatar from "react-avatar";
 import { Grid, PageContainer } from "./styles/ProfileStyles";
@@ -9,16 +10,20 @@ import getWebRequest from "../../webRequests/webRequestsProvider";
 const Volunteer = () => {
   const userService: WebRequestsInterface = getWebRequest();
   const [volunteerData, setVolunteerData] = useState<IVolunteer>();
-  const volunteer_string = sessionStorage.getItem('userData');
-
+  const location = useLocation();
+  const { volunteerId } = useParams();
+  const userId = sessionStorage.getItem('id');
+  const id = location.pathname === '/profile' ? userId : volunteerId;
   async function fetchVolunteer() {
-    const volunteer = volunteer_string ? JSON.parse(volunteer_string) : {};
-    setVolunteerData(volunteer);
+    if(id) {
+      const volunteer = await userService.getVolunteerById(id);
+      setVolunteerData(volunteer);
+    }
   }
 
   useEffect(() => {
     fetchVolunteer();
-  }, [volunteer_string]);
+  }, [id]);
 
   return (
     <>

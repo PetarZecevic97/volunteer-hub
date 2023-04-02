@@ -5,9 +5,11 @@ import Volunteer from "../components/Profile/Volunteer";
 import IVolunteer from "../Entities/Volunteer";
 
 const Profile = () => {
-  var mOrganization: IOrganization;
-  var mVolunteer: IVolunteer;
+  let mOrganization: IOrganization;
+  let mVolunteer: IVolunteer;
   const role = sessionStorage.getItem('role');
+  const nullableId = sessionStorage.getItem('id');
+  const id = nullableId ? nullableId : '';
   const renderOrganization = () => {
     return (
       <>

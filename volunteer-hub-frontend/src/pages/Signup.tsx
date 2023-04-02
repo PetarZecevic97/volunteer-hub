@@ -37,13 +37,13 @@ const Signup = () => {
     //Prevent page reload
     event.preventDefault();
 
-    var firstName = event.currentTarget.firstName.value;
-    var lastName = event.currentTarget.lastName.value;
-    var username = event.currentTarget.username.value;
-    var email = event.currentTarget.email.value;
-    var password = event.currentTarget.pass.value;
-    var role = event.currentTarget.role.value;
-    var phoneNumber = event.currentTarget.phone.value;
+    const firstName = event.currentTarget.firstName.value;
+    const lastName = event.currentTarget.lastName.value;
+    const username = event.currentTarget.username.value;
+    const email = event.currentTarget.email.value;
+    const password = event.currentTarget.pass.value;
+    const role = event.currentTarget.role.value;
+    const phoneNumber = event.currentTarget.phone.value;
     const dataForSignup = {
       firstName,
       lastName,
@@ -148,8 +148,7 @@ const Signup = () => {
   );
 
   if (SessionService.checkIsLoggedIn()) {
-    const role = sessionStorage.getItem('role');
-    role === 'Organization' ? navigate('/organization', { replace: true }) : navigate('/volunteer', { replace: true });
+    navigate('/profile', { replace: true });
     return <></>
   } else {
     return (
