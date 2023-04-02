@@ -20,8 +20,6 @@ const Volunteer = () => {
     fetchVolunteer();
   }, [volunteer_string]);
 
-
-  
   return (
     <>
       <PageContainer>
@@ -30,7 +28,6 @@ const Volunteer = () => {
 
           <h1>First name: {volunteerData != undefined ? volunteerData.firstName : "sampleVolunteerData"}</h1>
           <h1>Last name: {volunteerData != undefined ? volunteerData.lastName : "sampleVolunteerData"}</h1>
-          <h1>Password: {volunteerData != undefined ? volunteerData.skills : "sampleVolunteerData"}</h1>
         </Grid>
       </PageContainer>
     </>

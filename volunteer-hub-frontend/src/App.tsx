@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
@@ -9,9 +9,6 @@ import Signup from "./pages/Signup";
 import Events from "./pages/Events";
 import Volunteer from "./components/Profile/Volunteer";
 import Organization from "./components/Profile/Organization";
-import { WebRequestsInterface } from "./webRequests/webRequests-int";
-import getWebRequest from "./webRequests/webRequestsProvider";
-import SessionService from "./utility/Services/SessionService";
 
 function App() {
   return (

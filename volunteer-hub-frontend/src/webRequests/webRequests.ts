@@ -18,21 +18,8 @@ export class WebRequest implements WebRequestsInterface {
                                     sessionStorage.setItem('user', JSON.stringify(user));
                                     sessionStorage.setItem('id', user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
                                     sessionStorage.setItem('role', user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
+                                    return res;
                                 });
-    }
-    getUser(id: string) {
-        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/users/' + id);
-    }
-    createUser(email: string, password: string) {
-        var user = {
-            username: email.split('@')[0],
-            password: password,
-            email: email,
-            isAdmin: false,
-            role: "volunteer",
-        }
-
-        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/users/', user);
     }
     getAllOrganizations() {
         const token = sessionStorage.getItem('token');
@@ -42,7 +29,8 @@ export class WebRequest implements WebRequestsInterface {
     getOrganizationById(id: string) {
         const token = sessionStorage.getItem('token');
         const headers = {Authorization: `Bearer ${token}`}
-        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/GetOrganizationById/' + id, {headers});
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/GetOrganizationById/' + id, {headers})
+                    .then(value => value.data);
     }
     createOrganization(data: any) {
         const token = sessionStorage.getItem('token');
@@ -68,7 +56,8 @@ export class WebRequest implements WebRequestsInterface {
     getVolunteerById(id: string) {
         const token = sessionStorage.getItem('token');
         const headers = {Authorization: `Bearer ${token}`}
-        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer/' + id, {headers});
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer/' + id, {headers})
+                    .then(value => value.data);
     }
     getVolunteerBySkill(skills: any) {
         const data = {data: skills}

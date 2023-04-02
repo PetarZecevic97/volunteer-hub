@@ -9,11 +9,10 @@ import {
   LoginContainer,
   ButtonWrapper,
 } from "../components/Login/styles/LoginStyles";
-import IUser from "../Entities/User";
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
-import HashingAlgService from "../utility/Services/HashingAlgService";
 import SessionService from "../utility/Services/SessionService";
+import { useNavigate } from 'react-router-dom';
 
 interface IErrorMessages {
   name?: string;
@@ -26,6 +25,7 @@ const Signup = () => {
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
 
   const [sessionInfo, setSessionInfo] = useState(SessionService.getUserInfo());
+  const navigate = useNavigate();
 
   const userService: WebRequestsInterface = getWebRequest();
 
@@ -148,7 +148,9 @@ const Signup = () => {
   );
 
   if (SessionService.checkIsLoggedIn()) {
-    return <LoginContainer>{sessionInfo.username} is logged in</LoginContainer>;
+    const role = sessionStorage.getItem('role');
+    role === 'Organization' ? navigate('/organization', { replace: true }) : navigate('/volunteer', { replace: true });
+    return <></>
   } else {
     return (
       <LoginContainer>

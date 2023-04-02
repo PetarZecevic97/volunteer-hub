@@ -9,11 +9,10 @@ import {
   LoginContainer,
   ButtonWrapper,
 } from "../components/Login/styles/LoginStyles";
-import IUser from "../Entities/User";
 import SessionService from "../utility/Services/SessionService";
-// import HashingAlgService from "../utility/Services/HashingAlgService";
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
+import { useNavigate } from 'react-router-dom';
 
 interface IErrorMessages {
   name?: string;
@@ -24,8 +23,8 @@ interface IErrorMessages {
 
 const Signin = () => {
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
-
   const [sessionInfo, setSessionInfo] = useState(SessionService.getUserInfo());
+  const navigate = useNavigate();
 
   const userService: WebRequestsInterface = getWebRequest();
   
@@ -38,9 +37,7 @@ const Signin = () => {
     //Prevent page reload
     event.preventDefault();
     
-    var pass = event.currentTarget.pass.value;
-    // var hashPass = HashingAlgService.getHash(pass);
-    
+    var pass = event.currentTarget.pass.value;    
     var username = event.currentTarget.username.value;
 
     // Find user login info
@@ -95,7 +92,9 @@ const Signin = () => {
     </form>
   );
   if (SessionService.checkIsLoggedIn()) {
-    return <LoginContainer>{sessionInfo.username} is logged in</LoginContainer>;
+    const role = sessionStorage.getItem('role');
+    role === 'Organization' ? navigate('/organization', { replace: true }) : navigate('/volunteer', { replace: true });
+    return <></>
   } else {
     return (
       <LoginContainer>
