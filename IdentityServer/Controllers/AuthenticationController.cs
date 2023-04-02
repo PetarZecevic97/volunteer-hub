@@ -56,6 +56,7 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Login([FromBody] UserCredentialsDto userCredentials)
         {
+            Console.Write("Ljeksii");
             var user = await _authService.ValidateUser(userCredentials);
             if (user == null)
             {
