@@ -4,36 +4,43 @@ import Organization from "../components/Profile/Organization";
 import Volunteer from "../components/Profile/Volunteer";
 import IVolunteer from "../Entities/Volunteer";
 
-interface ProfileProps {
-  p_id: string;
-  p_role: string;
-}
-
-const Profile = ({ p_id, p_role }: ProfileProps) => {
+const Profile = () => {
   var mOrganization: IOrganization;
   var mVolunteer: IVolunteer;
-
-  const renderOrganization = (pid: string) => {
+  const role = sessionStorage.getItem('role');
+  const renderOrganization = () => {
     return (
       <>
-        <Organization id={pid} />
+        <Organization />
       </>
     );
   };
 
-  const renderVolunteer = (pid: string) => {
+  const renderVolunteer = () => {
     return (
       <>
-        <Volunteer id={pid} />
+        <Volunteer />
       </>
     );
   };
 
-  const isOrganization = p_role === "organization";
+  const error = () => {
+    return (
+      <>
+        <p>User not logged in</p>
+      </>
+    );
+  }
+
+  const isOrganization = role === "Organization";
+  const isVolunteer = role === "Volunteer";
+
   if (isOrganization) {
-    return renderOrganization(p_id);
+    return renderOrganization();
+  } else if (isVolunteer){
+    return renderVolunteer();
   } else {
-    return renderVolunteer(p_id);
+    return error();
   }
 };
 

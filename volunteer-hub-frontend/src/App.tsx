@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
@@ -9,13 +9,11 @@ import Signup from "./pages/Signup";
 import Events from "./pages/Events";
 import Volunteer from "./components/Profile/Volunteer";
 import Organization from "./components/Profile/Organization";
+import { WebRequestsInterface } from "./webRequests/webRequests-int";
+import getWebRequest from "./webRequests/webRequestsProvider";
+import SessionService from "./utility/Services/SessionService";
 
 function App() {
-  var props = {
-    p_id: "1",
-    p_role: "volunteer",
-  };
-
   return (
     <Router>
       <Navbar />
@@ -23,11 +21,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/volunteer" element={<Volunteer id={"1"} />} />
-        <Route path="/organization" element={<Organization id={"1"} />} />
+        <Route path="/volunteer" element={<Volunteer />} />
+        <Route path="/organization" element={<Organization />} />
         <Route path="/sign-in" element={<Signin />} />
         <Route path="/sign-up" element={<Signup />} />
-        <Route path="/profile" element={<Profile {...props} />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

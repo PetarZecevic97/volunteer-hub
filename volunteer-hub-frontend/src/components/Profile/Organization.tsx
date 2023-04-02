@@ -5,22 +5,19 @@ import getWebRequest from "../../webRequests/webRequestsProvider";
 import IOrganization from "../../Entities/Organization";
 import { WebRequestsInterface } from "../../webRequests/webRequests-int";
 
-const Organization = ({id}: {id : string}) => {
+const Organization = () => {
   const userService: WebRequestsInterface = getWebRequest();
   const [organizationData, setOrganizationData] = useState<IOrganization>();
+  const org_string = sessionStorage.getItem('userData');
 
-  const isVolatile = (param: any) => {
-    return param === null || param === undefined;
-  }
-
-  async function fetchOrganization(_id: string) {
-    const response = await userService.getOrganizationById(_id);
-    setOrganizationData(await response.data);
+  async function fetchOrganization() {
+    const org = org_string ? JSON.parse(org_string) : {};
+    setOrganizationData(org);
   }
 
   useEffect(() => {
-    fetchOrganization(id);
-  }, [id]);
+    fetchOrganization();
+  }, [org_string]);
 
   return (
     <>

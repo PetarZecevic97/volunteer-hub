@@ -11,7 +11,7 @@ import {
 } from "../components/Login/styles/LoginStyles";
 import IUser from "../Entities/User";
 import SessionService from "../utility/Services/SessionService";
-import HashingAlgService from "../utility/Services/HashingAlgService";
+// import HashingAlgService from "../utility/Services/HashingAlgService";
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
 
@@ -39,21 +39,24 @@ const Signin = () => {
     event.preventDefault();
     
     var pass = event.currentTarget.pass.value;
-    var hashPass = HashingAlgService.getHash(pass);
+    // var hashPass = HashingAlgService.getHash(pass);
     
     var username = event.currentTarget.username.value;
 
-    const isValid = await HashingAlgService.isLoginValid(pass, username);
     // Find user login info
-    const userData = isValid ? 
-                     await userService.getUser("", hashPass, username) : 
-                     undefined;
+    await userService.logIn(username, pass);
+    const userStr = sessionStorage.getItem('user');
+    const user = userStr ? JSON.parse(userStr) : undefined;
+    const id = sessionStorage.getItem('id');
 
-    if (userData) {
-      console.dir(userData.data[0]);
-      SessionService.setUserInfo(userData.data[0]["username"], userData.data[0]["email"]);
+    if (user && id) {
+      console.dir(user);
+      const role = sessionStorage.getItem('role');
+      const userData = role === 'Organization' ? await userService.getOrganizationById(id) : await userService.getVolunteerById(id);
+      sessionStorage.setItem('userData', JSON.stringify(userData));
+      SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+                                user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
       setSessionInfo(SessionService.getUserInfo());
-      // console.log(userData.data);
       
     } else {
       // email not found
@@ -91,7 +94,6 @@ const Signin = () => {
       </ButtonWrapper>
     </form>
   );
-  
   if (SessionService.checkIsLoggedIn()) {
     return <LoginContainer>{sessionInfo.username} is logged in</LoginContainer>;
   } else {

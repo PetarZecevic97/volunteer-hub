@@ -6,20 +6,19 @@ import { WebRequestsInterface } from "../../webRequests/webRequests-int";
 import getWebRequest from "../../webRequests/webRequestsProvider";
 
 
-const Volunteer = ({id}: {id : string}) => {
+const Volunteer = () => {
   const userService: WebRequestsInterface = getWebRequest();
   const [volunteerData, setVolunteerData] = useState<IVolunteer>();
+  const volunteer_string = sessionStorage.getItem('userData');
 
-  async function fetchVolunteer(_id: string) {
-    const response = await userService.getVolunteerById(_id);
-    
-    const sampleVolunteerData = await response.data;
-    setVolunteerData(sampleVolunteerData);
+  async function fetchVolunteer() {
+    const volunteer = volunteer_string ? JSON.parse(volunteer_string) : {};
+    setVolunteerData(volunteer);
   }
 
   useEffect(() => {
-    fetchVolunteer(id);
-  }, [id]);
+    fetchVolunteer();
+  }, [volunteer_string]);
 
 
   

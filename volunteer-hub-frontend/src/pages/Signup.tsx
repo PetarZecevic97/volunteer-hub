@@ -39,7 +39,9 @@ const Signup = () => {
 
     var username = event.currentTarget.username.value;
     var email = event.currentTarget.email.value;
-    var pass = HashingAlgService.getHash(event.currentTarget.pass.value);
+    var pass = event.currentTarget.pass.value;
+
+    // var pass = HashingAlgService.getHash(event.currentTarget.pass.value);
     // Find user login info
     const userData = await userService.createUser(username, email, pass);
 

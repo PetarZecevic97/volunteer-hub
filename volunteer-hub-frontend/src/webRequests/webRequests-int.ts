@@ -1,5 +1,8 @@
 export interface WebRequestsInterface {
-    getUser(email: string, password: string, username: string): any;
+    signUpAsOrganization(firstName: string, lastName: string, userName: string, password: string, email: string, phoneNumber: string): any,
+    signUpAsVolunteer(firstName: string, lastName: string, userName: string, password: string, email: string, phoneNumber: string): any,
+    logIn(userName: string, password: string): any,
+    getUser(id: any): any;
     createUser(username: string, email: string, password: string): any;
     getAllOrganizations():any
     getOrganizationById(id: string): any
