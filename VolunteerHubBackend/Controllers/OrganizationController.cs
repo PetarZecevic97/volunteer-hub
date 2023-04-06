@@ -23,7 +23,6 @@ namespace VolunteerHubBackend.Controllers
             _organizationService = organizationService ?? throw new ArgumentNullException(nameof(organizationService));
         }
 
-        [Route("[action]")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Organization>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Organization>>> GetAllOrganizations()
@@ -33,17 +32,19 @@ namespace VolunteerHubBackend.Controllers
         }
 
 
-        [Route("[action]/{id}")]
-        [HttpGet]
+        [HttpGet("{id}", Name = "GetOrganization")]
         [ProducesResponseType(typeof(IEnumerable<Organization>), StatusCodes.Status200OK)]
         public async Task<ActionResult<Organization>> GetOrganizationById(string id)
         {
             var result = await _organizationService.GetOrganizationById(id);
+            if (result.Id == null)
+            {
+                return NotFound(result);
+            }
             return Ok(result);
         }
 
         [Authorize(Roles = "Organization")]
-        [Route("[action]")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<Organization>), StatusCodes.Status201Created)]
         public async Task<ActionResult<Organization>> CreateOrganization([FromBody] OrganizationCreate organization)
@@ -53,35 +54,37 @@ namespace VolunteerHubBackend.Controllers
                 return Forbid();
             }
             var res = await _organizationService.CreateOrganization(organization);
+            if(res.Id == null)
+            {
+                return NotFound(res);
+            }
             return Ok(res);
 
         }
 
         [Authorize(Roles = "Organization")]
-        [Route("[action]")]
-        [HttpPut]
+        [HttpPut("{id}", Name = "PutOrganization")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateOrganization([FromBody] Organization organization)
+        public async Task<ActionResult<Organization>> UpdateOrganization([FromBody] Organization organization)
         {
             if (User.FindFirst(ClaimTypes.NameIdentifier).Value != organization.Id)
             {
                 return Forbid();
             }
-            await _organizationService.UpdateOrganization(organization);
-            return Ok("Organization updated!");
+            Organization  result = await _organizationService.UpdateOrganization(organization);
+            return Ok(result);
         }
 
         [Authorize(Roles = "Organization")]
-        [Route("[action]")]
-        [HttpDelete]
-        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        public async Task<IActionResult> DeleteOrganization([FromBody] Organization organization)
+        [HttpDelete("{id}", Name = "DeleteOrganization")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteOrganization(String id)
         {
-            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != organization.Id)
+            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != id)
             {
                 return Forbid();
             }
-            await _organizationService.DeleteOrganization(organization);
+            await _organizationService.DeleteOrganization(id);
             return Ok("Organization deleted!");
         }
 

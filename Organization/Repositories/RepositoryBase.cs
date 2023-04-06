@@ -75,17 +75,18 @@ namespace Organization.Repositories.Interfaces
             return entity;
         }
 
-        //implies that the argument is already changed entity
-        //(we change entity, then call UpdateAsync() and pass it as argument)
-        public virtual async Task UpdateAsync(T entity)
+
+        public virtual async Task<T> UpdateAsync(T entity, string id)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
+            return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public virtual async Task DeleteAsync(T entity)
+        public virtual async Task DeleteAsync(string id)
         {
-            _dbContext.Set<T>().Remove(entity);
+            OrganizationEntity org = await _dbContext.Organizations.FindAsync(id);
+            _dbContext.Organizations.Remove(org);
             await _dbContext.SaveChangesAsync();
         }
 

@@ -21,47 +21,11 @@ namespace VolunteerHubBackend.Services
         {
             _configuration = configuration;
         }
-        public async Task<Organization> CreateOrganization(OrganizationCreate product)
-        {
-            Organization newProduct = new Organization();
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/CreateOrganization", product);
-            if (response.IsSuccessStatusCode)
-            {
-                Console.Write(response);
-                newProduct = await response.Content.ReadFromJsonAsync<Organization>();
-            }
-            return newProduct ?? throw new Exception();
-        }
-
-        public async Task<string> DeleteOrganization(Organization product)
-        {
-            string result = "";
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Delete,
-                RequestUri = new Uri(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/DeleteOrganization"),
-                Content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json")
-            };
-            HttpResponseMessage response = await _httpClient.SendAsync(request);
-            return result;
-        }
-
-        public async Task<Organization> GetOrganizationById(string Id)
-        {
-            Organization product = new Organization();
-            HttpResponseMessage response = await _httpClient.GetAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/GetOrganizationById/" + Id);
-            if (response.IsSuccessStatusCode)
-            {
-                if (!response.StatusCode.ToString().Equals("NoContent"))
-                    product = await response.Content.ReadFromJsonAsync<Organization>();
-            }
-            return product ?? throw new Exception();
-        }
 
         public async Task<IEnumerable<Organization>> GetAllOrganizations()
         {
             IEnumerable<Organization> product = new List<Organization>();
-            HttpResponseMessage response = await _httpClient.GetAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/GetAllOrganizations");
+            HttpResponseMessage response = await _httpClient.GetAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization");
             if (response.IsSuccessStatusCode)
             {
                 Console.Write(response);
@@ -70,11 +34,40 @@ namespace VolunteerHubBackend.Services
             return product ?? throw new Exception();
         }
 
-        public async Task<string> UpdateOrganization(Organization product)
+        public async Task<Organization> GetOrganizationById(string Id)
         {
-            string result = "";
-            HttpResponseMessage response = await _httpClient.PutAsJsonAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/UpdateOrganization", product);
+            Organization product = new Organization();
+            HttpResponseMessage response = await _httpClient.GetAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/" + Id);
+            if (response.IsSuccessStatusCode)
+            {
+                if (!response.StatusCode.ToString().Equals("NoContent"))
+                    product = await response.Content.ReadFromJsonAsync<Organization>();
+            }
+            return product ?? throw new Exception();
+        }
+
+        public async Task<Organization> CreateOrganization(OrganizationCreate product)
+        {
+            Organization newProduct = new Organization();
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization", product);
+            if (response.IsSuccessStatusCode)
+            {
+                newProduct = await response.Content.ReadFromJsonAsync<Organization>();
+            }
+            return newProduct ?? throw new Exception();
+        }
+
+        public async Task<Organization> UpdateOrganization(Organization product)
+        {
+            HttpResponseMessage response = await _httpClient.PutAsJsonAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/" + product.Id, product);
+            Organization result = await response.Content.ReadFromJsonAsync<Organization>();
             return result;
+        }
+
+        public async Task<HttpResponseMessage> DeleteOrganization(string id)
+        {
+            HttpResponseMessage response = await _httpClient.DeleteAsync(_configuration.GetValue<string>("OrganizationSettings:BasePath") + "/Organization/" + id);
+            return response;
         }
     }
 }

@@ -27,9 +27,9 @@ const Organization = () => {
     <>
       <PageContainer>
         <Grid>
-          <Avatar size="50" round={true} name={organizationData == null || organizationData == undefined ? "" : organizationData.name} />
+          <Avatar size="50" round={true} name={organizationData == null || organizationData == undefined ? "" : organizationData.organizationName} />
 
-          <h1>Username: {organizationData == null || organizationData == undefined ? "" : organizationData.name}</h1>
+          <h1>Username: {organizationData == null || organizationData == undefined ? "" : organizationData.organizationName}</h1>
           <p>Email: {organizationData == null || organizationData == undefined ? "" : organizationData.summary}</p>
         </Grid>
       </PageContainer>

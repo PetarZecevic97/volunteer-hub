@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using VolunteerHubBackend.Entities;
 
@@ -12,8 +13,8 @@ namespace VolunteerHubBackend.Services.Interfaces
 
         Task<Organization> CreateOrganization(OrganizationCreate product);
 
-        Task<string> UpdateOrganization(Organization product);
+        Task<Organization> UpdateOrganization(Organization product);
 
-        Task<string> DeleteOrganization(Organization product);
+        Task<HttpResponseMessage> DeleteOrganization(string Id);
     }
 }
