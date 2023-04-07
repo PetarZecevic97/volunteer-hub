@@ -30,7 +30,12 @@ const Signup = () => {
   const userService: WebRequestsInterface = getWebRequest();
   useEffect(() => {
     if (SessionService.checkIsLoggedIn()) {
-      navigate('/create-org-form', { replace: true });
+      const role = sessionStorage.getItem('role');
+      if('Organization' === role) {
+        navigate('/create-org-form', { replace: true });
+      } else if('Volunteer') {
+        navigate('/create-volunteer-form', { replace: true });
+      }
     }
   }, [sessionInfo]);
 
@@ -61,27 +66,21 @@ const Signup = () => {
     if(role === 'Organization') {
       await userService.signUpAsOrganization(dataForSignup);
       await userService.logIn(username, password);
-      const userStr = sessionStorage.getItem('user');
-      const user = userStr ? JSON.parse(userStr) : undefined;
-      const id = sessionStorage.getItem('id');
-      if (user && id) {
-        SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-                                  user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
-        setSessionInfo(SessionService.getUserInfo());
-      } else {
-        // email not found
-        setErrorMessages({ name: "signup", message: "Sranje ti signup" });
-      }
     } else {
       await userService.signUpAsVolunteer(dataForSignup);
       await userService.logIn(username, password);
-      const dataForCreate = {
-        id: sessionStorage.getItem('id'),
-        firstName,
-        lastName,
-        skils: [],
-      }
-      await userService.createVolunteer(dataForCreate);
+    }
+
+    const userStr = sessionStorage.getItem('user');
+    const user = userStr ? JSON.parse(userStr) : undefined;
+    const id = sessionStorage.getItem('id');
+    if (user && id) {
+      SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+                                user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
+      setSessionInfo(SessionService.getUserInfo());
+    } else {
+      // email not found
+      setErrorMessages({ name: "signup", message: "Sranje ti signup" });
     }
   };
 
