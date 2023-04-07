@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
+import CreateOrganizationForm from "./pages/CreateOrganizationForm";
 import Events from "./pages/Events";
 import Volunteer from "./components/Profile/Volunteer";
 import Organization from "./components/Profile/Organization";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/organization/:organizationId" element={<Organization />} />
         <Route path="/sign-in" element={<Signin />} />
         <Route path="/sign-up" element={<Signup />} />
+        <Route path="/create-org-form" element={<CreateOrganizationForm />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   LoginInputContainer,
   LoginTitle,
@@ -28,6 +28,11 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const userService: WebRequestsInterface = getWebRequest();
+  useEffect(() => {
+    if (SessionService.checkIsLoggedIn()) {
+      navigate('/create-org-form', { replace: true });
+    }
+  }, [sessionInfo]);
 
   const handleSubmit = (event: any) => {
     signup(event);
@@ -56,14 +61,17 @@ const Signup = () => {
     if(role === 'Organization') {
       await userService.signUpAsOrganization(dataForSignup);
       await userService.logIn(username, password);
-      const dataForCreate = {
-        id: sessionStorage.getItem('id'),
-        organizationName: username,
-        organizationId: username,
-        summary: "",
+      const userStr = sessionStorage.getItem('user');
+      const user = userStr ? JSON.parse(userStr) : undefined;
+      const id = sessionStorage.getItem('id');
+      if (user && id) {
+        SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+                                  user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
+        setSessionInfo(SessionService.getUserInfo());
+      } else {
+        // email not found
+        setErrorMessages({ name: "signup", message: "Sranje ti signup" });
       }
-
-      await userService.createOrganization(dataForCreate);
     } else {
       await userService.signUpAsVolunteer(dataForSignup);
       await userService.logIn(username, password);
@@ -74,20 +82,6 @@ const Signup = () => {
         skils: [],
       }
       await userService.createVolunteer(dataForCreate);
-    }
-    const userStr = sessionStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : undefined;
-    const id = sessionStorage.getItem('id');
-
-    if (user && id) {
-      const userData = role === 'Organization' ? await userService.getOrganizationById(id) : await userService.getVolunteerById(id);
-      sessionStorage.setItem('userData', JSON.stringify(userData));
-      SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-                                user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
-      setSessionInfo(SessionService.getUserInfo());
-    } else {
-      // email not found
-      setErrorMessages({ name: "signup", message: "Sranje ti signup" });
     }
   };
 

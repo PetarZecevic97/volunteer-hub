@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LoginInputContainer,
   LoginTitle,
@@ -27,7 +27,11 @@ const Signin = () => {
   const navigate = useNavigate();
 
   const userService: WebRequestsInterface = getWebRequest();
-  
+  useEffect(() => {
+    if (SessionService.checkIsLoggedIn()) {
+      navigate('/profile', { replace: true });
+    }
+  }, [sessionInfo]);
 
   const handleSubmit = (event: any) => {
     login(event);
@@ -47,12 +51,14 @@ const Signin = () => {
     const id = sessionStorage.getItem('id');
 
     if (user && id) {
-      console.dir(user);
       const role = sessionStorage.getItem('role');
       const userData = role === 'Organization' ? await userService.getOrganizationById(id) : await userService.getVolunteerById(id);
       sessionStorage.setItem('userData', JSON.stringify(userData));
       SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
                                 user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
+    const userDataName = 'my' + role;
+    sessionStorage.setItem(userDataName, JSON.stringify(userData));
+
       setSessionInfo(SessionService.getUserInfo());
       
     } else {
@@ -92,7 +98,6 @@ const Signin = () => {
     </form>
   );
   if (SessionService.checkIsLoggedIn()) {
-    navigate('/profile', { replace: true });
     return <></>
   } else {
     return (
