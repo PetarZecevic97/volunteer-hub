@@ -1,8 +1,11 @@
-import IUser from "./User";
-
 export default interface IOrganization {
       id: string;
-      name: string;
+      organizationName: string;
       summary: string;
-      userId: string;
+      organizationId: string;
+      createdBy: string,
+      createdDate: string,
+      lastModifiedBy: string,
+      lastModifiedDate: string,
+
 }

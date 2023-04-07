@@ -24,29 +24,29 @@ export class WebRequest implements WebRequestsInterface {
     getAllOrganizations() {
         const token = sessionStorage.getItem('token');
         const headers = {Authorization: `Bearer ${token}`}
-        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/GetAllOrganizations', {headers});
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization', {headers});
     }
     getOrganizationById(id: string) {
         const token = sessionStorage.getItem('token');
         const headers = {Authorization: `Bearer ${token}`}
-        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/GetOrganizationById/' + id, {headers})
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/' + id, {headers})
                     .then(value => value.data);
     }
     createOrganization(data: any) {
         const token = sessionStorage.getItem('token');
         const headers = {Authorization: `Bearer ${token}`}
-        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/CreateOrganization', data, {headers});
+        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization', data, {headers});
     }
-    updateOrganization(data: any) {
+    updateOrganization(data: any, id: string) {
         const token = sessionStorage.getItem('token');
         const headers = {Authorization: `Bearer ${token}`}
-        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/UpdateOrganization', data, {headers});
+        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/' + id, data, {headers});
     }
-    deleteOrganization(data: any) {
+    deleteOrganization(id: string) {
         const token = sessionStorage.getItem('token');
         const headers = {Authorization: `Bearer ${token}`}
-        return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/DeleteOrganization',
-            { data, headers });
+        return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/organization/'+ id,
+            { headers });
     }
     getAllVolunteers() {
         const token = sessionStorage.getItem('token');

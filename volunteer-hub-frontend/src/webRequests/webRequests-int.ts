@@ -6,8 +6,8 @@ export interface WebRequestsInterface {
     getAllOrganizations(): any
     getOrganizationById(id: string): any
     createOrganization(data: any): any
-    updateOrganization(data: any): any
-    deleteOrganization(data: any): any
+    updateOrganization(data: any, id: string): any
+    deleteOrganization(id: string): any
 
     getAllVolunteers(): any
     getVolunteerById(id: string): any

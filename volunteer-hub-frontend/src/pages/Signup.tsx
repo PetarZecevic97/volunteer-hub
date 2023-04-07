@@ -59,7 +59,7 @@ const Signup = () => {
       const dataForCreate = {
         id: sessionStorage.getItem('id'),
         organizationName: username,
-        organizationId: sessionStorage.getItem('id'),
+        organizationId: username,
         summary: "",
       }
 

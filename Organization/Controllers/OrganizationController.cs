@@ -20,7 +20,6 @@ namespace Organization.Controllers
             _organizationRepository = organizationRepository ?? throw new ArgumentNullException(nameof(organizationRepository));
         }
 
-        [Route("[action]")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<OrganizationEntity>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<OrganizationEntity>>> GetAllOrganizations()
@@ -30,8 +29,7 @@ namespace Organization.Controllers
         }
 
 
-        [Route("[action]/{id}")]
-        [HttpGet]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(IEnumerable<OrganizationEntity>), StatusCodes.Status200OK)]
         public async Task<ActionResult<OrganizationEntity>> GetOrganizationById(string id)
         {
@@ -39,8 +37,6 @@ namespace Organization.Controllers
             return Ok(result);  
         }
         
-        //TODO: Return type should be URL to new object
-        [Route("[action]")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<OrganizationEntity>), StatusCodes.Status201Created)]
         public async Task<ActionResult<OrganizationEntity>> CreateOrganization([FromBody] OrganizationEntity organization)
@@ -50,22 +46,20 @@ namespace Organization.Controllers
 
         }
 
-        [Route("[action]")]
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateOrganization([FromBody] OrganizationEntity organization)
+        public async Task<ActionResult<OrganizationEntity>> UpdateOrganization([FromBody] OrganizationEntity organization, [FromRoute]string id)
         {
             //NOTE: Request body should contain entity with existing Id and updated properties (see UpdateAsync())
-            await _organizationRepository.UpdateAsync(organization);
-            return Ok("Organization updated!");
+            OrganizationEntity res = await _organizationRepository.UpdateAsync(organization, id);
+            return Ok(res);
         }
 
-        [Route("[action]")]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        public async Task<IActionResult> DeleteOrganization([FromBody] OrganizationEntity organization)
+        public async Task<IActionResult> DeleteOrganization(string id)
         {
-            await _organizationRepository.DeleteAsync(organization);
+            await _organizationRepository.DeleteAsync(id);
             return Ok("Organization deleted!");
         }
 
