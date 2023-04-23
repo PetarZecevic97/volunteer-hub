@@ -8,7 +8,7 @@ import {
     LoginSubmit,
     LoginInputText,
     ButtonWrapper,
-} from "../components/Login/styles/LoginStyles";
+} from "./Login/styles/LoginStyles";
 
   export const renderErrorMessage = (name: string, errorMessages: any) => {
     if (errorMessages && name === errorMessages.name) {

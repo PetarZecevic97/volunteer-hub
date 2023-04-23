@@ -3,7 +3,7 @@ import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
 import SessionService from "../utility/Services/SessionService";
 import { useNavigate } from 'react-router-dom';
-import { renderForm } from "./RenderForms";
+import { renderForm } from "../components/RenderForms";
 
 interface IErrorMessages {
   name?: string;
