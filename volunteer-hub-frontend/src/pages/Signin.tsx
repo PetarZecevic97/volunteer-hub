@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  LoginInputContainer,
-  LoginTitle,
-  LoginForm,
-  LoginError,
-  LoginSubmit,
-  LoginInputText,
-  LoginContainer,
-  ButtonWrapper,
-} from "../components/Login/styles/LoginStyles";
 import SessionService from "../utility/Services/SessionService";
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
 import { useNavigate } from 'react-router-dom';
+import { renderForm } from "./RenderForms";
 
 interface IErrorMessages {
   name?: string;
@@ -33,14 +24,9 @@ const Signin = () => {
     }
   }, [sessionInfo]);
 
-  const handleSubmit = (event: any) => {
-    login(event);
-  };
-
-  const login = async (event: any) => {
+  const handleSubmit = async (event: any) => {
     //Prevent page reload
     event.preventDefault();
-    
     const pass = event.currentTarget.pass.value;    
     const username = event.currentTarget.username.value;
 
@@ -53,12 +39,12 @@ const Signin = () => {
     if (user && id) {
       const role = sessionStorage.getItem('role');
       const userData = role === 'Organization' ? await userService.getOrganizationById(id) : await userService.getVolunteerById(id);
+      const userDataName = 'my' + role;
+      sessionStorage.setItem(userDataName, JSON.stringify(userData));
+
       sessionStorage.setItem('userData', JSON.stringify(userData));
       SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
                                 user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
-    const userDataName = 'my' + role;
-    sessionStorage.setItem(userDataName, JSON.stringify(userData));
-
       setSessionInfo(SessionService.getUserInfo());
       
     } else {
@@ -67,47 +53,15 @@ const Signin = () => {
     }
   };
 
-  // Generate JSX code for error message
-  const renderErrorMessage = (name: string) => {
-    if (errorMessages) {
-      return (
-        name === errorMessages.name && (
-          <LoginError>{errorMessages.message}</LoginError>
-        )
-      );
-    }
-  };
-
-  // Generate JSX code for login form
-  const renderForm = (
-    <form onSubmit={handleSubmit}>
-        <LoginInputContainer>
-        <label>Username </label>
-        <LoginInputText name="username" required />
-        {renderErrorMessage("uname")}
-      </LoginInputContainer>
-      <LoginInputContainer>
-        <label>Password </label>
-        <LoginInputText name="pass" required />
-        {renderErrorMessage("pass")}
-      </LoginInputContainer>
-
-      <ButtonWrapper>
-        <LoginSubmit type="submit" value="Submit" />
-      </ButtonWrapper>
-    </form>
-  );
+  const inputFields = [
+      {name:"username", labelName: "Username", errorName: "uname"},
+      {name:"pass", labelName: "Password", errorName: "pass"},
+  ];
+  
   if (SessionService.checkIsLoggedIn()) {
     return <></>
   } else {
-    return (
-      <LoginContainer>
-        <LoginForm>
-          <LoginTitle>Log In</LoginTitle>
-          {renderForm}
-        </LoginForm>
-      </LoginContainer>
-    );
+    return renderForm(handleSubmit, errorMessages, inputFields, "Log in");
   }
 };
 

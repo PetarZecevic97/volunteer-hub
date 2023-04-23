@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from "react";
-import {
-  LoginInputContainer,
-  LoginTitle,
-  LoginForm,
-  LoginError,
-  LoginSubmit,
-  LoginInputText,
-  LoginContainer,
-  ButtonWrapper,
-} from "../components/Login/styles/LoginStyles";
+import { useState, useEffect } from "react";
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
 import SessionService from "../utility/Services/SessionService";
 import { useNavigate } from 'react-router-dom';
+import { renderForm, renderErrorMessage } from "./RenderForms";
 
 interface IErrorMessages {
   name?: string;
@@ -45,7 +36,6 @@ const CreateOrganizationForm = () => {
     const id = sessionStorage.getItem('id');
     
     if (user && id) {
-        
       const dataForCreate = {
         id: sessionStorage.getItem('id'),
         organizationName: event.currentTarget.organizationName.value,
@@ -56,62 +46,24 @@ const CreateOrganizationForm = () => {
         lastModifiedDate: Date().toLocaleString(),
         summary: event.currentTarget.summary.value,
       }
-
       const newOrg = await userService.createOrganization(dataForCreate);
-
-    sessionStorage.setItem('myOrganization', JSON.stringify(newOrg.data));
-    setMyOrgData(newOrg);
-      } else {
-        // email not found
-        setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
-      }
+      sessionStorage.setItem('myOrganization', JSON.stringify(newOrg.data));
+      setMyOrgData(newOrg);
+        } else {
+          // email not found
+          setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
+        }
   };
 
-  // Generate JSX code for error message
-  const renderErrorMessage = (name: string) => {
-    if (errorMessages) {
-      return (
-        name === errorMessages.name && (
-          <LoginError>{errorMessages.message}</LoginError>
-        )
-      );
-    }
-  };
-
-  // Generate JSX code for login form
-  const renderForm = (
-    <form onSubmit={handleSubmit}>
-    <LoginInputContainer>
-      <label>Organization name</label>
-      <LoginInputText name="organizationName" required />
-      {renderErrorMessage("organizationName")}
-    </LoginInputContainer>
-      <LoginInputContainer>
-        <label>Summary</label>
-        <LoginInputText name="summary" required />
-        {renderErrorMessage("summary")}
-      </LoginInputContainer>
-
-      <ButtonWrapper>
-        <LoginSubmit type="submit" value="Submit" />
-      </ButtonWrapper>
-    </form>
-  );
+  const inputFields = [
+    {name:"organizationName", labelName: "Organization name", errorName: "organizationName"},
+    {name:"summary", labelName: "Summary", errorName: "summary"},
+];
 
   if (SessionService.checkIsLoggedIn()) {
-    
-    return (
-        <LoginContainer>
-          <LoginForm>
-            <LoginTitle>Create your organization</LoginTitle>
-            {renderForm}
-          </LoginForm>
-        </LoginContainer>
-      );
+    return renderForm(handleSubmit, errorMessages, inputFields, "Create your organization");
   } else {
-    return (<>
-    {renderErrorMessage("You're not signed up. Please sign up first.")}
-    </>);
+    return renderErrorMessage("You're not signed up. Please sign up first.", errorMessages);
   }
 };
 
