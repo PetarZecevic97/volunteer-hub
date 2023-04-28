@@ -15,9 +15,13 @@ const Volunteer = () => {
   const userId = sessionStorage.getItem('id');
   const id = location.pathname === '/profile' ? userId : volunteerId;
   async function fetchVolunteer() {
-    if(id) {
-      const volunteer = await userService.getVolunteerById(id);
+    if(volunteerId) {
+      const volunteer = await userService.getVolunteerById(volunteerId);
       setVolunteerData(volunteer);
+    } else {
+      const volStr = sessionStorage.getItem('myVolunteer');
+      const vol = JSON.parse(volStr ? volStr : '{}');
+      setVolunteerData(vol);
     }
   }
 

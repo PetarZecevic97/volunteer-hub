@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import IOrganization from "../Entities/Organization";
 import Organization from "../components/Profile/Organization";
 import Volunteer from "../components/Profile/Volunteer";
-import IVolunteer from "../Entities/Volunteer";
 
 const Profile = () => {
-  let mOrganization: IOrganization;
-  let mVolunteer: IVolunteer;
   const role = sessionStorage.getItem('role');
   const nullableId = sessionStorage.getItem('id');
   const id = nullableId ? nullableId : '';
@@ -26,10 +23,10 @@ const Profile = () => {
     );
   };
 
-  const error = () => {
+  const error = (msg: string) => {
     return (
       <>
-        <p>User not logged in</p>
+        <p>{msg}</p>
       </>
     );
   }
@@ -41,9 +38,11 @@ const Profile = () => {
     return renderOrganization();
   } else if (isVolunteer){
     return renderVolunteer();
-  } else {
-    return error();
-  }
+  } else if (!id) {
+    return error('Not logged in');
+  }  else  {
+    return error('Not permitted role');
+  } 
 };
 
 export default Profile;

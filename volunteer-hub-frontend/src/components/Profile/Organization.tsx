@@ -8,20 +8,22 @@ import { WebRequestsInterface } from "../../webRequests/webRequests-int";
 
 const Organization = () => {
   const userService: WebRequestsInterface = getWebRequest();
-  const [organizationData, setOrganizationData] = useState<IOrganization>(); const location = useLocation();
+  const [organizationData, setOrganizationData] = useState<IOrganization>();
   const { organizationId } = useParams();
-  const userId = sessionStorage.getItem('id');
-  const id = location.pathname === '/profile' ? userId : organizationId;
+
   async function fetchOrganization() {
-    if(id) {
-      const org = await userService.getOrganizationById(id);
+    if(organizationId) {
+      const org = await userService.getOrganizationById(organizationId);
+      setOrganizationData(org);
+    } else {
+      const orgStr = sessionStorage.getItem('myOrganization');
+      const org = JSON.parse(orgStr ? orgStr : '{}');
       setOrganizationData(org);
     }
   }
-
   useEffect(() => {
     fetchOrganization();
-  }, [id]);
+  }, [organizationId]);
 
   return (
     <>
@@ -29,8 +31,8 @@ const Organization = () => {
         <Grid>
           <Avatar size="50" round={true} name={organizationData == null || organizationData == undefined ? "" : organizationData.organizationName} />
 
-          <h1>Username: {organizationData == null || organizationData == undefined ? "" : organizationData.organizationName}</h1>
-          <p>Email: {organizationData == null || organizationData == undefined ? "" : organizationData.summary}</p>
+          <h1>Organization name: {organizationData == null || organizationData == undefined ? "" : organizationData.organizationName}</h1>
+          <p>Summary: {organizationData == null || organizationData == undefined ? "" : organizationData.summary}</p>
         </Grid>
       </PageContainer>
     </>
