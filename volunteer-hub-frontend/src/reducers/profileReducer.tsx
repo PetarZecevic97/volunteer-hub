@@ -1,8 +1,11 @@
-import { CREATE_PROFILE, GET_PROFILE, LOG_OUT } from "../types/profileTyper";
+import {  CREATE_PROFILE,
+          GET_PROFILE,
+          LOG_OUT,
+          UPDATE_PROFILE,
+          DELETE_PROFILE } from "../types/profileTypes";
 
 const ProfileReducer = (state: any, action: any) => {
-    const initialState: any = state ? state : {myProfile : undefined}
-    console.log('Ljeks profile reducer ', action);
+    const initialState: any = state ? state : {myProfile : undefined};
       switch (action.type) {
         case CREATE_PROFILE:
           return {
@@ -14,6 +17,16 @@ const ProfileReducer = (state: any, action: any) => {
                 ...initialState,
                 myProfile: action.payload
             };
+        case UPDATE_PROFILE:
+            return {
+                ...initialState,
+                myProfile: action.payload
+            };
+          case DELETE_PROFILE:
+              return {
+                  ...initialState,
+                  myProfile: {}
+                    };
         case LOG_OUT:
             return {};
         default:
