@@ -1,5 +1,4 @@
-export default (state: any, action: any) => {
-  console.log("Ljeks reducer ", action.payload);
+const OrganizationReducer = (state: any, action: any) => {
   const initialState: any = state ? state : {myOrganization : undefined}
     switch (action.type) {
       case "createOrganization":
@@ -16,3 +15,5 @@ export default (state: any, action: any) => {
         return initialState;
     }
   };
+
+  export default OrganizationReducer;

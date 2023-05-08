@@ -5,7 +5,7 @@ const userService: WebRequestsInterface = getWebRequest();
 
 export const createOrganization = (dataForCreate: any) => async (dispatch: any) => {
   const newOrg = await userService.createOrganization(dataForCreate);
-  dispatch({
+  return dispatch({
     type: "createOrganization",
     payload: newOrg
   });
@@ -13,7 +13,7 @@ export const createOrganization = (dataForCreate: any) => async (dispatch: any) 
 
 export const getOrganization = (organizationId: any) => async (dispatch: any) =>{
   const org = await userService.getOrganizationById(organizationId);
-  dispatch({
+  return dispatch({
     type: "getOrgaization",
     payload: org
   });

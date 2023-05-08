@@ -3,17 +3,17 @@ import getWebRequest from "../webRequests/webRequestsProvider";
 
 const userService: WebRequestsInterface = getWebRequest();
 
-export const createVolunteerAction =  (dataForCreate: any) => async (dispatch: any) => {
-  const newVolunteer = await userService.createOrganization(dataForCreate);
-  dispatch({
+export const createVolunteer =  (dataForCreate: any) => async (dispatch: any) => {
+  const newVolunteer = await userService.createVolunteer(dataForCreate);
+  return dispatch({
     type: "createVolunteer",
     payload: newVolunteer
   });
 }
 
-export const getVolunteerAction = (volunteerId: any) => async (dispatch: any) =>  {
+export const getVolunteer = (volunteerId: any) => async (dispatch: any) =>  {
   const volunteer = await userService.getVolunteerById(volunteerId);
-  dispatch({
+  return dispatch({
     type: "getVolunteer",
     payload: volunteer
   });

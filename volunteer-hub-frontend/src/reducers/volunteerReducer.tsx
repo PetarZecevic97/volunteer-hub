@@ -1,4 +1,4 @@
-export default (state: any, action: any) => {
+const VolunteerReducer =  (state: any, action: any) => {
     const initialState: any = state ? state : {myVolunteer : undefined}
       switch (action.type) {
         case "createVolunteer":
@@ -15,3 +15,5 @@ export default (state: any, action: any) => {
           return initialState;
       }
     };
+
+    export default VolunteerReducer;

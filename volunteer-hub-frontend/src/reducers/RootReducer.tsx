@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import organizationReducer from './organizationReducer';
-import volunteerReducer from './volunteerReducer';
+import OrganizationReducer from './organizationReducer';
+import VolunteerReducer from './volunteerReducer';
 
-export default combineReducers({
-    organizations: organizationReducer,
-    volunteers: volunteerReducer,
+const rootReducers = combineReducers({
+    organizations: OrganizationReducer,
+    volunteers: VolunteerReducer,
 });
+
+export default rootReducers;
