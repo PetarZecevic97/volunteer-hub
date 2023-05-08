@@ -37,12 +37,6 @@ const Signin = () => {
     const id = sessionStorage.getItem('id');
 
     if (user && id) {
-      const role = sessionStorage.getItem('role');
-      const userData = role === 'Organization' ? await userService.getOrganizationById(id) : await userService.getVolunteerById(id);
-      const userDataName = 'my' + role;
-      sessionStorage.setItem(userDataName, JSON.stringify(userData));
-
-      sessionStorage.setItem('userData', JSON.stringify(userData));
       SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
                                 user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
       setSessionInfo(SessionService.getUserInfo());

@@ -4,6 +4,10 @@ import getWebRequest from "../webRequests/webRequestsProvider";
 import SessionService from "../utility/Services/SessionService";
 import { useNavigate } from 'react-router-dom';
 import { renderForm, renderErrorMessage } from "../components/RenderForms";
+import { createVolunteer } from "../actions/volunteerActions"
+import { connect } from "react-redux";
+import { useSelector } from 'react-redux';
+import { createProfile } from "../actions/profileActions";
 
 interface IErrorMessages {
   name?: string;
@@ -12,8 +16,10 @@ interface IErrorMessages {
   message?: string;
 }
 
-const CreateVolunteerForm = () => {
-  const [myVolData, setMyVolData] = useState();
+const CreateVolunteerForm = ({ createProfileAction }: any) => {
+  const myVolData = useSelector((state: any) => state.profileData.myProfile);
+  const state = useSelector((state: any) => state);
+  console.log('Ljeks ', state)
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const navigate = useNavigate();
 
@@ -23,7 +29,6 @@ const CreateVolunteerForm = () => {
     }
   }, [myVolData]);
 
-  const userService: WebRequestsInterface = getWebRequest();
   const handleSubmit = async (event: any) => {
     //Prevent page reload
     event.preventDefault();
@@ -39,9 +44,7 @@ const CreateVolunteerForm = () => {
         lastName: event.currentTarget.lastName.value,
         skills: event.currentTarget.skills.value.split(", "),
       }
-      const newVol = await userService.createVolunteer(dataForCreate);
-      sessionStorage.setItem('myVolunteer', JSON.stringify(newVol.data));
-      setMyVolData(newVol);
+      await createProfileAction(dataForCreate, "Volunteer");
     } else {
         // email not found
       setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
@@ -61,4 +64,8 @@ const CreateVolunteerForm = () => {
   }
 };
 
-export default CreateVolunteerForm;
+const mapDispatchToProps = {
+  createProfileAction: createProfile,
+};
+
+export default connect(null, mapDispatchToProps)(CreateVolunteerForm);

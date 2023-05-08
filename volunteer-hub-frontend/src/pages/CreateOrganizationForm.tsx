@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { WebRequestsInterface } from "../webRequests/webRequests-int";
-import getWebRequest from "../webRequests/webRequestsProvider";
 import SessionService from "../utility/Services/SessionService";
 import { useNavigate } from 'react-router-dom';
 import { renderForm, renderErrorMessage } from "../components/RenderForms";
+import { connect } from "react-redux";
+import { useSelector } from 'react-redux';
+import { createProfile } from "../actions/profileActions";
 
 interface IErrorMessages {
   name?: string;
@@ -12,16 +13,16 @@ interface IErrorMessages {
   message?: string;
 }
 
-const CreateOrganizationForm = () => {
-  const [myOrgData, setMyOrgData] = useState();
+const CreateOrganizationForm = ({ createProfileAction }: any) => {
+  const myOrganization = useSelector((state: any) => state.profileData.myProfile);
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (SessionService.checkIsLoggedIn() && myOrgData) {
+    if (SessionService.checkIsLoggedIn() && myOrganization) {
       navigate('/profile', { replace: true });
     }
-  }, [myOrgData]);
-  const userService: WebRequestsInterface = getWebRequest();
+  }, [myOrganization]);
 
   const handleSubmit = (event: any) => {
     signup(event);
@@ -46,13 +47,11 @@ const CreateOrganizationForm = () => {
         lastModifiedDate: Date().toLocaleString(),
         summary: event.currentTarget.summary.value,
       }
-      const newOrg = await userService.createOrganization(dataForCreate);
-      sessionStorage.setItem('myOrganization', JSON.stringify(newOrg.data));
-      setMyOrgData(newOrg);
-        } else {
-          // email not found
-          setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
-        }
+      await createProfileAction(dataForCreate, "Organization");
+    } else {
+      // email not found
+      setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
+    }
   };
 
   const inputFields = [
@@ -67,4 +66,8 @@ const CreateOrganizationForm = () => {
   }
 };
 
-export default CreateOrganizationForm;
+const mapDispatchToProps = {
+  createProfileAction: createProfile,
+};
+
+export default connect(null, mapDispatchToProps)(CreateOrganizationForm);

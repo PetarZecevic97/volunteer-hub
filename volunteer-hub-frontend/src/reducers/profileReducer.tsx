@@ -1,5 +1,6 @@
 const ProfileReducer = (state: any, action: any) => {
     const initialState: any = state ? state : {myProfile : undefined}
+    console.log('Ljeks profile reducer ', action);
       switch (action.type) {
         case "createProfile":
           return {
@@ -12,7 +13,7 @@ const ProfileReducer = (state: any, action: any) => {
                 myProfile: action.payload
             };
         case "logout":
-            return initialState;
+            return {};
         default:
           return initialState;
       }
