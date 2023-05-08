@@ -1,15 +1,15 @@
 const OrganizationReducer = (state: any, action: any) => {
-  const initialState: any = state ? state : {myOrganization : undefined}
+  const initialState: any = state ? state : {organization : undefined, organizationList: []}
     switch (action.type) {
       case "createOrganization":
         return {
           ...initialState,
-          myOrganization: action.payload
+          organization: action.payload
         };
         case "getOrgaization":
           return {
             ...initialState,
-            myOrganization: action.payload
+            organization: action.payload
           };
       default:
         return initialState;

@@ -1,15 +1,15 @@
 const VolunteerReducer =  (state: any, action: any) => {
-    const initialState: any = state ? state : {myVolunteer : undefined}
+    const initialState: any = state ? state : {volunteer : undefined, volunteerList: []}
       switch (action.type) {
         case "createVolunteer":
           return {
             ...initialState,
-            myVolunteer: action.payload
+            volunteer: action.payload
           };
           case "getVolunteer":
             return {
               ...initialState,
-              myVolunteer: action.payload
+              volunteer: action.payload
             };
         default:
           return initialState;
