@@ -1,12 +1,12 @@
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
-
+import { CREATE_VOLUNTEER, GET_VOLUNTEER } from "../types/volunteerTypes";
 const userService: WebRequestsInterface = getWebRequest();
 
 export const createVolunteer =  (dataForCreate: any) => async (dispatch: any) => {
   const newVolunteer = await userService.createVolunteer(dataForCreate);
   return dispatch({
-    type: "createVolunteer",
+    type: CREATE_VOLUNTEER,
     payload: newVolunteer
   });
 }
@@ -14,7 +14,7 @@ export const createVolunteer =  (dataForCreate: any) => async (dispatch: any) =>
 export const getVolunteer = (volunteerId: any) => async (dispatch: any) =>  {
   const volunteer = await userService.getVolunteerById(volunteerId);
   return dispatch({
-    type: "getVolunteer",
+    type: GET_VOLUNTEER,
     payload: volunteer
   });
 };
