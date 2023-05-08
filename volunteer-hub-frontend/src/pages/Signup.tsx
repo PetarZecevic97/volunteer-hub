@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
 import SessionService from "../utility/Services/SessionService";
-import { useNavigate } from 'react-router-dom';
+import { EMAIL, NAME } from "../utility/jwtFields";
+import { inputFieldsforSignup } from "../utility/formInputFields";
 import { renderForm } from "../components/RenderForms";
 
 interface IErrorMessages {
@@ -58,29 +61,19 @@ const Signup = () => {
     const id = sessionStorage.getItem('id');
 
     if (user && id) {
-      SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-                                user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
+      SessionService.setUserInfo(user[NAME], user[EMAIL]);
       setSessionInfo(SessionService.getUserInfo());
     } else {
       // email not found
       setErrorMessages({ name: "signup", message: "Sranje ti signup" });
     }
   };
-  const inputFields = [
-      {name:"firstName", labelName: "First name", errorName: "firstName"},
-      {name:"lastName", labelName: "Last name", errorName: "lastName"},
-      {name:"username", labelName: "Username", errorName: "uname"},
-      {name:"email", labelName: "E-mail", errorName: "email"},
-      {name:"pass", labelName: "Password", errorName: "pass"},
-      {name:"role", labelName: "Role", errorName: "role"},
-      {name:"phone", labelName: "Phone number", errorName: "phone"},
-  ];
 
   if (SessionService.checkIsLoggedIn()) {
     navigate('/profile', { replace: true });
     return <></>
   } else {
-    return renderForm(handleSubmit, errorMessages, inputFields, "Sign up");
+    return renderForm(handleSubmit, errorMessages, inputFieldsforSignup, "Sign up");
   }
 };
 

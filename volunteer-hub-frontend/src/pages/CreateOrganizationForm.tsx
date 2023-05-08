@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import SessionService from "../utility/Services/SessionService";
 import { useNavigate } from 'react-router-dom';
+import { connect, useSelector } from "react-redux";
+
+import SessionService from "../utility/Services/SessionService";
+import { inputFieldsforCreateOrganizationForm } from "../utility/formInputFields";
 import { renderForm, renderErrorMessage } from "../components/RenderForms";
-import { connect } from "react-redux";
-import { useSelector } from 'react-redux';
 import { createProfile } from "../actions/profileActions";
 
 interface IErrorMessages {
@@ -24,11 +25,7 @@ const CreateOrganizationForm = ({ createProfileAction }: any) => {
     }
   }, [myOrganization]);
 
-  const handleSubmit = (event: any) => {
-    signup(event);
-  };
-
-  const signup = async (event: any) => {
+  const handleSubmit = async (event: any) => {
     //Prevent page reload
     event.preventDefault();
     
@@ -54,13 +51,8 @@ const CreateOrganizationForm = ({ createProfileAction }: any) => {
     }
   };
 
-  const inputFields = [
-    {name:"organizationName", labelName: "Organization name", errorName: "organizationName"},
-    {name:"summary", labelName: "Summary", errorName: "summary"},
-];
-
   if (SessionService.checkIsLoggedIn()) {
-    return renderForm(handleSubmit, errorMessages, inputFields, "Create your organization");
+    return renderForm(handleSubmit, errorMessages, inputFieldsforCreateOrganizationForm, "Create your organization");
   } else {
     return renderErrorMessage("You're not signed up. Please sign up first.", errorMessages);
   }

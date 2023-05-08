@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import SessionService from "../utility/Services/SessionService";
+import { useNavigate } from 'react-router-dom';
+
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
-import { useNavigate } from 'react-router-dom';
+import SessionService from "../utility/Services/SessionService";
+import { EMAIL, NAME } from "../utility/jwtFields";
+import { inputFieldsforSignin } from "../utility/formInputFields";
 import { renderForm } from "../components/RenderForms";
 
 interface IErrorMessages {
@@ -37,8 +40,7 @@ const Signin = () => {
     const id = sessionStorage.getItem('id');
 
     if (user && id) {
-      SessionService.setUserInfo(user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-                                user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]);
+      SessionService.setUserInfo(user[NAME], user[EMAIL]);
       setSessionInfo(SessionService.getUserInfo());
       
     } else {
@@ -46,16 +48,11 @@ const Signin = () => {
       setErrorMessages({ name: "login", message: "Sranje ti login" });
     }
   };
-
-  const inputFields = [
-      {name:"username", labelName: "Username", errorName: "uname"},
-      {name:"pass", labelName: "Password", errorName: "pass"},
-  ];
   
   if (SessionService.checkIsLoggedIn()) {
     return <></>
   } else {
-    return renderForm(handleSubmit, errorMessages, inputFields, "Log in");
+    return renderForm(handleSubmit, errorMessages, inputFieldsforSignin, "Log in");
   }
 };
 
