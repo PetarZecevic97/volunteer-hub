@@ -27,6 +27,17 @@ interface IErrorMessages {
 
 const DebugPanel = () => {
     const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
+
+    const [flags, setFlags] = useState([
+        {id: "admin_toggle", label: "Admin", checked: true},
+        {id: "jwt_toggle", label: "Require JWT Token", checked: true},
+        {id: "all_visibility_toggle", label: "All content visible", checked: true},
+        {id: "auth_toggle", label: "Authorization checks", checked: true},
+        {id: "volunteer_toggle", label: "Volunteer account", checked: true},
+        {id: "organization_toggle", label: "Organization account", checked: true},
+    ]);
+
+
     const [sessionInfo, setSessionInfo] = useState(SessionService.getUserInfo());
     const navigate = useNavigate();
 
@@ -36,6 +47,15 @@ const DebugPanel = () => {
         setDebugValues(event);
     };
 
+    const handleChange = (isChecked, i) => {
+        let tmp = flags[i];
+        tmp.checked = !isChecked;
+        let flagsClone = [...flags];
+        flagsClone[i] = tmp;
+        setFlags([...flagsClone]);
+        console.log(flags)
+    };
+
     const setDebugValues = async (event: any) => {
         //Prevent page reload
         event.preventDefault();
@@ -43,12 +63,9 @@ const DebugPanel = () => {
         const pass = event.currentTarget.pass.value;
         const username = event.currentTarget.username.value;
 
-        // if () {
+        flags.map(({id, label, checked}, i) => {
 
-        // } else {
-        //   // email not found
-        //   setErrorMessages({ name: "Debug", message: "Sranje ti Debug" });
-        // }
+        });
     };
 
     // Generate JSX code for error message
@@ -78,44 +95,17 @@ const DebugPanel = () => {
 
             {/* Select type of account */}
             Account flags:
-
             <CheckBoxContainer>
-                <CheckBox
-                    p_id="admin_toggle"
-                    p_label="Admin"
-                    p_checked={true}
-                />
-                <CheckBox
-                    p_id="jwt_toggle"
-                    p_label="Require JWT token"
-                    p_checked={true}
+                {flags.map(({id, label, checked}, i) => (
+                    <CheckBox
+                        p_id={id}
+                        p_label={label}
+                        p_checked={checked}
+                        p_index={i}
+                        p_handle_change={handleChange}
+                    />
+                ))}
 
-                />
-                <CheckBox
-                    p_id="all_visibility_toggle"
-                    p_label="All content visible"
-                    p_checked={true}
-
-                />
-                <CheckBox
-                    p_id="auth_toggle"
-                    p_label="Authorization checks"
-                    p_checked={true}
-
-                />
-                <CheckBox
-                    p_id="Volunteer_toggle"
-                    p_label="Volunteer account"
-                    p_checked={true}
-
-                />
-
-                <CheckBox
-                    p_id="organization_toggle"
-                    p_label="Organization account"
-                    p_checked={true}
-
-                />
 
             </CheckBoxContainer>
 

@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import {StyledCheckBox, StyledCheckBoxContainer, StyledCheckMark} from "../Debug/styles/DebugStyles";
 
-export const CheckBox = ({p_id, p_label, p_checked, ...props}) => {
+export const CheckBox = ({p_id, p_label, p_checked, p_index, p_handle_change, ...props}) => {
     const [isChecked, setIsChecked] = useState(p_checked);
 
-    const handleOnChange = () => {
+    const handleOnChange = (isChecked,index) => {
         setIsChecked(!isChecked);
+        p_handle_change(isChecked, p_index);
     };
 
     return (
@@ -14,7 +15,7 @@ export const CheckBox = ({p_id, p_label, p_checked, ...props}) => {
             <StyledCheckBox
                 type="checkbox"
                 checked={isChecked}
-                onChange={handleOnChange}
+                onChange={() => handleOnChange(isChecked,p_index)}
             />
             <StyledCheckMark/>
         </>
