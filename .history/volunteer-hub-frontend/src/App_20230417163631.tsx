@@ -9,7 +9,7 @@ import Signup from "./pages/Signup";
 import Events from "./pages/Events";
 import Volunteer from "./components/Profile/Volunteer";
 import Organization from "./components/Profile/Organization";
-import DebugPanel from "./pages/DebugPanel";
+import DebugPanel from "./components/DebugPanel/DebugPanel";
 
 function App() {
   return (

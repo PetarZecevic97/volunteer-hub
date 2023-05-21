@@ -21,9 +21,8 @@ const Navbar = () => {
         return true;
       } else {
         return false;
-      }
-    }
-  );
+  }
+  });
 
   const clearSession = () => {
     SessionService.clearSessionInfo();
@@ -78,7 +77,7 @@ const Navbar = () => {
               Log Out
             </NavBtnLink>
           )}
-          {isDebug && <NavBtnLink to="/debug">Debug</NavBtnLink>}
+          {!isDebug && <NavBtnLink to="/debug">Debug</NavBtnLink>}
         </NavBtn>
       </Nav>
     </>

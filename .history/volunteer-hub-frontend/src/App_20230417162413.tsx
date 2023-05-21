@@ -9,11 +9,12 @@ import Signup from "./pages/Signup";
 import Events from "./pages/Events";
 import Volunteer from "./components/Profile/Volunteer";
 import Organization from "./components/Profile/Organization";
-import DebugPanel from "./pages/DebugPanel";
+import DebugPanel from "./components/Sidenav/DebugPanel";
 
 function App() {
   return (
     <Router>
+      <DebugPanel/>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -24,7 +25,6 @@ function App() {
         <Route path="/sign-in" element={<Signin />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/debug" element={<DebugPanel />} />
       </Routes>
     </Router>
   );

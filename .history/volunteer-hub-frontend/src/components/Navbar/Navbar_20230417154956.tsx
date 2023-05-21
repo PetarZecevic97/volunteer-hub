@@ -16,14 +16,6 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     SessionService.checkIsLoggedIn()
   );
-  const [isDebug, setIsDebug] = useState( () => {
-      if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  );
 
   const clearSession = () => {
     SessionService.clearSessionInfo();
@@ -78,7 +70,6 @@ const Navbar = () => {
               Log Out
             </NavBtnLink>
           )}
-          {isDebug && <NavBtnLink to="/debug">Debug</NavBtnLink>}
         </NavBtn>
       </Nav>
     </>
