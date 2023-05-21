@@ -8,7 +8,7 @@ import {
     DebugInputText,
     DebugContainer,
     ButtonWrapper,
-    Form, CheckBoxContainer,
+    Form, CheckBoxContainer, StyledCheckBoxContainer,
 } from "../components/Debug/styles/DebugStyles";
 import SessionService from "../utility/Services/SessionService";
 import {WebRequestsInterface} from "../webRequests/webRequests-int";
@@ -17,7 +17,6 @@ import {useNavigate} from "react-router-dom";
 import "../components/DebugPanel/styles/DebugPanel.css";
 import {CheckBox} from "../components/DebugPanel/CheckBox";
 import {TextInput} from "../components/DebugPanel/TextInput";
-import {RadioGroup} from "../components/DebugPanel/RadioGroup";
 
 interface IErrorMessages {
     name?: string;
@@ -99,17 +98,25 @@ const DebugPanel = () => {
 
                 />
                 <CheckBox
-                    p_id="security_toggle"
-                    p_label="Security checks"
+                    p_id="auth_toggle"
+                    p_label="Authorization checks"
+                    p_checked={true}
+
+                />
+                <CheckBox
+                    p_id="Volunteer_toggle"
+                    p_label="Volunteer account"
                     p_checked={true}
 
                 />
 
-                {/*<RadioGroup*/}
-                {/*    p_id="type_of_account"*/}
-                {/*    p_options={["volunteer","organization"]}*/}
+                <CheckBox
+                    p_id="organization_toggle"
+                    p_label="Organization account"
+                    p_checked={true}
 
-                {/*/>*/}
+                />
+
             </CheckBoxContainer>
 
             <ButtonWrapper>

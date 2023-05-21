@@ -19,7 +19,6 @@
   cursor: pointer;
   height: 0;
   width: 0;
-  visibility: hidden;
 }
 
 /* Create a custom checkbox */
@@ -39,7 +38,7 @@
 
 /* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
-  background-color: #2196f3;
+  background-color: #2196F3;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
