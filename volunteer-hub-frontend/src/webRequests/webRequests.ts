@@ -71,10 +71,10 @@ export class WebRequest implements WebRequestsInterface {
         const headers = {Authorization: `Bearer ${token}`}
         return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer', data, {headers});
     }
-    updateVolunteer(data: any) {
+    updateVolunteer(data: any, id: any) {
         const token = sessionStorage.getItem('token');
         const headers = {Authorization: `Bearer ${token}`}
-        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer/', data, {headers});
+        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer/' + id, data, {headers});
     }
     deleteVolunteer(id: string) {
         const token = sessionStorage.getItem('token');

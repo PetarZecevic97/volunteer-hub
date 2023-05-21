@@ -1,29 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import IVolunteer from "../../Entities/Volunteer";
 import Avatar from "react-avatar";
 import { Grid, PageContainer } from "./styles/ProfileStyles";
-import { WebRequestsInterface } from "../../webRequests/webRequests-int";
-import getWebRequest from "../../webRequests/webRequestsProvider";
+import { useSelector } from 'react-redux';
+import { connect } from "react-redux";
+import { getVolunteer } from "../../actions/volunteerActions";
 
-
-const Volunteer = () => {
-  const userService: WebRequestsInterface = getWebRequest();
+const Volunteer = ({ getVolunteerAction }: any) => {
   const [volunteerData, setVolunteerData] = useState<IVolunteer>();
-  const location = useLocation();
+  const myProfileVolunteer = useSelector((state: any) => state.profileData.myProfile);
+  const currentVolunteer = useSelector((state: any) => state.volunteers.volunteer);
+
   const { volunteerId } = useParams();
-  const userId = sessionStorage.getItem('id');
-  const id = location.pathname === '/profile' ? userId : volunteerId;
-  async function fetchVolunteer() {
-    if(id) {
-      const volunteer = await userService.getVolunteerById(id);
-      setVolunteerData(volunteer);
-    }
-  }
+
+function setRightVolunteer() {
+  const volunteer = volunteerId ? currentVolunteer : myProfileVolunteer;
+  setVolunteerData(volunteer);
+}
 
   useEffect(() => {
-    fetchVolunteer();
-  }, [id]);
+    setRightVolunteer();
+  }, [myProfileVolunteer, volunteerId]);
+
+  useEffect(() => {
+    if(volunteerId) {
+      getVolunteerAction(volunteerId);
+    }
+  }, [volunteerId]);
 
   return (
     <>
@@ -39,4 +43,8 @@ const Volunteer = () => {
     );
 };
 
-export default Volunteer;
+const mapDispatchToProps = {
+  getVolunteerAction: getVolunteer,
+};
+
+export default connect(null, mapDispatchToProps)(Volunteer);

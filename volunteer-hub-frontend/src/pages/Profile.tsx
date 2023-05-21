@@ -1,15 +1,21 @@
-import React, { useState } from "react";
-import IOrganization from "../Entities/Organization";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+
 import Organization from "../components/Profile/Organization";
 import Volunteer from "../components/Profile/Volunteer";
-import IVolunteer from "../Entities/Volunteer";
+import { getProfileData } from "../actions/profileActions";
 
-const Profile = () => {
-  let mOrganization: IOrganization;
-  let mVolunteer: IVolunteer;
+const Profile = ({ getProfileDataAction } : any) => {
   const role = sessionStorage.getItem('role');
   const nullableId = sessionStorage.getItem('id');
   const id = nullableId ? nullableId : '';
+
+  useEffect(() => {
+    if(id && role) {
+      getProfileDataAction(id, role);
+    }
+  }, [role, id]);
+
   const renderOrganization = () => {
     return (
       <>
@@ -26,10 +32,10 @@ const Profile = () => {
     );
   };
 
-  const error = () => {
+  const error = (msg: string) => {
     return (
       <>
-        <p>User not logged in</p>
+        <p>{msg}</p>
       </>
     );
   }
@@ -41,9 +47,15 @@ const Profile = () => {
     return renderOrganization();
   } else if (isVolunteer){
     return renderVolunteer();
-  } else {
-    return error();
-  }
+  } else if (!id) {
+    return error('Not logged in');
+  }  else  {
+    return error('Not permitted role');
+  } 
 };
 
-export default Profile;
+const mapDispatchToProps = {
+  getProfileDataAction: getProfileData
+};
+
+export default connect(null, mapDispatchToProps)(Profile);

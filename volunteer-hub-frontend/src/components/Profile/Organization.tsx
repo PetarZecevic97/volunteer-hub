@@ -1,27 +1,32 @@
 import React, { useState, useEffect,  } from "react";
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Avatar from "react-avatar";
 import { Grid, PageContainer } from "./styles/ProfileStyles";
-import getWebRequest from "../../webRequests/webRequestsProvider";
 import IOrganization from "../../Entities/Organization";
-import { WebRequestsInterface } from "../../webRequests/webRequests-int";
+import { useSelector } from 'react-redux';
+import { getOrganization } from "../../actions/organizationActions";
+import { connect } from "react-redux";
 
-const Organization = () => {
-  const userService: WebRequestsInterface = getWebRequest();
-  const [organizationData, setOrganizationData] = useState<IOrganization>(); const location = useLocation();
+const Organization = ({ getOrganizationAction }: any) => {
+  const [organizationData, setOrganizationData] = useState<IOrganization>();
+  const myProfileOrganization = useSelector((state: any) => state.profileData.myProfile);
+  const organization = useSelector((state: any) => state.organizations.myOrganization);
   const { organizationId } = useParams();
-  const userId = sessionStorage.getItem('id');
-  const id = location.pathname === '/profile' ? userId : organizationId;
-  async function fetchOrganization() {
-    if(id) {
-      const org = await userService.getOrganizationById(id);
-      setOrganizationData(org);
-    }
-  }
+
+function setRightOrg() {
+  const org = organizationId ? organization : myProfileOrganization;
+  setOrganizationData(org);
+}
 
   useEffect(() => {
-    fetchOrganization();
-  }, [id]);
+    setRightOrg();
+  }, [myProfileOrganization, organizationId]);
+
+  useEffect(() => {
+    if(organizationId) {
+      getOrganizationAction(organizationId);
+    }
+  }, [organizationId]);
 
   return (
     <>
@@ -29,12 +34,16 @@ const Organization = () => {
         <Grid>
           <Avatar size="50" round={true} name={organizationData == null || organizationData == undefined ? "" : organizationData.organizationName} />
 
-          <h1>Username: {organizationData == null || organizationData == undefined ? "" : organizationData.organizationName}</h1>
-          <p>Email: {organizationData == null || organizationData == undefined ? "" : organizationData.summary}</p>
+          <h1>Organization name: {organizationData == null || organizationData == undefined ? "" : organizationData.organizationName}</h1>
+          <p>Summary: {organizationData == null || organizationData == undefined ? "" : organizationData.summary}</p>
         </Grid>
       </PageContainer>
     </>
   );
 };
 
-export default Organization;
+const mapDispatchToProps = {
+  getOrganizationAction: getOrganization,
+};
+
+export default connect(null, mapDispatchToProps)(Organization);

@@ -1,5 +1,3 @@
-import React from "react";
-
 const SessionService = {
   setUserInfo: (username: string, email: string) => {
     sessionStorage.setItem("email", email);
@@ -17,10 +15,8 @@ const SessionService = {
     sessionStorage.clear();
   },
   checkIsLoggedIn: () => {
-    return !(
-      sessionStorage.getItem("email") == undefined &&
-      sessionStorage.getItem("username") == undefined
-    );
+    const id = sessionStorage.getItem('id');
+    return id !== null && id !== undefined;
   },
 };
 

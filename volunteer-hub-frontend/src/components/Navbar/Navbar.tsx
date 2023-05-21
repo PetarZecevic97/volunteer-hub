@@ -11,8 +11,10 @@ import {
 } from "./styles/NavbarStyles";
 import "./styles/Navbar.css";
 import SessionService from "../../utility/Services/SessionService";
+import { logOutOfProfile } from "../../actions/profileActions";
+import { connect } from "react-redux";
 
-const Navbar = () => {
+const Navbar = ({ logOutOfProfileAction }: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     SessionService.checkIsLoggedIn()
   );
@@ -26,6 +28,7 @@ const Navbar = () => {
   );
 
   const clearSession = () => {
+    logOutOfProfileAction();
     SessionService.clearSessionInfo();
     sessionStorage.clear()
     setIsLoggedIn(false);
@@ -85,4 +88,8 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapDispatchToProps = {
+  logOutOfProfileAction: logOutOfProfile,
+};
+
+export default connect(null, mapDispatchToProps)(Navbar);
