@@ -1,28 +1,31 @@
 import React, { useState, useEffect,  } from "react";
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Avatar from "react-avatar";
 import { Grid, PageContainer } from "./styles/ProfileStyles";
-import getWebRequest from "../../webRequests/webRequestsProvider";
 import IOrganization from "../../Entities/Organization";
-import { WebRequestsInterface } from "../../webRequests/webRequests-int";
+import { useSelector } from 'react-redux';
+import { getOrganization } from "../../actions/organizationActions";
+import { connect } from "react-redux";
 
-const Organization = () => {
-  const userService: WebRequestsInterface = getWebRequest();
+const Organization = ({ getOrganizationAction }: any) => {
   const [organizationData, setOrganizationData] = useState<IOrganization>();
+  const myProfileOrganization = useSelector((state: any) => state.profileData.myProfile);
+  const organization = useSelector((state: any) => state.organizations.myOrganization);
   const { organizationId } = useParams();
 
-  async function fetchOrganization() {
-    if(organizationId) {
-      const org = await userService.getOrganizationById(organizationId);
-      setOrganizationData(org);
-    } else {
-      const orgStr = sessionStorage.getItem('myOrganization');
-      const org = JSON.parse(orgStr ? orgStr : '{}');
-      setOrganizationData(org);
-    }
-  }
+function setRightOrg() {
+  const org = organizationId ? organization : myProfileOrganization;
+  setOrganizationData(org);
+}
+
   useEffect(() => {
-    fetchOrganization();
+    setRightOrg();
+  }, [myProfileOrganization, organizationId]);
+
+  useEffect(() => {
+    if(organizationId) {
+      getOrganizationAction(organizationId);
+    }
   }, [organizationId]);
 
   return (
@@ -39,4 +42,8 @@ const Organization = () => {
   );
 };
 
-export default Organization;
+const mapDispatchToProps = {
+  getOrganizationAction: getOrganization,
+};
+
+export default connect(null, mapDispatchToProps)(Organization);

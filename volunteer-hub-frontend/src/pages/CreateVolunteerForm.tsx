@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { WebRequestsInterface } from "../webRequests/webRequests-int";
-import getWebRequest from "../webRequests/webRequestsProvider";
-import SessionService from "../utility/Services/SessionService";
 import { useNavigate } from 'react-router-dom';
+import { connect, useSelector } from "react-redux";
+
+import SessionService from "../utility/Services/SessionService";
+import { inputFieldsforCreateVolunteerForm } from "../utility/formInputFields";
 import { renderForm, renderErrorMessage } from "../components/RenderForms";
+import { createProfile } from "../actions/profileActions";
 
 interface IErrorMessages {
   name?: string;
@@ -12,8 +14,8 @@ interface IErrorMessages {
   message?: string;
 }
 
-const CreateVolunteerForm = () => {
-  const [myVolData, setMyVolData] = useState();
+const CreateVolunteerForm = ({ createProfileAction }: any) => {
+  const myVolData = useSelector((state: any) => state.profileData.myProfile);
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const navigate = useNavigate();
 
@@ -23,7 +25,6 @@ const CreateVolunteerForm = () => {
     }
   }, [myVolData]);
 
-  const userService: WebRequestsInterface = getWebRequest();
   const handleSubmit = async (event: any) => {
     //Prevent page reload
     event.preventDefault();
@@ -39,26 +40,22 @@ const CreateVolunteerForm = () => {
         lastName: event.currentTarget.lastName.value,
         skills: event.currentTarget.skills.value.split(", "),
       }
-      const newVol = await userService.createVolunteer(dataForCreate);
-      sessionStorage.setItem('myVolunteer', JSON.stringify(newVol.data));
-      setMyVolData(newVol);
+      await createProfileAction(dataForCreate, "Volunteer");
     } else {
         // email not found
       setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
     }
   };
 
-  const inputFields = [
-    {name:"firstName", labelName: "First name", errorName: "firstName"},
-    {name:"lastName", labelName: "Last name", errorName: "lastName"},
-    {name:"skills", labelName: "Skills", errorName: "skills"},
-];
-
   if (SessionService.checkIsLoggedIn()) {
-    return renderForm(handleSubmit, errorMessages, inputFields, "Create your volunteer profile!");
+    return renderForm(handleSubmit, errorMessages, inputFieldsforCreateVolunteerForm, "Create your volunteer profile!");
   } else {
     return renderErrorMessage("You're not signed up. Please sign up first.", errorMessages);
   }
 };
 
-export default CreateVolunteerForm;
+const mapDispatchToProps = {
+  createProfileAction: createProfile,
+};
+
+export default connect(null, mapDispatchToProps)(CreateVolunteerForm);

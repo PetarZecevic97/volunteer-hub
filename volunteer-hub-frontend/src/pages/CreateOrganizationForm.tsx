@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { WebRequestsInterface } from "../webRequests/webRequests-int";
-import getWebRequest from "../webRequests/webRequestsProvider";
-import SessionService from "../utility/Services/SessionService";
 import { useNavigate } from 'react-router-dom';
+import { connect, useSelector } from "react-redux";
+
+import SessionService from "../utility/Services/SessionService";
+import { inputFieldsforCreateOrganizationForm } from "../utility/formInputFields";
 import { renderForm, renderErrorMessage } from "../components/RenderForms";
+import { createProfile } from "../actions/profileActions";
 
 interface IErrorMessages {
   name?: string;
@@ -12,22 +14,18 @@ interface IErrorMessages {
   message?: string;
 }
 
-const CreateOrganizationForm = () => {
-  const [myOrgData, setMyOrgData] = useState();
+const CreateOrganizationForm = ({ createProfileAction }: any) => {
+  const myOrganization = useSelector((state: any) => state.profileData.myProfile);
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (SessionService.checkIsLoggedIn() && myOrgData) {
+    if (SessionService.checkIsLoggedIn() && myOrganization) {
       navigate('/profile', { replace: true });
     }
-  }, [myOrgData]);
-  const userService: WebRequestsInterface = getWebRequest();
+  }, [myOrganization]);
 
-  const handleSubmit = (event: any) => {
-    signup(event);
-  };
-
-  const signup = async (event: any) => {
+  const handleSubmit = async (event: any) => {
     //Prevent page reload
     event.preventDefault();
     
@@ -46,25 +44,22 @@ const CreateOrganizationForm = () => {
         lastModifiedDate: Date().toLocaleString(),
         summary: event.currentTarget.summary.value,
       }
-      const newOrg = await userService.createOrganization(dataForCreate);
-      sessionStorage.setItem('myOrganization', JSON.stringify(newOrg.data));
-      setMyOrgData(newOrg);
-        } else {
-          // email not found
-          setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
-        }
+      await createProfileAction(dataForCreate, "Organization");
+    } else {
+      // email not found
+      setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
+    }
   };
 
-  const inputFields = [
-    {name:"organizationName", labelName: "Organization name", errorName: "organizationName"},
-    {name:"summary", labelName: "Summary", errorName: "summary"},
-];
-
   if (SessionService.checkIsLoggedIn()) {
-    return renderForm(handleSubmit, errorMessages, inputFields, "Create your organization");
+    return renderForm(handleSubmit, errorMessages, inputFieldsforCreateOrganizationForm, "Create your organization");
   } else {
     return renderErrorMessage("You're not signed up. Please sign up first.", errorMessages);
   }
 };
 
-export default CreateOrganizationForm;
+const mapDispatchToProps = {
+  createProfileAction: createProfile,
+};
+
+export default connect(null, mapDispatchToProps)(CreateOrganizationForm);

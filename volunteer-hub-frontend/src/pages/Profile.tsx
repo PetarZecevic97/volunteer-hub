@@ -1,12 +1,21 @@
-import React, { useState } from "react";
-import IOrganization from "../Entities/Organization";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+
 import Organization from "../components/Profile/Organization";
 import Volunteer from "../components/Profile/Volunteer";
+import { getProfileData } from "../actions/profileActions";
 
-const Profile = () => {
+const Profile = ({ getProfileDataAction } : any) => {
   const role = sessionStorage.getItem('role');
   const nullableId = sessionStorage.getItem('id');
   const id = nullableId ? nullableId : '';
+
+  useEffect(() => {
+    if(id && role) {
+      getProfileDataAction(id, role);
+    }
+  }, [role, id]);
+
   const renderOrganization = () => {
     return (
       <>
@@ -45,4 +54,8 @@ const Profile = () => {
   } 
 };
 
-export default Profile;
+const mapDispatchToProps = {
+  getProfileDataAction: getProfileData
+};
+
+export default connect(null, mapDispatchToProps)(Profile);

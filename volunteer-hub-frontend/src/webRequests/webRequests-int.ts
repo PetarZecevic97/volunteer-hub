@@ -13,6 +13,6 @@ export interface WebRequestsInterface {
     getVolunteerById(id: string): any
     getVolunteerBySkill(skills: any): any
     createVolunteer(data: any): any
-    updateVolunteer(data: any): any
+    updateVolunteer(data: any, id: string): any
     deleteVolunteer(id: string): any
 }
