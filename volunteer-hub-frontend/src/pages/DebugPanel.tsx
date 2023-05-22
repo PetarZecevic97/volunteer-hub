@@ -1,11 +1,9 @@
 import React, {useState} from "react";
 import {
-    DebugInputContainer,
     DebugTitle,
     DebugForm,
     DebugError,
     DebugSubmit,
-    DebugInputText,
     DebugContainer,
     ButtonWrapper,
     Form, CheckBoxContainer, StyledCheckBoxContainer,
