@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
-import SessionService from "../utility/Services/SessionService";
 import { inputFieldsforCreateVolunteerForm } from "../utility/formInputFields";
 import { renderForm, renderErrorMessage } from "../components/RenderForms";
 import { createProfile } from "../actions/profileActions";
+import {checkIsLoggedIn} from "../utility/Services/SessionService";
 
 interface IErrorMessages {
   name?: string;
@@ -20,7 +20,7 @@ const CreateVolunteerForm = ({ createProfileAction }: any) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (SessionService.checkIsLoggedIn() && myVolData) {
+    if (checkIsLoggedIn() && myVolData) {
       navigate('/profile', { replace: true });
     }
   }, [myVolData]);
@@ -47,7 +47,7 @@ const CreateVolunteerForm = ({ createProfileAction }: any) => {
     }
   };
 
-  if (SessionService.checkIsLoggedIn()) {
+  if (checkIsLoggedIn()) {
     return renderForm(handleSubmit, errorMessages, inputFieldsforCreateVolunteerForm, "Create your volunteer profile!");
   } else {
     return renderErrorMessage("You're not signed up. Please sign up first.", errorMessages);

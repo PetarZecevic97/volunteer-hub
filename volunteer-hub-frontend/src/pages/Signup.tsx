@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
-import SessionService from "../utility/Services/SessionService";
 import { EMAIL, NAME } from "../utility/jwtFields";
 import { inputFieldsforSignup } from "../utility/formInputFields";
 import { renderForm } from "../components/RenderForms";
+import {checkIsLoggedIn, getUserInfo, setUserInfo} from "../utility/Services/SessionService";
 
 interface IErrorMessages {
   name?: string;
@@ -18,12 +18,12 @@ interface IErrorMessages {
 const Signup = () => {
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
 
-  const [sessionInfo, setSessionInfo] = useState(SessionService.getUserInfo());
+  const [sessionInfo, setSessionInfo] = useState(getUserInfo());
   const navigate = useNavigate();
 
   const userService: WebRequestsInterface = getWebRequest();
   useEffect(() => {
-    if (SessionService.checkIsLoggedIn()) {
+    if (checkIsLoggedIn()) {
       const role = sessionStorage.getItem('role');
       if('Organization' === role) {
         navigate('/create-org-form', { replace: true });
@@ -61,15 +61,15 @@ const Signup = () => {
     const id = sessionStorage.getItem('id');
 
     if (user && id) {
-      SessionService.setUserInfo(user[NAME], user[EMAIL]);
-      setSessionInfo(SessionService.getUserInfo());
+      setUserInfo(user[NAME], user[EMAIL]);
+      setSessionInfo(getUserInfo());
     } else {
       // email not found
       setErrorMessages({ name: "signup", message: "Sranje ti signup" });
     }
   };
 
-  if (SessionService.checkIsLoggedIn()) {
+  if (checkIsLoggedIn()) {
     navigate('/profile', { replace: true });
     return <></>
   } else {

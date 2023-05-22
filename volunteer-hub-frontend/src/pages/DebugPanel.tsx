@@ -10,13 +10,13 @@ import {
     ButtonWrapper,
     Form, CheckBoxContainer, StyledCheckBoxContainer,
 } from "../components/Debug/styles/DebugStyles";
-import SessionService from "../utility/Services/SessionService";
 import {WebRequestsInterface} from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
 import {useNavigate} from "react-router-dom";
 import "../components/DebugPanel/styles/DebugPanel.css";
 import {CheckBox} from "../components/DebugPanel/CheckBox";
 import {TextInput} from "../components/DebugPanel/TextInput";
+import {checkIsLoggedIn, getUserInfo} from "../utility/Services/SessionService";
 
 interface IErrorMessages {
     name?: string;
@@ -38,7 +38,7 @@ const DebugPanel = () => {
     ]);
 
 
-    const [sessionInfo, setSessionInfo] = useState(SessionService.getUserInfo());
+    const [sessionInfo, setSessionInfo] = useState(getUserInfo());
     const navigate = useNavigate();
 
     const userService: WebRequestsInterface = getWebRequest();
@@ -114,7 +114,7 @@ const DebugPanel = () => {
             </ButtonWrapper>
         </Form>
     );
-    if (SessionService.checkIsLoggedIn()) {
+    if (checkIsLoggedIn()) {
         navigate("/profile", {replace: true});
         return <></>;
     } else {

@@ -10,13 +10,13 @@ import {
   TextRow,
 } from "./styles/NavbarStyles";
 import "./styles/Navbar.css";
-import SessionService from "../../utility/Services/SessionService";
 import { logOutOfProfile } from "../../actions/profileActions";
 import { connect } from "react-redux";
+import {checkIsLoggedIn, clearSessionInfo} from "../../utility/Services/SessionService";
 
 const Navbar = ({ logOutOfProfileAction }: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    SessionService.checkIsLoggedIn()
+    checkIsLoggedIn()
   );
   const [isDebug, setIsDebug] = useState( () => {
       if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
@@ -29,13 +29,13 @@ const Navbar = ({ logOutOfProfileAction }: any) => {
 
   const clearSession = () => {
     logOutOfProfileAction();
-    SessionService.clearSessionInfo();
+    clearSessionInfo();
     sessionStorage.clear()
     setIsLoggedIn(false);
   };
 
   useEffect(() => {
-    setIsLoggedIn(SessionService.checkIsLoggedIn());
+    setIsLoggedIn(checkIsLoggedIn());
 
     // Respond to the `storage` event
     const storageEventHandler = (event: any) => {

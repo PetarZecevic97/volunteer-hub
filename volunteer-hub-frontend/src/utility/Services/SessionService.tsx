@@ -1,57 +1,76 @@
-const SessionService = {
-  setUserInfo: (username: string, email: string) => {
-    sessionStorage.setItem("email", email);
-    sessionStorage.setItem("username", username);
-  },
-  setRole: (isAdmin: boolean) => {
-    sessionStorage.setItem("role", isAdmin ? "admin" : "user");
-  },
-  getRole: () => {
-    const email = sessionStorage.getItem("role");
-  },
-  getBuild: () => {
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-      return true;
-    } else {
-      return false;
-    }
-  },
-  setJWTIgnore: (ignore: boolean) => {
-    sessionStorage.setItem("debugIgnoreJWT", ignore ? "true" : "false");
-  },
-  setAllVisibile: (visible: boolean) => {
-    sessionStorage.setItem("debugAllVisibility", visible ? "true" : "false");
-  },
-  setAuthToggle: (toggle: boolean) => {
-    sessionStorage.setItem("debugAuthToggle", toggle ? "true" : "false");
-  },
-  setIsVolunteer: (toggle: boolean) => {
-    sessionStorage.setItem("debugIsVolunteer", toggle ? "true" : "false");
-  },
-  getIsVolunteer: () => {
-    return sessionStorage.getItem("debugIsVolunteer");
-  },
-  setIsOrganization: (toggle: boolean) => {
-    sessionStorage.setItem("debugIsOrganization", toggle ? "true" : "false");
-  },
-  getIsOrganization: () => {
-    return sessionStorage.getItem("debugIsOrganization");
-  },
-  getUserInfo: () => {
+export function isDebug() {
+    return !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+}
+
+export function getUserInfo() {
     const email = sessionStorage.getItem("email");
     const username = sessionStorage.getItem("username");
     return {
-      email: email,
-      username: username,
+        email: email,
+        username: username,
     };
-  },
-  clearSessionInfo: () => {
+}
+
+export function setUserInfo(username: string, email: string) {
+    sessionStorage.setItem("email", email);
+    sessionStorage.setItem("username", username);
+}
+
+export function setRole(isAdmin: boolean) {
+    sessionStorage.setItem("role", isAdmin ? "admin" : "user");
+}
+
+export function getRole() {
+    const email = sessionStorage.getItem("role");
+}
+
+export function __setJWTIgnore(ignore: boolean) {
+    if (isDebug()) {
+        sessionStorage.setItem("debugIgnoreJWT", ignore ? "true" : "false");
+    }
+}
+
+export function __setAllVisibile(visible: boolean) {
+    if (isDebug()) {
+        sessionStorage.setItem("debugAllVisibility", visible ? "true" : "false");
+    }
+}
+
+export function __setAuthToggle(toggle: boolean) {
+    if (isDebug()) {
+        sessionStorage.setItem("debugAuthToggle", toggle ? "true" : "false");
+    }
+}
+
+export function __setIsVolunteer(toggle: boolean) {
+    if (isDebug()) {
+        sessionStorage.setItem("debugIsVolunteer", toggle ? "true" : "false");
+    }
+}
+
+export function __getIsVolunteer() {
+    if (isDebug()) {
+        return sessionStorage.getItem("debugIsVolunteer");
+    }
+}
+
+export function __setIsOrganization(toggle: boolean) {
+    if (isDebug()) {
+        sessionStorage.setItem("debugIsOrganization", toggle ? "true" : "false");
+    }
+}
+
+export function __getIsOrganization() {
+    if (isDebug()) {
+        return sessionStorage.getItem("debugIsOrganization");
+    }
+}
+
+export function clearSessionInfo() {
     sessionStorage.clear();
-  },
-  checkIsLoggedIn: () => {
+}
+
+export function checkIsLoggedIn() {
     const id = sessionStorage.getItem('id');
     return id !== null && id !== undefined;
-  },
-};
-
-export default SessionService;
+}
