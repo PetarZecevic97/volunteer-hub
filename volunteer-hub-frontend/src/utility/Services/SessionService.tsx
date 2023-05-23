@@ -11,59 +11,29 @@ export function getUserInfo() {
     };
 }
 
-export function setUserInfo(username: string, email: string) {
-    sessionStorage.setItem("email", email);
-    sessionStorage.setItem("username", username);
+export function setUserInfo(_username: string, _email: string) {
+    sessionStorage.setItem("email", _email);
+    sessionStorage.setItem("username", _username);
 }
 
-export function setRole(isAdmin: boolean) {
-    sessionStorage.setItem("role", isAdmin ? "admin" : "user");
+export function setDebugValue(_toggledValue: boolean, _string: string) {
+    if(isDebug()){
+        sessionStorage.setItem(_string, _toggledValue ? "true" : "false");
+    }
+}
+
+export function getDebugValue(_string: string) {
+    if(isDebug()){
+        return sessionStorage.getItem(_string);
+    }
+    throw Error("Debug value manipulation restricted while not in dev build!")
+}
+export function setRole(_isAdmin: boolean) {
+    sessionStorage.setItem("role", _isAdmin ? "admin" : "user");
 }
 
 export function getRole() {
     const email = sessionStorage.getItem("role");
-}
-
-export function __setJWTIgnore(ignore: boolean) {
-    if (isDebug()) {
-        sessionStorage.setItem("debugIgnoreJWT", ignore ? "true" : "false");
-    }
-}
-
-export function __setAllVisibile(visible: boolean) {
-    if (isDebug()) {
-        sessionStorage.setItem("debugAllVisibility", visible ? "true" : "false");
-    }
-}
-
-export function __setAuthToggle(toggle: boolean) {
-    if (isDebug()) {
-        sessionStorage.setItem("debugAuthToggle", toggle ? "true" : "false");
-    }
-}
-
-export function __setIsVolunteer(toggle: boolean) {
-    if (isDebug()) {
-        sessionStorage.setItem("debugIsVolunteer", toggle ? "true" : "false");
-    }
-}
-
-export function __getIsVolunteer() {
-    if (isDebug()) {
-        return sessionStorage.getItem("debugIsVolunteer");
-    }
-}
-
-export function __setIsOrganization(toggle: boolean) {
-    if (isDebug()) {
-        sessionStorage.setItem("debugIsOrganization", toggle ? "true" : "false");
-    }
-}
-
-export function __getIsOrganization() {
-    if (isDebug()) {
-        return sessionStorage.getItem("debugIsOrganization");
-    }
 }
 
 export function clearSessionInfo() {

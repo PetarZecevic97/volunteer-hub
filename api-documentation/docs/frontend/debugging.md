@@ -29,3 +29,7 @@ Options:
   6. `Organization toggle` - if enabled, appear in the application as an organization*
 
 ![](https://i.imgur.com/wiICVrC.png)
+
+
+
+Note that the listed flags don't change the actual privileges within the app, for example, when you check the `Admin` option in the `Debug Panel`, it will be saved in session storage under the key `"debug_admin_toggle"`, it won't actually make the current user an admin. Likewise with organizations/volunteer checkboxes, it won't make the actual account a `Volunteer` or `Organization`, it will be just treated as one or both during the debug session.

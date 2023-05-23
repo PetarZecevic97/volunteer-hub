@@ -14,7 +14,7 @@ import {useNavigate} from "react-router-dom";
 import "../components/DebugPanel/styles/DebugPanel.css";
 import {CheckBox} from "../components/DebugPanel/CheckBox";
 import {TextInput} from "../components/DebugPanel/TextInput";
-import {checkIsLoggedIn, getUserInfo} from "../utility/Services/SessionService";
+import {checkIsLoggedIn, getUserInfo, setDebugValue, setUserInfo} from "../utility/Services/SessionService";
 
 interface IErrorMessages {
     name?: string;
@@ -27,12 +27,12 @@ const DebugPanel = () => {
     const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
 
     const [flags, setFlags] = useState([
-        {id: "admin_toggle", label: "Admin", checked: true},
-        {id: "jwt_toggle", label: "Require JWT Token", checked: true},
-        {id: "all_visibility_toggle", label: "All content visible", checked: true},
-        {id: "auth_toggle", label: "Authorization checks", checked: true},
-        {id: "volunteer_toggle", label: "Volunteer account", checked: true},
-        {id: "organization_toggle", label: "Organization account", checked: true},
+        {id: "debug_admin_toggle", label: "Admin", checked: true},
+        {id: "debug_jwt_toggle", label: "Require JWT Token", checked: true},
+        {id: "debug_all_visibility_toggle", label: "All content visible", checked: true},
+        {id: "debug_auth_toggle", label: "Authorization checks", checked: true},
+        {id: "debug_volunteer_toggle", label: "Volunteer account", checked: true},
+        {id: "debug_organization_toggle", label: "Organization account", checked: true},
     ]);
 
 
@@ -54,15 +54,18 @@ const DebugPanel = () => {
         console.log(flags)
     };
 
-    const setDebugValues = async (event: any) => {
+    const setDebugValues = (event: any) => {
         //Prevent page reload
         event.preventDefault();
 
-        const pass = event.currentTarget.pass.value;
         const username = event.currentTarget.username.value;
+        const email = event.currentTarget.email.value;
+
+        setUserInfo(username, email);
+        console.log(getUserInfo())
 
         flags.map(({id, label, checked}, i) => {
-
+            setDebugValue(checked,label)
         });
     };
 
