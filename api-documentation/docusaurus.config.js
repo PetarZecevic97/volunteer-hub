@@ -59,7 +59,7 @@ const config = {
       navbar: {
         title: "Volunteer Hub",
         logo: {
-          alt: "My Site Logo",
+          alt: "Volunteer Hub Logo",
           src: "img/logo-vh.svg",
         },
         items: [
@@ -75,7 +75,7 @@ const config = {
             position: "left" 
           },
           {
-            href: "https://github.com/facebook/docusaurus",
+            href: "https://github.com/PetarZecevic97/volunteer-hub",
             label: "GitHub",
             position: "right",
           },
