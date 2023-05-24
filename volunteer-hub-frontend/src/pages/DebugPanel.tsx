@@ -6,7 +6,8 @@ import {
     DebugSubmit,
     DebugContainer,
     ButtonWrapper,
-    Form, CheckBoxContainer, StyledCheckBoxContainer,
+    Form,
+    CheckBoxContainer,
 } from "../components/Debug/styles/DebugStyles";
 import {WebRequestsInterface} from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
