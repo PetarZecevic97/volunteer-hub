@@ -8,7 +8,7 @@ import {
     ButtonWrapper,
     Form,
     CheckBoxContainer,
-} from "../components/Debug/styles/DebugStyles";
+} from "../components/DebugPanel/styles/DebugPanelSC";
 import {WebRequestsInterface} from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
 import {useNavigate} from "react-router-dom";

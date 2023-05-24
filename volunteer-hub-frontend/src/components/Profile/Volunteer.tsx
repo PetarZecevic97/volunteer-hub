@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import IVolunteer from "../../Entities/Volunteer";
 import Avatar from "react-avatar";
-import { Grid, PageContainer } from "./styles/ProfileStyles";
+import { Grid, PageContainer } from "./styles/ProfileSC";
 import { useSelector } from 'react-redux';
 import { connect } from "react-redux";
 import { getVolunteer } from "../../actions/volunteerActions";

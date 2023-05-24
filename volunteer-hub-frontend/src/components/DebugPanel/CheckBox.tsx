@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {StyledCheckBox, StyledCheckBoxContainer, StyledCheckMark} from "../Debug/styles/DebugStyles";
+import {StyledCheckBox, StyledCheckMark} from "./styles/DebugPanelSC";
 
 export const CheckBox = ({p_id, p_label, p_checked, p_index, p_handle_change, ...props}) => {
     const [isChecked, setIsChecked] = useState(p_checked);

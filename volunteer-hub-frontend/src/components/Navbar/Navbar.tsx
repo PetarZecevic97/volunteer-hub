@@ -8,7 +8,7 @@ import {
   NavBtnLink,
   Grid,
   TextRow,
-} from "./styles/NavbarStyles";
+} from "./styles/NavbarSC";
 import "./styles/Navbar.css";
 import { logOutOfProfile } from "../../actions/profileActions";
 import { connect } from "react-redux";

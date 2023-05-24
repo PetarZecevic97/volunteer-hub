@@ -1,4 +1,4 @@
-import {DebugInputContainer, DebugInputText} from "../Debug/styles/DebugStyles";
+import {DebugInputContainer, DebugInputText} from "./styles/DebugPanelSC";
 import React from "react";
 
 export const TextInput = ({p_label, p_name, p_renderErrorMessage, p_isRequired}) => {
