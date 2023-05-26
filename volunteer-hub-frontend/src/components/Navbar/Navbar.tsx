@@ -8,26 +8,34 @@ import {
   NavBtnLink,
   Grid,
   TextRow,
-} from "./styles/NavbarStyles";
+} from "./styles/NavbarSC";
 import "./styles/Navbar.css";
-import SessionService from "../../utility/Services/SessionService";
 import { logOutOfProfile } from "../../actions/profileActions";
 import { connect } from "react-redux";
+import {checkIsLoggedIn, clearSessionInfo} from "../../utility/Services/SessionService";
 
 const Navbar = ({ logOutOfProfileAction }: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    SessionService.checkIsLoggedIn()
+    checkIsLoggedIn()
+  );
+  const [isDebug, setIsDebug] = useState( () => {
+      if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+        return true;
+      } else {
+        return false;
+      }
+    }
   );
 
   const clearSession = () => {
     logOutOfProfileAction();
-    SessionService.clearSessionInfo();
+    clearSessionInfo();
     sessionStorage.clear()
     setIsLoggedIn(false);
   };
 
   useEffect(() => {
-    setIsLoggedIn(SessionService.checkIsLoggedIn());
+    setIsLoggedIn(checkIsLoggedIn());
 
     // Respond to the `storage` event
     const storageEventHandler = (event: any) => {
@@ -73,6 +81,7 @@ const Navbar = ({ logOutOfProfileAction }: any) => {
               Log Out
             </NavBtnLink>
           )}
+          {isDebug && <NavBtnLink to="/debug">Debug</NavBtnLink>}
         </NavBtn>
       </Nav>
     </>

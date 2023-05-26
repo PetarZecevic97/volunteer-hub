@@ -11,6 +11,7 @@ import CreateVolunteerForm from "./pages/CreateVolunteerForm";
 import Events from "./pages/Events";
 import Volunteer from "./components/Profile/Volunteer";
 import Organization from "./components/Profile/Organization";
+import DebugPanel from "./pages/DebugPanel";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/create-org-form" element={<CreateOrganizationForm />} />
         <Route path="/create-volunteer-form" element={<CreateVolunteerForm />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/debug" element={<DebugPanel />} />
       </Routes>
     </Router>
   );
