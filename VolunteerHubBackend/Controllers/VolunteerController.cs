@@ -54,7 +54,7 @@ namespace VolunteerHubBackend.Controllers
         [ProducesResponseType(typeof(IEnumerable<VolunteerInfo>), StatusCodes.Status201Created)]
         public async Task<ActionResult<VolunteerInfo>> CreateVolunteer([FromBody] VolunteerInfo volunteer)
         {
-            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != volunteer.Id)
+            if (User.FindFirst("id").Value != volunteer.Id)
             {
                 return Forbid();
             }
@@ -68,7 +68,7 @@ namespace VolunteerHubBackend.Controllers
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateVolunteer([FromBody] VolunteerInfo volunteer)
         {
-            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != volunteer.Id)
+            if (User.FindFirst("id").Value != volunteer.Id)
             {
                 return Forbid();
             }
@@ -80,7 +80,7 @@ namespace VolunteerHubBackend.Controllers
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteVolunteer(string id)
         {
-            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != id)
+            if (User.FindFirst("id").Value != id)
             {
                 return Forbid();
             }

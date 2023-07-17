@@ -49,7 +49,7 @@ namespace VolunteerHubBackend.Controllers
         [ProducesResponseType(typeof(IEnumerable<Organization>), StatusCodes.Status201Created)]
         public async Task<ActionResult<Organization>> CreateOrganization([FromBody] OrganizationCreate organization)
         {
-            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != organization.Id)
+            if (User.FindFirst("id").Value != organization.Id)
             {
                 return Forbid();
             }
@@ -67,7 +67,7 @@ namespace VolunteerHubBackend.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         public async Task<ActionResult<Organization>> UpdateOrganization([FromBody] Organization organization)
         {
-            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != organization.Id)
+            if (User.FindFirst("id").Value != organization.Id)
             {
                 return Forbid();
             }
@@ -80,7 +80,7 @@ namespace VolunteerHubBackend.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteOrganization(String id)
         {
-            if (User.FindFirst(ClaimTypes.NameIdentifier).Value != id)
+            if (User.FindFirst("id").Value != id)
             {
                 return Forbid();
             }
