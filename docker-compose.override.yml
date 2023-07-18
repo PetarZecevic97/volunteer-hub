@@ -31,6 +31,7 @@ services:
 
   mssql:
     container_name: organizationdb
+    user: root
     environment:
       - SA_PASSWORD=Volunteerhub12345
       - ACCEPT_EULA=Y
