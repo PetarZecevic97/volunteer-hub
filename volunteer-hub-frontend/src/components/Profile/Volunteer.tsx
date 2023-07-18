@@ -8,35 +8,29 @@ import { connect } from "react-redux";
 import { getVolunteer } from "../../actions/volunteerActions";
 
 const Volunteer = ({ getVolunteerAction }: any) => {
-  const [volunteerData, setVolunteerData] = useState<IVolunteer>();
   const myProfileVolunteer = useSelector((state: any) => state.profileData.myProfile);
   const currentVolunteer = useSelector((state: any) => state.volunteers.volunteer);
 
   const { volunteerId } = useParams();
 
-function setRightVolunteer() {
-  const volunteer = volunteerId ? currentVolunteer : myProfileVolunteer;
-  setVolunteerData(volunteer);
+function chooseRightVolunteer() {
+  return volunteerId ? currentVolunteer : myProfileVolunteer;
 }
-
-  useEffect(() => {
-    setRightVolunteer();
-  }, [myProfileVolunteer, volunteerId]);
 
   useEffect(() => {
     if(volunteerId) {
       getVolunteerAction(volunteerId);
     }
-  }, [volunteerId]);
+  }, [myProfileVolunteer, volunteerId]);
 
   return (
     <>
       <PageContainer>
         <Grid>
-          <Avatar size="50" round={true} name={volunteerData != undefined ? volunteerData.firstName : "sampleVolunteerData"} />
+          <Avatar size="50" round={true} name={chooseRightVolunteer() != undefined ? chooseRightVolunteer().firstName : "sampleVolunteerData"} />
 
-          <h1>First name: {volunteerData != undefined ? volunteerData.firstName : "sampleVolunteerData"}</h1>
-          <h1>Last name: {volunteerData != undefined ? volunteerData.lastName : "sampleVolunteerData"}</h1>
+          <h1>First name: {chooseRightVolunteer() != undefined ? chooseRightVolunteer().firstName : "sampleVolunteerData"}</h1>
+          <h1>Last name: {chooseRightVolunteer() != undefined ? chooseRightVolunteer().lastName : "sampleVolunteerData"}</h1>
         </Grid>
       </PageContainer>
     </>

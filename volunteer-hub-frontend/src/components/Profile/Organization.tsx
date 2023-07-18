@@ -8,19 +8,13 @@ import { getOrganization } from "../../actions/organizationActions";
 import { connect } from "react-redux";
 
 const Organization = ({ getOrganizationAction }: any) => {
-  const [organizationData, setOrganizationData] = useState<IOrganization>();
   const myProfileOrganization = useSelector((state: any) => state.profileData.myProfile);
-  const organization = useSelector((state: any) => state.organizations.myOrganization);
+  const organization = useSelector((state: any) => state.organizations.organization);
   const { organizationId } = useParams();
 
-function setRightOrg() {
-  const org = organizationId ? organization : myProfileOrganization;
-  setOrganizationData(org);
+function chooseRightOrg() {
+  return organizationId ? organization : myProfileOrganization;
 }
-
-  useEffect(() => {
-    setRightOrg();
-  }, [myProfileOrganization, organizationId]);
 
   useEffect(() => {
     if(organizationId) {
@@ -32,10 +26,10 @@ function setRightOrg() {
     <>
       <PageContainer>
         <Grid>
-          <Avatar size="50" round={true} name={organizationData == null || organizationData == undefined ? "" : organizationData.organizationName} />
+          <Avatar size="50" round={true} name={chooseRightOrg() == null || chooseRightOrg() == undefined ? "" : chooseRightOrg().organizationName} />
 
-          <h1>Organization name: {organizationData == null || organizationData == undefined ? "" : organizationData.organizationName}</h1>
-          <p>Summary: {organizationData == null || organizationData == undefined ? "" : organizationData.summary}</p>
+          <h1>Organization name: {chooseRightOrg() == null || chooseRightOrg() == undefined ? "" : chooseRightOrg().organizationName}</h1>
+          <p>Summary: {chooseRightOrg() == null || chooseRightOrg() == undefined ? "" : chooseRightOrg().summary}</p>
         </Grid>
       </PageContainer>
     </>
