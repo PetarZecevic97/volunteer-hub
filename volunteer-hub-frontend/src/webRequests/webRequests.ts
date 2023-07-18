@@ -1,6 +1,6 @@
 import { WebRequestsInterface } from "./webRequests-int";
 import http from "../utility/Http";
-import jwt from 'jwt-decode'
+import jwt from 'jwt-decode';
 export class WebRequest implements WebRequestsInterface {
     signUpAsOrganization(organization: any): any {
        return http.post((process.env.REACT_APP_IDENTITY_SERVER_PATH as string) + '/RegisterOrganization', organization);
@@ -15,9 +15,11 @@ export class WebRequest implements WebRequestsInterface {
                                     const token = res.data.accessToken;
                                     const user : any = jwt(token); // decode your token here
                                     sessionStorage.setItem('token', token);
+                                    sessionStorage.setItem('refreshToken', res.data.refreshToken);
                                     sessionStorage.setItem('user', JSON.stringify(user));
                                     sessionStorage.setItem('id', user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
                                     sessionStorage.setItem('role', user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
+                                    sessionStorage.setItem('exp', user["exp"]);
                                     return res;
                                 });
     }
