@@ -17,9 +17,9 @@ export class WebRequest implements WebRequestsInterface {
                                     sessionStorage.setItem('token', token);
                                     sessionStorage.setItem('refreshToken', res.data.refreshToken);
                                     sessionStorage.setItem('user', JSON.stringify(user));
-                                    sessionStorage.setItem('id', user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
-                                    sessionStorage.setItem('role', user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
-                                    sessionStorage.setItem('exp', user["exp"]);
+                                    sessionStorage.setItem('id', user.id);
+                                    sessionStorage.setItem('role', user.role);
+                                    sessionStorage.setItem('exp', user.exp);
                                     return res;
                                 });
     }
