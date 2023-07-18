@@ -124,7 +124,7 @@ namespace IdentityServer.Services
             var token = new RefreshToken
             {
                 Token = Convert.ToBase64String(randomNumber),
-                ExpiryTime = DateTime.Now.AddDays(Convert.ToDouble(_configuration.GetValue<string>("RefreshTokenExpires")))
+                ExpiryTime = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration.GetValue<string>("RefreshTokenExpires")))
             };
 
             _dbContext.RefreshTokens.Add(token);
