@@ -26,6 +26,7 @@ http.interceptors.response.use((response) => {
     sessionStorage.setItem('user', JSON.stringify(user));
     sessionStorage.setItem('id', user.id);
     sessionStorage.setItem('role', user.role);
+    sessionStorage.setItem('exp', user.exp);
     originalRequest.headers['Authorization'] = 'Bearer ' + sessionStorage.getItem('token');
     return http(originalRequest);
   } else if(originalRequest.url.includes('Refresh') && sessionStorage.getItem("exp") < currentTimestamp) {
