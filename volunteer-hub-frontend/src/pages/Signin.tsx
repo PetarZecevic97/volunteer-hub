@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { WebRequestsInterface } from "../webRequests/webRequests-int";
 import getWebRequest from "../webRequests/webRequestsProvider";
-import { EMAIL, NAME } from "../utility/jwtFields";
 import { inputFieldsforSignin } from "../utility/formInputFields";
 import { renderForm } from "../components/RenderForms";
 import {checkIsLoggedIn, getUserInfo, setUserInfo} from "../utility/Services/SessionService";
@@ -40,7 +39,7 @@ const Signin = () => {
     const id = sessionStorage.getItem('id');
 
     if (user && id) {
-      setUserInfo(user[NAME], user[EMAIL]);
+      setUserInfo(user.name, user.email);
       setSessionInfo(getUserInfo());
       
     } else {

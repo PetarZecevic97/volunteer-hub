@@ -85,15 +85,15 @@ namespace IdentityServer.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim("username", user.UserName),
+                new Claim("email", user.Email),
+                new Claim("id", user.Id),
             };
 
             var roles = await _userManager.GetRolesAsync(user);
             foreach (var role in roles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                claims.Add(new Claim("role", role));
             }
 
             return claims;
