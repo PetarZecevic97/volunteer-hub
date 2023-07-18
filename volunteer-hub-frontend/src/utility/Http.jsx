@@ -24,8 +24,8 @@ http.interceptors.response.use((response) => {
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('refreshToken', res.data.refreshToken);
     sessionStorage.setItem('user', JSON.stringify(user));
-    sessionStorage.setItem('id', user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
-    sessionStorage.setItem('role', user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
+    sessionStorage.setItem('id', user.id);
+    sessionStorage.setItem('role', user.role);
     originalRequest.headers['Authorization'] = 'Bearer ' + sessionStorage.getItem('token');
     return http(originalRequest);
   } else if(originalRequest.url.includes('Refresh') && sessionStorage.getItem("exp") < currentTimestamp) {
