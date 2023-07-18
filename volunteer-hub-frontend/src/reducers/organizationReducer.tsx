@@ -23,8 +23,6 @@ const OrganizationReducer = (state: any, action: any) => {
               organization: {}
             };
         case GET_ORGANIZATION:
-  console.log("ljeks r", action);
-
           return {
             ...initialState,
             organization: action.payload
