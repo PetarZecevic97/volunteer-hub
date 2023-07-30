@@ -33,6 +33,8 @@ namespace VolunteerHubBackend
         {
             services.AddScoped<IVolunteerService, VolunteerService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
+            services.AddScoped<IAdService, AdService>();
+
             services.AddHttpClient<HttpClient>();
             services.AddCors();
 
