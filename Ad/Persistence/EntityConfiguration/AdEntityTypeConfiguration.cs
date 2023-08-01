@@ -33,9 +33,9 @@ namespace Ads.Persistence.EntityConfiguration
                 .HasColumnType("VARCHAR(1000)")
                 .HasColumnName("organization_id");
 
-            builder.Property<string>("OrganizationName")
+            builder.Property<string>("Location")
                 .HasColumnType("VARCHAR(30)")
-                .HasColumnName("organization_name")
+                .HasColumnName("location")
                 .IsRequired();
 
             builder.Property<DateTime>("OpenedDate")
