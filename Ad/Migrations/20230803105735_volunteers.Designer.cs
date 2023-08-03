@@ -4,14 +4,16 @@ using Ads.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ad.Migrations
 {
     [DbContext(typeof(AdContext))]
-    partial class AdContextModelSnapshot : ModelSnapshot
+    [Migration("20230803105735_volunteers")]
+    partial class volunteers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,10 +88,11 @@ namespace Ad.Migrations
 
             modelBuilder.Entity("Ads.Entities.AdVolunteerEntity", b =>
                 {
-                    b.HasOne("Ads.Entities.AdEntity", null)
+                    b.HasOne("Ads.Entities.AdEntity", "Ad")
                         .WithMany("Volunteers")
-                        .HasForeignKey("AdId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AdId");
+
+                    b.Navigation("Ad");
                 });
 
             modelBuilder.Entity("Ads.Entities.AdEntity", b =>

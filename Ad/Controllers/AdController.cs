@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ad.Migrations;
 
 namespace Ads.Controllers
 {
@@ -61,6 +62,31 @@ namespace Ads.Controllers
         {
             await _adRepository.DeleteAsync(id);
             return Ok("Ad deleted!");
+        }
+
+        [HttpPost("{id}/{volunteerId}")]
+        [ProducesResponseType(typeof(AdEntity), StatusCodes.Status200OK)]
+        public async Task<ActionResult<AdEntity>> AddVolunteer([FromBody] AdVolunteerEntity volunteer,
+                                                                [FromRoute] string id, [FromRoute] string volunteerId)
+        {
+            AdEntity res = await _adRepository.AddVolunteer(volunteer);
+            if(res == null || res.Id == null)
+            {
+                return NotFound();
+            }
+            return Ok(res);
+        }
+
+        [HttpDelete("{id}/{volunteerId}")]
+        [ProducesResponseType(typeof(AdEntity), StatusCodes.Status200OK)]
+        public async Task<ActionResult<AdEntity>> RemoveVolunteer([FromRoute] string id, [FromRoute] string volunteerId)
+        {
+            AdEntity res = await _adRepository.DeleteVolunteer(id, volunteerId);
+            if (res == null || res.Id == null)
+            {
+                return NotFound();
+            }
+            return Ok(res);
         }
 
     }

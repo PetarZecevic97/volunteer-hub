@@ -26,5 +26,7 @@ namespace Ads.Repositories.Interfaces
         Task<T> AddAsync(T entity);
         Task<T> UpdateAsync(T entity, string id);
         Task DeleteAsync(string id);
+        Task<T> AddVolunteer(AdVolunteerEntity volunteer);
+        Task<T> DeleteVolunteer(string id, string volunteerId);
     }
 }

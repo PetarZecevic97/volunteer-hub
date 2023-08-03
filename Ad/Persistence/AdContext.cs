@@ -14,12 +14,15 @@ namespace Ads.Persistence
 		}
 
         public DbSet<AdEntity> Ads { get; set; }
+        public DbSet<AdVolunteerEntity> AdsVolunteers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Adding configuration defined for Ad tabel
             modelBuilder.ApplyConfiguration(new AdEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AdVolunteerEntityTypeConfiguration());
+
             base.OnModelCreating(modelBuilder);
         }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Ads.Entities
 {
 	public class AdEntity
@@ -10,6 +12,7 @@ namespace Ads.Entities
         public bool IsOpen { get; set; }
         public string Location { get; set; }
         public string OrganizationId { get; set; }
+        public ICollection<AdVolunteerEntity> Volunteers { get; set; }
         public DateTime OpenedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
 
@@ -22,6 +25,7 @@ namespace Ads.Entities
             IsOpen = isOpen;
             Location = location ?? throw new ArgumentNullException(nameof(location));
             OrganizationId = organizationId ?? throw new ArgumentNullException(nameof(organizationId));
+            Volunteers = new List<AdVolunteerEntity>();
             OpenedDate = DateTime.Now;
             LastModifiedDate = DateTime.Now;
         }

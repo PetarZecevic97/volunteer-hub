@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Ad.Migrations;
 
 namespace Ads.Repositories.Interfaces
 {
@@ -88,6 +89,21 @@ namespace Ads.Repositories.Interfaces
             AdEntity ad = await _dbContext.Ads.FindAsync(id);
             _dbContext.Ads.Remove(ad);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public virtual async Task<T> AddVolunteer(AdVolunteerEntity volunteer)
+        {
+            _dbContext.AdsVolunteers.Add(volunteer);
+            await _dbContext.SaveChangesAsync();
+            return await _dbContext.Set<T>().FindAsync(volunteer.AdId);
+        }
+
+        public virtual async Task<T> DeleteVolunteer(string id, string volunteerId)
+        {
+            AdVolunteerEntity ad = _dbContext.AdsVolunteers.Where(x => x.VolunteerId == volunteerId && x.AdId == id).ToList()[0];
+            _dbContext.AdsVolunteers.Remove(ad);
+            await _dbContext.SaveChangesAsync();
+            return await _dbContext.Set<T>().FindAsync(id);
         }
 
     }
