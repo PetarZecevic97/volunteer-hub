@@ -27,7 +27,7 @@ namespace Ads.Repositories.Interfaces
 
         public virtual async Task<T> GetByIdAsync(string id)
         {
-            return await _dbContext.Set<T>().FindAsync(id);
+            return _dbContext.Set<T>().Include(o => o.Volunteers!).Where(x => x.Id == id).Single();
         }
 
         public virtual async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate)
@@ -100,8 +100,8 @@ namespace Ads.Repositories.Interfaces
 
         public virtual async Task<T> DeleteVolunteer(string id, string volunteerId)
         {
-            AdVolunteerEntity ad = _dbContext.AdsVolunteers.Where(x => x.VolunteerId == volunteerId && x.AdId == id).ToList()[0];
-            _dbContext.AdsVolunteers.Remove(ad);
+            List<AdVolunteerEntity> ad = _dbContext.AdsVolunteers.Where(x => x.VolunteerId == volunteerId && x.AdId == id).ToList();
+            _dbContext.AdsVolunteers.RemoveRange(ad);
             await _dbContext.SaveChangesAsync();
             return await _dbContext.Set<T>().FindAsync(id);
         }

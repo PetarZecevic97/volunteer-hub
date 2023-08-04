@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ad.Migrations
 {
     [DbContext(typeof(AdContext))]
-    [Migration("20230803123138_cascade")]
+    [Migration("20230804134811_cascade")]
     partial class cascade
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,12 +88,10 @@ namespace Ad.Migrations
 
             modelBuilder.Entity("Ads.Entities.AdVolunteerEntity", b =>
                 {
-                    b.HasOne("Ads.Entities.AdEntity", "Ad")
+                    b.HasOne("Ads.Entities.AdEntity", null)
                         .WithMany("Volunteers")
                         .HasForeignKey("AdId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Ad");
                 });
 
             modelBuilder.Entity("Ads.Entities.AdEntity", b =>

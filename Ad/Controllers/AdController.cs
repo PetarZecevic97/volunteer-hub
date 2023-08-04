@@ -70,7 +70,7 @@ namespace Ads.Controllers
                                                                 [FromRoute] string id, [FromRoute] string volunteerId)
         {
             AdEntity res = await _adRepository.AddVolunteer(volunteer);
-            if(res == null || res.Id == null)
+            if (res == null || res.Id == null)
             {
                 return NotFound();
             }

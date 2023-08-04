@@ -7,8 +7,6 @@ namespace Ads.Entities
 		public string VolunteerId { get; set; }
         public string AdId { get; set; }
 
-
-
         public AdVolunteerEntity()
         {
         }
