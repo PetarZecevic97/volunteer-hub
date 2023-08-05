@@ -104,15 +104,15 @@ namespace VolunteerHubBackend.Controllers
 
         [HttpDelete("{id}/{volunteerId}", Name = "DeleteVolunteer")]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteVoluntrer(string id, string volunteerId)
+        public async Task<IActionResult> DeleteVolunteer(string id, string volunteerId)
         {
             var existingAd = await _adService.GetAdById(id);
             if (User.FindFirst("id").Value != volunteerId && User.FindFirst("id").Value != existingAd.OrganizationId)
             {
                 return Forbid();
             }
-            await _adService.DeleteVolunteer(id, volunteerId);
-            return Ok("Ad deleted!");
+            var res = await _adService.DeleteVolunteer(id, volunteerId);
+            return Ok(res);
         }
 
     }
