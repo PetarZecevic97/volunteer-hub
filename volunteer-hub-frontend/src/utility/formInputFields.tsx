@@ -25,6 +25,14 @@ export const inputFieldsforCreateAdForm = [
     {name:"skills", labelName: "Skills necessary", errorName: "skills"},
 ];
 
+export const inputFieldsforUpdateAdForm = [
+    {name:"title", labelName: "Title", errorName: "title"},
+    {name:"summary", labelName: "Summary", errorName: "summary"},
+    {name:"location", labelName: "Location: ", errorName: "location"},
+    {name:"skills", labelName: "Skills necessary: ", errorName: "skills"},
+    {name:"isOpen", labelName: "Status: ", errorName: "isOpen"},
+];
+
 export const inputFieldsforCreateVolunteerForm = [
     {name:"firstName", labelName: "First name", errorName: "firstName"},
     {name:"lastName", labelName: "Last name", errorName: "lastName"},

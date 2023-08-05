@@ -19,6 +19,9 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
       getAdAction(adId);
   }, [adId]);
 
+  const printStatus = () => {
+    return ad.isOpen ? "Open for apllication!" : "Sorry, organization closed applications for this ad :c"
+  }
   const applyForTheAd = () => {
     createAdVolunteerAction({adId: adId, volunteerId: nullableId});
   };
@@ -32,7 +35,7 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
   };
   	
   const renderButton = () => {
-    if (role === "Volunteer") {
+    if (role === "Volunteer" && ad && ad.isOpen) {
       const isUserApplied = (ad && ad.volunteers) ? ad.volunteers.filter(x => x.volunteerId === nullableId).length > 0 : false;
       if (isUserApplied) {
         return <>
@@ -50,6 +53,11 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
       }
     } else if (role === "Organization") {
       return <>
+
+      <ButtonWrapper>
+        <Link to={"/update-ad-form/"+adId} >Update this ad</Link>
+      </ButtonWrapper>
+
         <ButtonWrapper>
           <Link to="" >Check out who applied!</Link>
         </ButtonWrapper>
@@ -70,6 +78,10 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
 
           <h1>Title: {ad == null || ad == undefined ? "" : ad.title}</h1>
           <p>Summary: {ad == null || ad == undefined ? "" : ad.summary}</p>
+          <p>Skills necessary: {ad == null || ad == undefined ? "" : ad.skills.substring(1, ad.skills.length-1)}</p>
+          <p>Location: {ad == null || ad == undefined ? "" : ad.location}</p>
+          <p>Status: {ad == null || ad == undefined ? "" : printStatus()}</p>
+
           { renderButton() }
         </Grid>
 

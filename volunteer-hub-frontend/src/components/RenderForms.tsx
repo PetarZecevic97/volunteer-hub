@@ -29,7 +29,7 @@ import {
                     return (
                         <LoginInputContainer key={index}>
                             <label>{input.labelName} </label>
-                            <LoginInputText name={input.name} required />
+                            <LoginInputText name={input.name} id={input.name} required defaultValue={input.default} />
                             {renderErrorMessage(input.errorName, errorMessages)}
                         </LoginInputContainer>
                     );

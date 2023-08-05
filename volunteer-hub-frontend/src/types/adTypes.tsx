@@ -5,3 +5,5 @@ export const GET_AD_LIST = "GET_AD_LIST";
 export const DELETE_AD = "DELETE_AD";
 export const DELETE_AD_VOLUNTERE = "DELETE_AD_VOLUNTERE";
 export const ADD_AD_VOLUNTERE = "ADD_AD_VOLUNTERE";
+export const NULLIFY = "NULLIFY";
+

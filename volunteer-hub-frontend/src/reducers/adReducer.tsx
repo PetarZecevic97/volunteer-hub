@@ -4,7 +4,8 @@ import {  CREATE_AD,
     GET_AD, 
     GET_AD_LIST,
     ADD_AD_VOLUNTERE,
-    DELETE_AD_VOLUNTERE } from "../types/adTypes";
+    DELETE_AD_VOLUNTERE,
+    NULLIFY } from "../types/adTypes";
 
 const AdReducer = (state: any, action: any) => {
 const initialState: any = state ? state : {ad : undefined, adList: []}
@@ -44,6 +45,11 @@ case CREATE_AD:
         ...initialState,
         adList: action.payload
       };
+      case NULLIFY:
+        return {
+          ...initialState,
+          ad: undefined
+        };
 default:
   return initialState;
 }

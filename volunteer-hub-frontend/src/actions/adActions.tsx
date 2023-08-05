@@ -6,7 +6,8 @@ import {  CREATE_AD,
           DELETE_AD,
           GET_AD_LIST,
           ADD_AD_VOLUNTERE,
-          DELETE_AD_VOLUNTERE } from "../types/adTypes";
+          DELETE_AD_VOLUNTERE, 
+          NULLIFY } from "../types/adTypes";
 
 const userService: WebRequestsInterface = getWebRequest();
 
@@ -65,3 +66,9 @@ export const createAdVolunteer = (dataForCreate: any) => async (dispatch: any) =
       payload: ad
     });
   };
+
+  export const nullifyCurrentAd = () => async (dispatch: any) => {
+    return dispatch({
+      type: NULLIFY
+    });
+  }
