@@ -5,9 +5,7 @@ import { useSelector, connect } from "react-redux";
 import { NavLink as Link } from "react-router-dom";
 import { Grid, PageContainer } from '../components/Profile/styles/ProfileSC';
 import { getAd, deleteAd, createAdVolunteer, deleteAdVolunteer } from "../actions/adActions";
-import {
-  ButtonWrapper,
-} from "../components/Login/styles/LoginSC";
+import { ButtonWrapper } from "../components/Login/styles/LoginSC";
 
 const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolunteerAction }: any) => {
   const ad = useSelector((state: any) => state.ads.ad);
@@ -35,7 +33,7 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
   	
   const renderButton = () => {
     if (role === "Volunteer") {
-      const isUserApplied = (ad && ad.volunteers) ? ad.volunteers.filter(x => x.volunteerId === nullableId) : false;
+      const isUserApplied = (ad && ad.volunteers) ? ad.volunteers.filter(x => x.volunteerId === nullableId).length > 0 : false;
       if (isUserApplied) {
         return <>
           <ButtonWrapper>
@@ -57,7 +55,7 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
         </ButtonWrapper>
 
         <ButtonWrapper>
-          <Link to="" onClick={deleteTheAd}>Delete this ad? :c</Link>
+          <Link to="/profile" onClick={deleteTheAd}>Delete this ad? :c</Link>
         </ButtonWrapper>
 
       </>;

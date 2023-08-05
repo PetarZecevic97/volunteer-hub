@@ -8,6 +8,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import CreateOrganizationForm from "./pages/CreateOrganizationForm";
 import CreateVolunteerForm from "./pages/CreateVolunteerForm";
+import CreateAdForm from "./pages/CreateAdForm";
 import Events from "./pages/Events";
 import Volunteer from "./components/Profile/Volunteer";
 import Organization from "./components/Profile/Organization";
@@ -30,6 +31,7 @@ function App() {
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/create-org-form" element={<CreateOrganizationForm />} />
         <Route path="/create-volunteer-form" element={<CreateVolunteerForm />} />
+        <Route path="/create-ad-form" element={<CreateAdForm />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/debug" element={<DebugPanel />} />
       </Routes>

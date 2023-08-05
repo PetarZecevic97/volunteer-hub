@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { NavLink as Link } from "react-router-dom";
 
 import Organization from "../components/Profile/Organization";
 import Volunteer from "../components/Profile/Volunteer";
+import { PageContainer } from '../components/Profile/styles/ProfileSC';
+import { ButtonWrapper } from "../components/Login/styles/LoginSC";
 import { getProfileData } from "../actions/profileActions";
 
 const Profile = ({ getProfileDataAction } : any) => {
@@ -15,11 +18,26 @@ const Profile = ({ getProfileDataAction } : any) => {
       getProfileDataAction(id, role);
     }
   }, [role, id]);
+  const renderButton = () => {
+    return <>
+        <ButtonWrapper>
+          <Link to="/ad" >Go checkout ads! c:</Link>
+        </ButtonWrapper>
+
+        { role === "Organization" && <ButtonWrapper>
+          <Link to="/create-ad-form" >Create new ad? C:</Link>
+        </ButtonWrapper> }
+      </>;
+  }
 
   const renderOrganization = () => {
     return (
       <>
+      <PageContainer>
         <Organization />
+        {renderButton()}
+      </PageContainer>
+
       </>
     );
   };
@@ -27,7 +45,11 @@ const Profile = ({ getProfileDataAction } : any) => {
   const renderVolunteer = () => {
     return (
       <>
+      <PageContainer>
         <Volunteer />
+        {renderButton()}
+      </PageContainer>
+
       </>
     );
   };
