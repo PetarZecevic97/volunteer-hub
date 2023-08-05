@@ -12,22 +12,22 @@ switch (action.type) {
 case CREATE_AD:
   return {
     ...initialState,
-    ad: action.payload
+    ad: action.payload.data
   };
   case UPDATE_AD:
     return {
       ...initialState,
-      ad: action.payload
+      ad: action.payload.datsa
     };
     case ADD_AD_VOLUNTERE:
       return {
         ...initialState,
-        ad: action.payload
+        ad: action.payload.data
       };
       case DELETE_AD_VOLUNTERE:
         return {
           ...initialState,
-          ad: action.payload
+          ad: action.payload.data
         };
     case DELETE_AD:
       return {

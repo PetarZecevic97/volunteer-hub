@@ -112,11 +112,10 @@ export class WebRequest implements WebRequestsInterface {
         return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/Ad/' + id,  {headers});
     }
     addVolunteer(adVolunteer: any) {
-        const data = {data: adVolunteer}
         const token = sessionStorage.getItem('token');
         const headers = {Authorization: `Bearer ${token}`}
-        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) +
-                        '/Ad/' +  + adVolunteer.id + '/' + adVolunteer.volunteerId, data, {headers});
+        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) +
+                        '/Ad/' + adVolunteer.adId + '/' + adVolunteer.volunteerId, adVolunteer, {headers});
     }
     deleteAdVolunteer(id: any, volunteerId: any) {
         const token = sessionStorage.getItem('token');
