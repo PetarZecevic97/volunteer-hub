@@ -69,5 +69,20 @@ namespace VolunteerHubBackend.Services
             HttpResponseMessage response = await _httpClient.DeleteAsync(_configuration.GetValue<string>("AdSettings:BasePath") + "/Ad/" + id);
             return response;
         }
+
+        public async Task<Ad> AddVolunteer(AdVolunteerCreate product)
+        {
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_configuration.GetValue<string>("AdSettings:BasePath") + "/Ad/" + product.AdId + "/" + product.VolunteerId, product);
+            Ad result = await response.Content.ReadFromJsonAsync<Ad>();
+            return result;
+        }
+
+        public async Task<Ad> DeleteVolunteer(string adId, string volunteerId)
+        {
+            HttpResponseMessage response = await _httpClient.DeleteAsync(_configuration.GetValue<string>("AdSettings:BasePath") + "/Ad/" + adId + "/" + volunteerId);
+            Ad result = await response.Content.ReadFromJsonAsync<Ad>();
+            return result;
+        }
+
     }
 }

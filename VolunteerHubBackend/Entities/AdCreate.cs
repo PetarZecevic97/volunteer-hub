@@ -7,7 +7,7 @@ namespace VolunteerHubBackend.Entities
         public string Title { get; set; }
         public string Summary { get; set; }
         public string Skills { get; set; }
-        public string OrganizationName { get; set; }
+        public string Location { get; set; }
         public string OrganizationId { get; set; }
     }
 }

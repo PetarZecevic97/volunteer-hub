@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace VolunteerHubBackend.Entities
 {
@@ -9,8 +10,9 @@ namespace VolunteerHubBackend.Entities
         public string Summary { get; set; }
         public string Skills { get; set; }
         public bool IsOpen { get; set; }
-        public string OrganizationName { get; set; }
+        public string Location { get; set; }
         public string OrganizationId { get; set; }
+        public List<AdVolunteer> Volunteers { get; set; }
         public DateTime OpenedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
     }

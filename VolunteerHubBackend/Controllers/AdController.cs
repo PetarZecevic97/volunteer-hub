@@ -33,7 +33,7 @@ namespace VolunteerHubBackend.Controllers
 
 
         [HttpGet("{id}", Name = "GetAd")]
-        [ProducesResponseType(typeof(IEnumerable<Ad>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status200OK)]
         public async Task<ActionResult<Ad>> GetAdById(string id)
         {
             var result = await _adService.GetAdById(id);
@@ -46,7 +46,7 @@ namespace VolunteerHubBackend.Controllers
 
         [Authorize(Roles = "Organization")]
         [HttpPost]
-        [ProducesResponseType(typeof(IEnumerable<Ad>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status201Created)]
         public async Task<ActionResult<Ad>> CreateAd([FromBody] AdCreate ad)
         {
             var res = await _adService.CreateAd(ad);
@@ -60,12 +60,12 @@ namespace VolunteerHubBackend.Controllers
 
         [Authorize(Roles = "Organization")]
         [HttpPut("{id}", Name = "PutAd")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status200OK)]
         public async Task<ActionResult<Ad>> UpdateAd([FromBody] Ad ad)
         {
             if (User.FindFirst("id").Value != ad.OrganizationId)
             {
-                return Forbid("Wrong org!");
+                return Forbid();
             }
             Ad  result = await _adService.UpdateAd(ad);
             return Ok(result);
@@ -76,14 +76,44 @@ namespace VolunteerHubBackend.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteAd(String id)
         {
-            //if (User.FindFirst("id").Value != id)
-            //{
-            //    return Forbid();
-            //}
+            var existingAd = await _adService.GetAdById(id);
+            if (User.FindFirst("id").Value != existingAd.OrganizationId)
+            {
+                return Forbid();
+            }
             await _adService.DeleteAd(id);
             return Ok("Ad deleted!");
         }
 
+        [Authorize(Roles = "Volunteer")]
+        [HttpPost("{id}/{volunteerId}", Name = "AddVolunteer")]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status201Created)]
+        public async Task<ActionResult<Ad>> AddVolunteer([FromBody] AdVolunteerCreate adVolunteer, [FromRoute] string id, [FromRoute] string volunteerId)
+        {
+            if (User.FindFirst("id").Value != volunteerId)
+            {
+                return Forbid();
+            }
+            var res = await _adService.AddVolunteer(adVolunteer);
+            if (res.Id == null)
+            {
+                return NotFound(res);
+            }
+            return Ok(res);
+        }
+
+        [HttpDelete("{id}/{volunteerId}", Name = "DeleteVolunteer")]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteVoluntrer(string id, string volunteerId)
+        {
+            var existingAd = await _adService.GetAdById(id);
+            if (User.FindFirst("id").Value != volunteerId && User.FindFirst("id").Value != existingAd.OrganizationId)
+            {
+                return Forbid();
+            }
+            await _adService.DeleteVolunteer(id, volunteerId);
+            return Ok("Ad deleted!");
+        }
 
     }
 }

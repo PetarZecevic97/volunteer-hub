@@ -22,7 +22,7 @@ namespace Ads.Repositories.Interfaces
         public virtual async Task<IReadOnlyList<T>> GetAllAsync()
         {
             Console.WriteLine("get all async repository");
-            return await _dbContext.Set<T>().ToListAsync();
+            return await _dbContext.Set<T>().Include(o => o.Volunteers!).ToListAsync();
         }
 
         public virtual async Task<T> GetByIdAsync(string id)
@@ -81,7 +81,7 @@ namespace Ads.Repositories.Interfaces
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
-            return await _dbContext.Set<T>().FindAsync(id);
+            return _dbContext.Set<T>().Include(o => o.Volunteers!).Where(x => x.Id == id).Single();
         }
 
         public virtual async Task DeleteAsync(string id)
@@ -95,7 +95,7 @@ namespace Ads.Repositories.Interfaces
         {
             _dbContext.AdsVolunteers.Add(volunteer);
             await _dbContext.SaveChangesAsync();
-            return await _dbContext.Set<T>().FindAsync(volunteer.AdId);
+            return _dbContext.Set<T>().Include(o => o.Volunteers!).Where(x => x.Id == volunteer.AdId).Single();
         }
 
         public virtual async Task<T> DeleteVolunteer(string id, string volunteerId)
@@ -103,7 +103,7 @@ namespace Ads.Repositories.Interfaces
             List<AdVolunteerEntity> ad = _dbContext.AdsVolunteers.Where(x => x.VolunteerId == volunteerId && x.AdId == id).ToList();
             _dbContext.AdsVolunteers.RemoveRange(ad);
             await _dbContext.SaveChangesAsync();
-            return await _dbContext.Set<T>().FindAsync(id);
+            return _dbContext.Set<T>().Include(o => o.Volunteers!).Where(x => x.Id == id).Single();
         }
 
     }

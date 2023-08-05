@@ -16,5 +16,9 @@ namespace VolunteerHubBackend.Services.Interfaces
         Task<Ad> UpdateAd(Ad product);
 
         Task<HttpResponseMessage> DeleteAd(string Id);
+
+        Task<Ad> AddVolunteer(AdVolunteerCreate product);
+
+        Task<Ad> DeleteVolunteer(string adId, string volunteerId);
     }
 }
