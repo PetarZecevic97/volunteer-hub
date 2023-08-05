@@ -21,32 +21,21 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
 
   const printStatus = () => {
     return ad.isOpen ? "Open for apllication!" : "Sorry, organization closed applications for this ad :c"
-  }
-  const applyForTheAd = () => {
-    createAdVolunteerAction({adId: adId, volunteerId: nullableId});
-  };
-
-  const removeApplicationForTheAd = () => {
-    deleteAdVolunteerAction(adId, nullableId);
-  };
-
-  const deleteTheAd = () => {
-    deleteAdAction(adId);
   };
   	
-  const renderButton = () => {
+  const renderButtons = () => {
     if (role === "Volunteer" && ad && ad.isOpen) {
       const isUserApplied = (ad && ad.volunteers) ? ad.volunteers.filter(x => x.volunteerId === nullableId).length > 0 : false;
       if (isUserApplied) {
         return <>
           <ButtonWrapper>
-            <Link to="" onClick={removeApplicationForTheAd}>Remove your application? :c</Link>
+            <Link to="" onClick={() => deleteAdVolunteerAction(adId, nullableId)}>Remove your application? :c</Link>
           </ButtonWrapper>
       </>;
       } else {
         return <>
         <ButtonWrapper>
-          <Link to="" onClick={applyForTheAd}>Apply!</Link>
+          <Link to="" onClick={() => createAdVolunteerAction({adId: adId, volunteerId: nullableId})}>Apply!</Link>
         </ButtonWrapper>
         </>;
 
@@ -63,7 +52,7 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
         </ButtonWrapper>
 
         <ButtonWrapper>
-          <Link to="/profile" onClick={deleteTheAd}>Delete this ad? :c</Link>
+          <Link to="/profile" onClick={() => deleteAdAction(adId)}>Delete this ad? :c</Link>
         </ButtonWrapper>
 
       </>;
@@ -82,7 +71,7 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
           <p>Location: {ad == null || ad == undefined ? "" : ad.location}</p>
           <p>Status: {ad == null || ad == undefined ? "" : printStatus()}</p>
 
-          { renderButton() }
+          { renderButtons() }
         </Grid>
 
       </PageContainer>

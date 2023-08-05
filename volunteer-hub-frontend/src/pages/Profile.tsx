@@ -27,7 +27,7 @@ const Profile = ({ getProfileDataAction, nullifyCurrentAdAction } : any) => {
         </ButtonWrapper>
 
         { role === "Organization" && <ButtonWrapper>
-          <Link to="/create-ad-form" onClick={nullifyCurrentAdAction()}>Create new ad? C:</Link>
+          <Link to="/create-ad-form" onClick={() => nullifyCurrentAdAction()}>Create new ad? C:</Link>
         </ButtonWrapper> }
       </>;
   }
