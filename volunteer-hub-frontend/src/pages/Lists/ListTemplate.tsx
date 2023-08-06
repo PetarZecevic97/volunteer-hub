@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "react-avatar";
-import { PageContainer } from "../../components/Profile/styles/ProfileSC";
-import { useSelector } from 'react-redux';
 import { connect } from "react-redux";
+import { PageContainer } from "../../components/Profile/styles/ProfileSC";
+import SearchComponent from "./SearchComponent";
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -86,13 +86,16 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 
-const ListTemplate = ({ rows,  fields, avatarName }: any) => {
-  const volunteerList = useSelector((state: any) => state.volunteers.volunteerList);
-  
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+const ListTemplate = ({ rows,  fields, avatarName }: any) => {  
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [shownRows, setShownRows] = useState(rows);
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  useEffect(() => {
+    setShownRows(rows);
+  }, [rows]);
+
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - shownRows.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -111,52 +114,53 @@ const ListTemplate = ({ rows,  fields, avatarName }: any) => {
   return (
     <>
       <PageContainer>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-          <TableBody>
-            {(rowsPerPage > 0
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : rows
-            ).map((row, index: any) => (
-              <TableRow key={index}>
-              <TableCell component="th" scope="row">
-                <Avatar size="50" round={true} name={row ? row[avatarName] : "sampleVolunteerData"} />
-              </TableCell>
-                {fields.map((field: any, index: any) => (
-                  <TableCell align="left" key={index}>
-                    {row[field]}
-                  </TableCell>
-                ))}
+        <SearchComponent fields={fields} rows={rows} setShownRows={setShownRows}/>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+            <TableBody>
+              {(rowsPerPage > 0
+                ? shownRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : shownRows
+              ).map((row, index: any) => (
+                <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  <Avatar size="50" round={true} name={row ? row[avatarName] : "sampleVolunteerData"} />
+                </TableCell>
+                  {fields.map((field: any, index: any) => (
+                    <TableCell align="left" key={index}>
+                      {row[field]}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  colSpan={3}
+                  count={shownRows.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: {
+                      'aria-label': 'rows per page',
+                    },
+                    native: true,
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
               </TableRow>
-            ))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
-              </TableRow>
-            )}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                colSpan={3}
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: {
-                    'aria-label': 'rows per page',
-                  },
-                  native: true,
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-    </TableContainer>
+            </TableFooter>
+          </Table>
+        </TableContainer>
       </PageContainer>
     </>
     );
