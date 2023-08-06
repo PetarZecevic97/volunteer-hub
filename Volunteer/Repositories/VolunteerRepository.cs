@@ -23,8 +23,6 @@ namespace Volunteer.Repositories
 
         public async Task<VolunteerInfo> GetVolunteer(string id)
         {
-            Console.WriteLine("Begin");
-            Console.WriteLine(id);
             var volunteers = await _context.Volunteers.FindAsync<VolunteerInfo>(Builders<VolunteerInfo>.Filter.Empty).Result.ToListAsync<VolunteerInfo>();
             volunteers.ForEach(v => Console.WriteLine(v.Id));
             return await _context.Volunteers.Find(p => p.Id.Equals(id)).FirstOrDefaultAsync();
@@ -43,10 +41,10 @@ namespace Volunteer.Repositories
             await _context.Volunteers.InsertOneAsync(volunteerInfo);
         }
 
-        public async Task<bool> UpdateVolunteer(VolunteerInfo volunteerInfo)
+        public async Task<VolunteerInfo> UpdateVolunteer(VolunteerInfo volunteerInfo)
         {
             var updateResult = await _context.Volunteers.ReplaceOneAsync(p => p.Id.Equals(volunteerInfo.Id), volunteerInfo);
-            return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
+            return await _context.Volunteers.Find(p => p.Id.Equals(volunteerInfo.Id)).FirstOrDefaultAsync();
         }
 
         public async Task<bool> DeleteVolunteer(string id)

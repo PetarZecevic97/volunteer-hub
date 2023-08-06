@@ -14,7 +14,7 @@ namespace VolunteerHubBackend.Services.Interfaces
 
         Task<VolunteerInfo> CreateVolunteer(VolunteerInfo product);
 
-        Task<bool> UpdateVolunteer(VolunteerInfo product);
+        Task<VolunteerInfo> UpdateVolunteer(VolunteerInfo product);
 
         Task<bool> DeleteVolunteer(string id);
     }
