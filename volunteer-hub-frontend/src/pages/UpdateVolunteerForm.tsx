@@ -49,7 +49,7 @@ const UpdateVolunteerForm = ({ getVolunteerAction, updateVolunteerAction }: any)
         ...myVolunteer,
         firstName: event.currentTarget.firstName.value,
         lastName: event.currentTarget.lastName.value,
-        skills: event.currentTarget.skills.value,
+        skills: event.currentTarget.skills.value.split(", "),
       }
       await updateVolunteerAction(id, dataForUpdate);
       navigate('/volunteer/' + id, { replace: true });

@@ -31,6 +31,8 @@ function chooseRightVolunteer() {
 
           <h1>First name: {chooseRightVolunteer() != undefined ? chooseRightVolunteer().firstName : "sampleVolunteerData"}</h1>
           <h1>Last name: {chooseRightVolunteer() != undefined ? chooseRightVolunteer().lastName : "sampleVolunteerData"}</h1>
+          <h1>Skills: {chooseRightVolunteer() != undefined ? chooseRightVolunteer().skills : "sampleVolunteerData"}</h1>
+
         </Grid>
       </PageContainer>
     </>
