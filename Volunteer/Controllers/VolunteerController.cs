@@ -59,9 +59,9 @@ namespace Volunteer.Controllers
             return CreatedAtRoute("GetProduct", new { id = volunteer.Id }, volunteer);
         }
 
-        [HttpPut]
+        [HttpPut("{id}", Name = "PutProduct")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateVolunteer([FromBody] VolunteerInfo volunteer)
+        public async Task<ActionResult<VolunteerInfo>> UpdateVolunteer([FromRoute] string id, [FromBody] VolunteerInfo volunteer)
         {
             return Ok(await _repository.UpdateVolunteer(volunteer));
         }

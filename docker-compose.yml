@@ -31,6 +31,13 @@ services:
       context: .
       dockerfile: IdentityServer/Dockerfile
 
+  ad:
+    image: ${DOCKER_REGISTRY-}ad
+    build:
+      context: .
+      dockerfile: Ad/Dockerfile
+    
+
 volumes:
   mssql_data:
   mongo_data:

@@ -1,13 +1,6 @@
 version: '3.4'
 
 services:
-  volunteerdb:
-    container_name: volunteerdb
-    restart: always
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
 
   volunteer:
     container_name: volunteer
@@ -29,18 +22,15 @@ services:
     ports:
       - "4001:80"
 
-  mssql:
-    container_name: organizationdb
-    user: root
+  ad:
+    container_name: ad
+    depends_on:
+        - mssql
     environment:
-      - SA_PASSWORD=Volunteerhub12345
-      - ACCEPT_EULA=Y
-    restart: always
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:AdConnectionString=Server=mssql;Database=AdDb;User Id=sa;Password=Volunteerhub12345"
     ports:
-      - "1433:1433" 
-    volumes:
-      - mssql_data:/var/opt/mssql
-      - ./setup.sql:/usr/config/setup.sql
+      - "4002:80"
 
   volunteerhubbackend:
     environment:
@@ -59,3 +49,23 @@ services:
     ports:
       - "4004:80"
 
+  mssql:
+    container_name: organizationdb
+    user: root
+    environment:
+      - SA_PASSWORD=Volunteerhub12345
+      - ACCEPT_EULA=Y
+    restart: always
+    ports:
+      - "1433:1433" 
+    volumes:
+      - mssql_data:/var/opt/mssql
+      - ./setup.sql:/usr/config/setup.sql
+
+  volunteerdb:
+    container_name: volunteerdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db

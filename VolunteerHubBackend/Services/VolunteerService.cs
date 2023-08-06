@@ -79,14 +79,18 @@ namespace VolunteerHubBackend.Services
             return product ?? throw new Exception();
         }
 
-        public async Task<bool> UpdateVolunteer(VolunteerInfo product)
+        public async Task<VolunteerInfo> UpdateVolunteer(VolunteerInfo product)
         {
-            bool result = false;
-            HttpResponseMessage response = await _httpClient.PutAsJsonAsync(_configuration.GetValue<string>("VolunteerSettings:BasePath") + "/Volunteer", product);
+            VolunteerInfo result = new VolunteerInfo();
+            HttpResponseMessage response = await _httpClient.PutAsJsonAsync(_configuration.GetValue<string>("VolunteerSettings:BasePath") + "/Volunteer/" + product.Id, product);
+            Console.WriteLine("Ljeks service pocetak");
+            Console.WriteLine(response.StatusCode);
+            Console.WriteLine("Ljeks service kraj");
+
+
             if (response.IsSuccessStatusCode)
             {
-                Console.Write(response);
-                result = await response.Content.ReadFromJsonAsync<bool>();
+                result = await response.Content.ReadFromJsonAsync<VolunteerInfo>();
             }
             return result;
         }

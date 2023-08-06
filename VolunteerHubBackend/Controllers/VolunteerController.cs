@@ -64,10 +64,13 @@ namespace VolunteerHubBackend.Controllers
         }
 
         [Authorize(Roles = "Volunteer")]
-        [HttpPut]
+        [HttpPut("{id}", Name = "UpdateVolunteer")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateVolunteer([FromBody] VolunteerInfo volunteer)
+        public async Task<ActionResult<VolunteerInfo>> UpdateVolunteer([FromRoute] string id, [FromBody] VolunteerInfo volunteer)
         {
+            //Console.WriteLine("Ljeks pocetak");
+            //Console.WriteLine(volunteer.Id);
+            //Console.WriteLine("Ljeks kraj");
             if (User.FindFirst("id").Value != volunteer.Id)
             {
                 return Forbid();
