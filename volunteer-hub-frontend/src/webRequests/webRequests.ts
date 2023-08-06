@@ -83,4 +83,43 @@ export class WebRequest implements WebRequestsInterface {
         const headers = {Authorization: `Bearer ${token}`}
         return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/volunteer/' + id,  {headers});
     }
+
+
+    getAllAds() {
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/Ad', {headers});
+    }
+    getAdById(id: string) {
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.get((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/Ad/' + id, {headers})
+                    .then(value => value.data);
+    }
+    createAd(data: any) {
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/Ad', data, {headers});
+    }
+    updateAd(data: any, id: any) {
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.put((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/Ad/' + id, data, {headers});
+    }
+    deleteAd(id: string) {
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/Ad/' + id,  {headers});
+    }
+    addVolunteer(adVolunteer: any) {
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.post((process.env.REACT_APP_BACKEND_BASE_PATH as string) +
+                        '/Ad/' + adVolunteer.adId + '/' + adVolunteer.volunteerId, adVolunteer, {headers});
+    }
+    deleteAdVolunteer(id: any, volunteerId: any) {
+        const token = sessionStorage.getItem('token');
+        const headers = {Authorization: `Bearer ${token}`}
+        return http.delete((process.env.REACT_APP_BACKEND_BASE_PATH as string) + '/Ad/' + id + '/' + volunteerId, {headers});
+    }
 }

@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
-import { inputFieldsforCreateOrganizationForm } from "../utility/formInputFields";
-import { renderForm, renderErrorMessage } from "../components/RenderForms";
-import { createProfile } from "../actions/profileActions";
-import {checkIsLoggedIn} from "../utility/Services/SessionService";
+import { inputFieldsforCreateOrganizationForm } from "../../../utility/formInputFields";
+import { renderForm, renderErrorMessage } from "../../../components/RenderForms";
+import { createProfile } from "../../../actions/profileActions";
+import {checkIsLoggedIn} from "../../../utility/Services/SessionService";
 
 interface IErrorMessages {
   name?: string;
@@ -19,6 +19,9 @@ const CreateOrganizationForm = ({ createProfileAction }: any) => {
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const navigate = useNavigate();
 
+  const id = sessionStorage.getItem('id');
+  const role = sessionStorage.getItem('role');
+
   useEffect(() => {
     if (checkIsLoggedIn() && myOrganization) {
       navigate('/profile', { replace: true });
@@ -27,13 +30,8 @@ const CreateOrganizationForm = ({ createProfileAction }: any) => {
 
   const handleSubmit = async (event: any) => {
     //Prevent page reload
-    event.preventDefault();
-    
-    const userStr = sessionStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : undefined;
-    const id = sessionStorage.getItem('id');
-    
-    if (user && id) {
+    event.preventDefault();    
+    if (id && role === "Organization") {
       const dataForCreate = {
         id: sessionStorage.getItem('id'),
         organizationName: event.currentTarget.organizationName.value,

@@ -56,4 +56,25 @@ export class WebRequestMock implements WebRequestsInterface {
     deleteVolunteer(id: string) {
         return axios.delete((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/organizations/' + id);
     }
+    getAllAds() {
+        return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/volunteers');
+    }
+    getAdById(id: string) {
+        return axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/volunteers/' + id);
+    }
+    createAd(data: any) {
+        return axios.post((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/organizations', data);
+    }
+    updateAd(data: any) {
+        return axios.put((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/organizations/' + data.id, data);
+    }
+    deleteAd(id: string) {
+        return axios.delete((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/organizations/' + id);
+    }
+    addVolunteer(data: any) {
+        return axios.post((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/organizations', data);
+    }
+    deleteAdVolunteer(id: string) {
+        return axios.delete((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/organizations/' + id);
+    }
 }

@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
-import { inputFieldsforCreateVolunteerForm } from "../utility/formInputFields";
-import { renderForm, renderErrorMessage } from "../components/RenderForms";
-import { createProfile } from "../actions/profileActions";
-import {checkIsLoggedIn} from "../utility/Services/SessionService";
+import { inputFieldsforCreateVolunteerForm } from "../../../utility/formInputFields";
+import { renderForm, renderErrorMessage } from "../../../components/RenderForms";
+import { createProfile } from "../../../actions/profileActions";
+import {checkIsLoggedIn} from "../../../utility/Services/SessionService";
 
 interface IErrorMessages {
   name?: string;
@@ -18,6 +18,9 @@ const CreateVolunteerForm = ({ createProfileAction }: any) => {
   const myVolData = useSelector((state: any) => state.profileData.myProfile);
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const navigate = useNavigate();
+  
+  const id = sessionStorage.getItem('id');
+  const role = sessionStorage.getItem('role');
 
   useEffect(() => {
     if (checkIsLoggedIn() && myVolData) {
@@ -28,12 +31,8 @@ const CreateVolunteerForm = ({ createProfileAction }: any) => {
   const handleSubmit = async (event: any) => {
     //Prevent page reload
     event.preventDefault();
-    
-    const userStr = sessionStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : undefined;
-    const id = sessionStorage.getItem('id');
-    
-    if (user && id) {
+        
+    if (id && role === "Volunteer") {
       const dataForCreate = {
         id: sessionStorage.getItem('id'),
         firstName: event.currentTarget.firstName.value,

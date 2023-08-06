@@ -15,4 +15,12 @@ export interface WebRequestsInterface {
     createVolunteer(data: any): any
     updateVolunteer(data: any, id: string): any
     deleteVolunteer(id: string): any
+
+    getAllAds(): any
+    getAdById(id: string): any
+    createAd(data: any): any
+    updateAd(data: any, id: string): any
+    deleteAd(id: string): any
+    addVolunteer(adVolunteer: any): any
+    deleteAdVolunteer(id: any, volunteerId): any
 }

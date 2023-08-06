@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-import { WebRequestsInterface } from "../webRequests/webRequests-int";
-import getWebRequest from "../webRequests/webRequestsProvider";
-import { inputFieldsforSignin } from "../utility/formInputFields";
-import { renderForm } from "../components/RenderForms";
-import {checkIsLoggedIn, getUserInfo, setUserInfo} from "../utility/Services/SessionService";
+import { WebRequestsInterface } from "../../webRequests/webRequests-int";
+import getWebRequest from "../../webRequests/webRequestsProvider";
+import { inputFieldsforSignin } from "../../utility/formInputFields";
+import { renderForm } from "../../components/RenderForms";
+import {checkIsLoggedIn, getUserInfo, setUserInfo} from "../../utility/Services/SessionService";
 
 interface IErrorMessages {
   name?: string;
