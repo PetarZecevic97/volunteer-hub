@@ -30,7 +30,7 @@ const OrganizationReducer = (state: any, action: any) => {
           case GET_ORGANIZATION_LIST:
             return {
               ...initialState,
-              organizationList: action.payload
+              organizationList: action.payload.data
             };
       default:
         return initialState;
