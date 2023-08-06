@@ -18,6 +18,11 @@ export const inputFieldsforCreateOrganizationForm = [
     {name:"summary", labelName: "Summary", errorName: "summary"},
 ];
 
+export const inputFieldsforUpdateOrganizationForm = [
+    {name:"organizationName", labelName: "Organization name", errorName: "organizationName"},
+    {name:"summary", labelName: "Summary", errorName: "summary"},
+];
+
 export const inputFieldsforCreateAdForm = [
     {name:"title", labelName: "Title", errorName: "title"},
     {name:"summary", labelName: "Summary", errorName: "summary"},
@@ -34,6 +39,12 @@ export const inputFieldsforUpdateAdForm = [
 ];
 
 export const inputFieldsforCreateVolunteerForm = [
+    {name:"firstName", labelName: "First name", errorName: "firstName"},
+    {name:"lastName", labelName: "Last name", errorName: "lastName"},
+    {name:"skills", labelName: "Skills", errorName: "skills"},
+];
+
+export const inputFieldsforUpdateVolunteerForm = [
     {name:"firstName", labelName: "First name", errorName: "firstName"},
     {name:"lastName", labelName: "Last name", errorName: "lastName"},
     {name:"skills", labelName: "Skills", errorName: "skills"},

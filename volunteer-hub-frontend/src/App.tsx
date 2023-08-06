@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React from "react";
 import Profile from "./pages/Profile";
+import UpdateProfileForm from "./pages/UpdateProfileForm";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -35,6 +36,7 @@ function App() {
         <Route path="/create-ad-form" element={<CreateAdForm />} />
         <Route path="/update-ad-form/:adId" element={<UpdateAdForm />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/update-profile" element={<UpdateProfileForm />} />
         <Route path="/debug" element={<DebugPanel />} />
       </Routes>
     </Router>
