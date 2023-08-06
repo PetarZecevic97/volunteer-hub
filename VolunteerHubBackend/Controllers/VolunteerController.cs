@@ -64,9 +64,9 @@ namespace VolunteerHubBackend.Controllers
         }
 
         [Authorize(Roles = "Volunteer")]
-        [HttpPut]
+        [HttpPut("{id}", Name = "UpdateVolunteer")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateVolunteer([FromBody] VolunteerInfo volunteer)
+        public async Task<IActionResult> UpdateVolunteer([FromRoute] string id, [FromBody] VolunteerInfo volunteer)
         {
             if (User.FindFirst("id").Value != volunteer.Id)
             {
