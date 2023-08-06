@@ -4,8 +4,8 @@ import { connect, useSelector } from "react-redux";
 
 import { inputFieldsforUpdateOrganizationForm } from "../utility/formInputFields";
 import { renderForm, renderErrorMessage } from "../components/RenderForms";
-import { getOrganization, updateOrganization } from "../actions/organizationActions";
-
+import { updateOrganization } from "../actions/organizationActions";
+import { getProfileData } from "../actions/profileActions";
 import { checkIsLoggedIn } from "../utility/Services/SessionService";
 
 interface IErrorMessages {
@@ -15,7 +15,7 @@ interface IErrorMessages {
   message?: string;
 }
 
-const UpdateOrganizationForm = ({ getOrganizationAction, updateOrganizationAction }: any) => {
+const UpdateOrganizationForm = ({ getProfileDataAction, updateOrganizationAction }: any) => {
   const myOrganization = useSelector((state: any) => state.profileData.myProfile);
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const navigate = useNavigate();
@@ -26,10 +26,14 @@ const UpdateOrganizationForm = ({ getOrganizationAction, updateOrganizationActio
                                         : inputFieldsforUpdateOrganizationForm
 
   const [inputFieldsWithDefault, setInputFieldsWithDefault] = useState(setDefault());
+  const id = sessionStorage.getItem('id');
+  const role = sessionStorage.getItem('role');
 
   useEffect(() => {
-    getOrganizationAction(myOrganization.id)
-  }, [myOrganization.id]);
+    if(id && role) {
+      getProfileDataAction(id, role);
+    }
+  }, [role, id]);
 
   useEffect(() => {
     setInputFieldsWithDefault(setDefault());
@@ -39,19 +43,14 @@ const UpdateOrganizationForm = ({ getOrganizationAction, updateOrganizationActio
     //Prevent page reload
     event.preventDefault();
     
-    const userStr = sessionStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : undefined;
-    const id = sessionStorage.getItem('id');
-    const role = sessionStorage.getItem('role');
-    
-    if (user && id && id === myOrganization.id && role === "Organization") {
+    if (id && id === myOrganization.id && role === "Organization") {
       const dataForUpdate = {
         ...myOrganization,
         organizationName: event.currentTarget.organizationName.value,
         summary: event.currentTarget.summary.value,
       }
       await updateOrganizationAction(dataForUpdate, myOrganization.id);
-      navigate('/organization/' + myOrganization.id, { replace: true });
+      navigate('/profile', { replace: true });
     } else {
       setErrorMessages({ name: "update organization", message: "Sranje ti updateOrganization" });
     }
@@ -66,7 +65,7 @@ const UpdateOrganizationForm = ({ getOrganizationAction, updateOrganizationActio
 
 const mapDispatchToProps = {
   updateOrganizationAction: updateOrganization,
-  getOrganizationAction: getOrganization,
+  getProfileDataAction: getProfileData,
 };
 
 export default connect(null, mapDispatchToProps)(UpdateOrganizationForm);

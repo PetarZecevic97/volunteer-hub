@@ -4,7 +4,8 @@ import { connect, useSelector } from "react-redux";
 
 import { inputFieldsforUpdateVolunteerForm } from "../utility/formInputFields";
 import { renderForm, renderErrorMessage } from "../components/RenderForms";
-import { getVolunteer, updateVolunteer } from "../actions/volunteerActions";
+import { updateVolunteer } from "../actions/volunteerActions";
+import { getProfileData } from "../actions/profileActions";
 
 import { checkIsLoggedIn } from "../utility/Services/SessionService";
 
@@ -15,7 +16,7 @@ interface IErrorMessages {
   message?: string;
 }
 
-const UpdateVolunteerForm = ({ getVolunteerAction, updateVolunteerAction }: any) => {
+const UpdateVolunteerForm = ({ getProfileDataAction, updateVolunteerAction }: any) => {
   const myVolunteer = useSelector((state: any) => state.profileData.myProfile);
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const navigate = useNavigate();
@@ -26,10 +27,14 @@ const UpdateVolunteerForm = ({ getVolunteerAction, updateVolunteerAction }: any)
                                         : inputFieldsforUpdateVolunteerForm
 
   const [inputFieldsWithDefault, setInputFieldsWithDefault] = useState(setDefault());
+  const id = sessionStorage.getItem('id');
+  const role = sessionStorage.getItem('role');
 
   useEffect(() => {
-    getVolunteerAction(myVolunteer.id)
-  }, [myVolunteer.id]);
+    if(id && role) {
+      getProfileDataAction(id, role);
+    }
+  }, [role, id]);
 
   useEffect(() => {
     setInputFieldsWithDefault(setDefault());
@@ -39,12 +44,7 @@ const UpdateVolunteerForm = ({ getVolunteerAction, updateVolunteerAction }: any)
     //Prevent page relovolunteer
     event.preventDefault();
     
-    const userStr = sessionStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : undefined;
-    const id = sessionStorage.getItem('id');
-    const role = sessionStorage.getItem('role');
-    
-    if (user && id && id === myVolunteer.id && role === "Volunteer") {
+    if (id === myVolunteer.id && role === "Volunteer") {
       const dataForUpdate = {
         ...myVolunteer,
         firstName: event.currentTarget.firstName.value,
@@ -52,7 +52,7 @@ const UpdateVolunteerForm = ({ getVolunteerAction, updateVolunteerAction }: any)
         skills: event.currentTarget.skills.value.split(", "),
       }
       await updateVolunteerAction(id, dataForUpdate);
-      navigate('/volunteer/' + id, { replace: true });
+      navigate('/profile', { replace: true });
     } else {
       setErrorMessages({ name: "update volunteer", message: "Sranje ti updateVolunteer" });
     }
@@ -67,7 +67,7 @@ const UpdateVolunteerForm = ({ getVolunteerAction, updateVolunteerAction }: any)
 
 const mapDispatchToProps = {
   updateVolunteerAction: updateVolunteer,
-  getVolunteerAction: getVolunteer,
+  getProfileDataAction: getProfileData,
 };
 
 export default connect(null, mapDispatchToProps)(UpdateVolunteerForm);

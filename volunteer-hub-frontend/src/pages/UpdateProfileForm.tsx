@@ -6,16 +6,10 @@ import UpdateVolunteerForm from "./UpdateVolunteerForm";
 import { PageContainer } from '../components/Profile/styles/ProfileSC';
 import { getProfileData } from "../actions/profileActions";
 
-const UpdateProfileForm = ({ getProfileDataAction } : any) => {
+const UpdateProfileForm = () => {
   const role = sessionStorage.getItem('role');
   const nullableId = sessionStorage.getItem('id');
   const id = nullableId ? nullableId : '';
-
-  useEffect(() => {
-    if(id && role) {
-      getProfileDataAction(id, role);
-    }
-  }, [role, id]);
 
   const renderOrganization = () => {
     return (
@@ -59,8 +53,4 @@ const UpdateProfileForm = ({ getProfileDataAction } : any) => {
   } 
 };
 
-const mapDispatchToProps = {
-  getProfileDataAction: getProfileData,
-};
-
-export default connect(null, mapDispatchToProps)(UpdateProfileForm);
+export default connect(null, null)(UpdateProfileForm);
