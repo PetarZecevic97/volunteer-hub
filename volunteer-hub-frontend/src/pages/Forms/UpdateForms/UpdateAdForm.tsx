@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
-import { inputFieldsforUpdateAdForm } from "../utility/formInputFields";
-import { renderForm, renderErrorMessage } from "../components/RenderForms";
-import { getAd, updateAd } from "../actions/adActions";
+import { inputFieldsforUpdateAdForm } from "../../../utility/formInputFields";
+import { renderForm, renderErrorMessage } from "../../../components/RenderForms";
+import { getAd, updateAd } from "../../../actions/adActions";
 
-import { checkIsLoggedIn } from "../utility/Services/SessionService";
+import { checkIsLoggedIn } from "../../../utility/Services/SessionService";
 
 interface IErrorMessages {
   name?: string;

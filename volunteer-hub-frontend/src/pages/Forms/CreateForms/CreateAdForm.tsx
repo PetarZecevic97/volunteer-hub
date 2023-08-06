@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
-import { inputFieldsforCreateAdForm } from "../utility/formInputFields";
-import { renderForm, renderErrorMessage } from "../components/RenderForms";
-import { createAd } from "../actions/adActions";
+import { inputFieldsforCreateAdForm } from "../../../utility/formInputFields";
+import { renderForm, renderErrorMessage } from "../../../components/RenderForms";
+import { createAd } from "../../../actions/adActions";
 
-import { checkIsLoggedIn } from "../utility/Services/SessionService";
+import { checkIsLoggedIn } from "../../../utility/Services/SessionService";
 
 interface IErrorMessages {
   name?: string;
@@ -19,6 +19,9 @@ const CreateAdForm = ({ createAdAction }: any) => {
   const myAd = useSelector((state: any) => state.ads.ad);
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const navigate = useNavigate();
+    
+  const id = sessionStorage.getItem('id');
+  const role = sessionStorage.getItem('role');
 
   useEffect(() => {
     if (checkIsLoggedIn() && myAd && myAd.id) {
@@ -30,12 +33,7 @@ const CreateAdForm = ({ createAdAction }: any) => {
     //Prevent page reload
     event.preventDefault();
     
-    const userStr = sessionStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : undefined;
-    const id = sessionStorage.getItem('id');
-    const role = sessionStorage.getItem('role');
-    
-    if (user && id && role === "Organization") {
+    if (id && role === "Organization") {
       const dataForCreate = {
         title: event.currentTarget.title.value,
         summary: event.currentTarget.summary.value,

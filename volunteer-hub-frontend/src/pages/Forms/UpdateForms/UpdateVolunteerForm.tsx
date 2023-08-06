@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
-import { inputFieldsforUpdateVolunteerForm } from "../utility/formInputFields";
-import { renderForm, renderErrorMessage } from "../components/RenderForms";
-import { updateVolunteer } from "../actions/volunteerActions";
-import { getProfileData } from "../actions/profileActions";
+import { inputFieldsforUpdateVolunteerForm } from "../../../utility/formInputFields";
+import { renderForm, renderErrorMessage } from "../../../components/RenderForms";
+import { updateVolunteer } from "../../../actions/volunteerActions";
+import { getProfileData } from "../../../actions/profileActions";
 
-import { checkIsLoggedIn } from "../utility/Services/SessionService";
+import { checkIsLoggedIn } from "../../../utility/Services/SessionService";
 
 interface IErrorMessages {
   name?: string;

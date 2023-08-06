@@ -63,13 +63,13 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
     <>
       <PageContainer>
         <Grid>
-          <Avatar size="50" round={true} name={ad == null || ad == undefined ? "" : ad.title} />
+          <Avatar size="50" round={true} name={ad ? ad.title : ""} />
 
-          <h1>Title: {ad == null || ad == undefined ? "" : ad.title}</h1>
-          <p>Summary: {ad == null || ad == undefined ? "" : ad.summary}</p>
-          <p>Skills necessary: {ad == null || ad == undefined ? "" : ad.skills.substring(1, ad.skills.length-1)}</p>
-          <p>Location: {ad == null || ad == undefined ? "" : ad.location}</p>
-          <p>Status: {ad == null || ad == undefined ? "" : printStatus()}</p>
+          <h1>Title: {ad ? ad.title : ""}</h1>
+          <p>Summary: {ad ? ad.summary : ""}</p>
+          <p>Skills necessary: {ad ? ad.skills.substring(1, ad.skills.length-1) : ""}</p>
+          <p>Location: {ad ? ad.location : ""}</p>
+          <p>Status: {ad ? printStatus() : ""}</p>
 
           { renderButtons() }
         </Grid>

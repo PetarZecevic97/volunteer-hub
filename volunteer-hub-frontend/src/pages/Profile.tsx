@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 import { NavLink as Link } from "react-router-dom";
 
-import Organization from "../components/Profile/Organization";
-import Volunteer from "../components/Profile/Volunteer";
+import Organization from "./Organization";
+import Volunteer from "./Volunteer";
 import { PageContainer } from '../components/Profile/styles/ProfileSC';
 import { ButtonWrapper } from "../components/Login/styles/LoginSC";
 import { getProfileData } from "../actions/profileActions";

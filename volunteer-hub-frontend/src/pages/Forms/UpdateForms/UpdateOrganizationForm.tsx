@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
-import { inputFieldsforUpdateOrganizationForm } from "../utility/formInputFields";
-import { renderForm, renderErrorMessage } from "../components/RenderForms";
-import { updateOrganization } from "../actions/organizationActions";
-import { getProfileData } from "../actions/profileActions";
-import { checkIsLoggedIn } from "../utility/Services/SessionService";
+import { inputFieldsforUpdateOrganizationForm } from "../../../utility/formInputFields";
+import { renderForm, renderErrorMessage } from "../../../components/RenderForms";
+import { updateOrganization } from "../../../actions/organizationActions";
+import { getProfileData } from "../../../actions/profileActions";
+import { checkIsLoggedIn } from "../../../utility/Services/SessionService";
 
 interface IErrorMessages {
   name?: string;
