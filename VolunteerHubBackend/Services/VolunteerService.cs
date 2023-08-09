@@ -83,10 +83,6 @@ namespace VolunteerHubBackend.Services
         {
             VolunteerInfo result = new VolunteerInfo();
             HttpResponseMessage response = await _httpClient.PutAsJsonAsync(_configuration.GetValue<string>("VolunteerSettings:BasePath") + "/Volunteer/" + product.Id, product);
-            Console.WriteLine("Ljeks service pocetak");
-            Console.WriteLine(response.StatusCode);
-            Console.WriteLine("Ljeks service kraj");
-
 
             if (response.IsSuccessStatusCode)
             {

@@ -13,7 +13,6 @@ const Ad = ({ getAdAction, deleteAdAction, createAdVolunteerAction, deleteAdVolu
   const role = sessionStorage.getItem('role');
   const nullableId = sessionStorage.getItem('id');
   const { adId } = useParams();
-  console.log("ljeks ", state);
 
   useEffect(() => {
       getAdAction(adId);

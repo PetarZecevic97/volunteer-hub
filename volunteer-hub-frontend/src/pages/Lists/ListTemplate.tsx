@@ -19,6 +19,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 
+  // Whole code for paginated table copy pasta from https://mui.com/material-ui/react-table/ chapter on paginated table
 interface TablePaginationActionsProps {
   count: number;
   page: number;
@@ -85,10 +86,11 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-
+// Pass rows and columns (fields). Fields are atributes of one row object duh
 const ListTemplate = ({ rows,  fields, avatarName }: any) => {  
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  // shownRows are rows are filtering by search done SearchComponent
   const [shownRows, setShownRows] = useState(rows);
 
   useEffect(() => {
