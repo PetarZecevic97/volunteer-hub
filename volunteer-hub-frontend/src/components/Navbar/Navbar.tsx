@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 import {
   Nav,
   NavLink,
@@ -11,13 +12,11 @@ import {
 } from "./styles/NavbarSC";
 import "./styles/Navbar.css";
 import { logOutOfProfile } from "../../actions/profileActions";
-import { connect } from "react-redux";
-import {checkIsLoggedIn, clearSessionInfo} from "../../utility/Services/SessionService";
 
 const Navbar = ({ logOutOfProfileAction }: any) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    checkIsLoggedIn()
-  );
+  const myProfile = useSelector((state: any) => state.profileData.myProfile);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(myProfile !== undefined);
   const [isDebug, setIsDebug] = useState( () => {
       if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
         return true;
@@ -29,27 +28,13 @@ const Navbar = ({ logOutOfProfileAction }: any) => {
 
   const clearSession = () => {
     logOutOfProfileAction();
-    clearSessionInfo();
     sessionStorage.clear()
     setIsLoggedIn(false);
   };
 
   useEffect(() => {
-    setIsLoggedIn(checkIsLoggedIn());
-
-    // Respond to the `storage` event
-    const storageEventHandler = (event: any) => {
-      if (event.key === "email" || event.key === "username") {
-        setIsLoggedIn(event.newValue !== undefined ? true: false);
-      }
-    };
-    // Hook up the event handler
-    window.addEventListener("storage", storageEventHandler);
-    return () => {
-      // Remove the handler when the component unmounts
-      window.removeEventListener("storage", storageEventHandler);
-    };
-  }, []);
+    setIsLoggedIn(myProfile !== undefined);
+  }, [myProfile]);
 
   return (
     <>

@@ -8,18 +8,10 @@ const SearchComponent = ({ fields, rows, setShownRows }) => {
   const [fieldsForFiltering, setFieldsForFiltering] = useState(fields.map((x) => { return {field: x, isSelected: true} }));
   const [searchBy, setSearchBy] = useState("");
 
-  const handleCheckChange = (id: number, checked: boolean) => {
-    const newFieldsForFiltering = fieldsForFiltering;
-    newFieldsForFiltering[id].isSelected = checked;
-    console.log("Ljeks ", newFieldsForFiltering);
-    setFieldsForFiltering(newFieldsForFiltering);
-  };
-
-  const handleAllCheckChange = (checked: boolean) => {
-    const newFieldsForFiltering = fieldsForFiltering.map(x => {
-      return {...x, isSelected: checked};
-    });
-    setFieldsForFiltering(newFieldsForFiltering);
+  const handleCheckChange = (event: any) => {
+      const newFieldsForFiltering = fieldsForFiltering;
+      fieldsForFiltering[event.target.id].isSelected = event.target.checked;
+      setFieldsForFiltering(newFieldsForFiltering);
   };
 
   const filterBySearch = (row: any, wantedWord: string) => {
@@ -37,20 +29,15 @@ const SearchComponent = ({ fields, rows, setShownRows }) => {
 
   return (
     <>
-      <div>
-        <label>What do you want to find?</label>
-        <input name="search" id="search" required  onChange={handleChangeSearch}/>
-        <button type="submit" value="Submit" onClick={handleSubmitSearch}>Search</button>
-      </div>
+      <label>What do you want to find?</label>
+      <input name="search" id="search" required  onChange={handleChangeSearch}/>
+      <button type="submit" value="Submit" onClick={handleSubmitSearch}>Search</button>
       <FormGroup>
-        <FormControlLabel control={<Checkbox defaultChecked 
-                                    onChange={(e, checked) => handleAllCheckChange(checked)}/>} label="All" />
         {fields.map((field, index) => {
-          return (
-            <FormControlLabel key={index}
-                              control={<Checkbox id={index} checked={fieldsForFiltering[index].isSelected}
-                              onChange={(e, checked) => handleCheckChange(index, checked)}/>} label={field} />
-          );
+            return (
+              <FormControlLabel key={index}
+                              control={<Checkbox id={index} defaultChecked onChange={handleCheckChange}/>} label={field} />
+            );
         })}
       </FormGroup>
     </>
