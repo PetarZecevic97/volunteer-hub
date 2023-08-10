@@ -2,7 +2,6 @@ import React, { useState, useEffect,  } from "react";
 import { useParams } from 'react-router-dom';
 import Avatar from "react-avatar";
 import { Grid, PageContainer } from "../components/Profile/styles/ProfileSC";
-import IOrganization from "../Entities/Organization";
 import { useSelector } from 'react-redux';
 import { getOrganization } from "../actions/organizationActions";
 import { connect } from "react-redux";

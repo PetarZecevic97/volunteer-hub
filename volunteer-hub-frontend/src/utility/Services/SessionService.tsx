@@ -28,17 +28,6 @@ export function getDebugValue(_string: string) {
     }
     throw Error("Debug value manipulation restricted while not in dev build!")
 }
-export function setRole(_isAdmin: boolean) {
-    sessionStorage.setItem("role", _isAdmin ? "admin" : "user");
-}
-
-export function getRole() {
-    const email = sessionStorage.getItem("role");
-}
-
-export function clearSessionInfo() {
-    sessionStorage.clear();
-}
 
 export function checkIsLoggedIn() {
     const id = sessionStorage.getItem('id');

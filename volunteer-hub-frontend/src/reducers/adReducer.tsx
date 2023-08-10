@@ -43,7 +43,7 @@ case CREATE_AD:
     case GET_AD_LIST:
       return {
         ...initialState,
-        adList: action.payload
+        adList: action.payload.data
       };
       case NULLIFY:
         return {

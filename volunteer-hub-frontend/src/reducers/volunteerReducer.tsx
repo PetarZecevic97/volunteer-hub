@@ -30,7 +30,7 @@ const VolunteerReducer =  (state: any, action: any) => {
             case GET_VOLUNTEER_LIST:
               return {
                 ...initialState,
-                volunteerList: action.payload
+                volunteerList: action.payload.data
               };
         default:
           return initialState;
