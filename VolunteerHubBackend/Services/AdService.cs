@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System;
 using System.Net.Http.Json;
 using System.Collections.Generic;
+using MassTransit;
+using EventBus.Messages.Events;
 
 namespace VolunteerHubBackend.Services
 {
@@ -16,10 +18,12 @@ namespace VolunteerHubBackend.Services
     {
         private readonly HttpClient _httpClient = new HttpClient();
         private readonly IConfiguration _configuration;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public AdService(IConfiguration configuration)
+        public AdService(IConfiguration configuration, IPublishEndpoint publishEndpoint)
         {
             _configuration = configuration;
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         public async Task<IEnumerable<Ad>> GetAllAds()
@@ -53,6 +57,8 @@ namespace VolunteerHubBackend.Services
             if (response.IsSuccessStatusCode)
             {
                 newProduct = await response.Content.ReadFromJsonAsync<Ad>();
+                var eventMessage = new AdNotificationEvent(newProduct.Id, newProduct.Title);
+                await _publishEndpoint.Publish(eventMessage);
             }
             return newProduct ?? throw new Exception();
         }

@@ -36,6 +36,15 @@ services:
     build:
       context: .
       dockerfile: Ad/Dockerfile
+
+  notification:
+    image: ${DOCKER_REGISTRY-}notification
+    build:
+      context: .
+      dockerfile: Notification/Dockerfile
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
     
 
 volumes:
