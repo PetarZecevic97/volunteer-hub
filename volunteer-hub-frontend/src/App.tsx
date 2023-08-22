@@ -21,13 +21,14 @@ import VolunteerList from "./pages/Lists/VolunteerList";
 import OrganizationList from "./pages/Lists/OrganizationList";
 
 function App() {
+  console.log("aaaaaa");
   return (
     <Router>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/events" element={<Events />} />
+        <Route path="/events" element={<AdList />} />
         <Route path="/volunteers" element={<VolunteerList />} />
         <Route path="/volunteer/:volunteerId" element={<Volunteer />} />
         <Route path="/organizations" element={<OrganizationList />} />

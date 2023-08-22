@@ -1,51 +1,57 @@
+// Metadata for input fields of any given form
+// in the object which contains name:"meta"
+
 export const inputFieldsforSignup = [
-    {name:"firstName", labelName: "First name", errorName: "firstName"},
-    {name:"lastName", labelName: "Last name", errorName: "lastName"},
-    {name:"username", labelName: "Username", errorName: "uname"},
-    {name:"email", labelName: "E-mail", errorName: "email"},
-    {name:"pass", labelName: "Password", errorName: "pass"},
-    {name:"role", labelName: "Role", errorName: "role"},
-    {name:"phone", labelName: "Phone number", errorName: "phone"},
+    {type:"text", name:"firstName", labelName: "First name", errorName: "firstName"},
+    {type:"text", name:"lastName", labelName: "Last name", errorName: "lastName"},
+    {type:"text", name:"username", labelName: "Username", errorName: "uname"},
+    {type:"text", name:"email", labelName: "E-mail", errorName: "email"},
+    {type:"text", name:"pass", labelName: "Password", errorName: "pass"},
+    {type:"text", name:"role", labelName: "Role", errorName: "role"},
+    {type:"text", name:"phone", labelName: "Phone number", errorName: "phone"},
 ];
 
 export const inputFieldsforSignin = [
-    {name:"username", labelName: "Username", errorName: "uname"},
-    {name:"pass", labelName: "Password", errorName: "pass"},
+    {type:"text", name:"username", labelName: "Username", errorName: "uname"},
+    {type:"text", name:"password", labelName: "Password", errorName: "password"},
+    {type:"checkbox", name:"remember", labelName: "Remember me"},
+    {type:"href", name:"signup", labelName: "Don't have an account? Sign Up"},
+    // {type:"href", name:"forgotpassword", labelName: "Forgot password?"},
 ];
 
 export const inputFieldsforCreateOrganizationForm = [
-    {name:"organizationName", labelName: "Organization name", errorName: "organizationName"},
-    {name:"summary", labelName: "Summary", errorName: "summary"},
+    {type:"text", name:"organizationName", labelName: "Organization name", errorName: "organizationName"},
+    {type:"text", name:"summary", labelName: "Summary", errorName: "summary"},
 ];
 
 export const inputFieldsforUpdateOrganizationForm = [
-    {name:"organizationName", labelName: "Organization name", errorName: "organizationName"},
-    {name:"summary", labelName: "Summary", errorName: "summary"},
+    {type:"text", name:"organizationName", labelName: "Organization name", errorName: "organizationName"},
+    {type:"text", name:"summary", labelName: "Summary", errorName: "summary"},
 ];
 
 export const inputFieldsforCreateAdForm = [
-    {name:"title", labelName: "Title", errorName: "title"},
-    {name:"summary", labelName: "Summary", errorName: "summary"},
-    {name:"location", labelName: "Location", errorName: "location"},
-    {name:"skills", labelName: "Skills necessary", errorName: "skills"},
+    {type:"text", name:"title", labelName: "Title", errorName: "title"},
+    {type:"text", name:"summary", labelName: "Summary", errorName: "summary"},
+    {type:"text", name:"location", labelName: "Location", errorName: "location"},
+    {type:"text", name:"skills", labelName: "Skills necessary", errorName: "skills"},
 ];
 
 export const inputFieldsforUpdateAdForm = [
-    {name:"title", labelName: "Title", errorName: "title"},
-    {name:"summary", labelName: "Summary", errorName: "summary"},
-    {name:"location", labelName: "Location: ", errorName: "location"},
-    {name:"skills", labelName: "Skills necessary: ", errorName: "skills"},
-    {name:"isOpen", labelName: "Status: ", errorName: "isOpen"},
+    {type:"text", name:"title", labelName: "Title", errorName: "title"},
+    {type:"text", name:"summary", labelName: "Summary", errorName: "summary"},
+    {type:"text", name:"location", labelName: "Location: ", errorName: "location"},
+    {type:"text", name:"skills", labelName: "Skills necessary: ", errorName: "skills"},
+    {type:"text", name:"isOpen", labelName: "Status: ", errorName: "isOpen"},
 ];
 
 export const inputFieldsforCreateVolunteerForm = [
-    {name:"firstName", labelName: "First name", errorName: "firstName"},
-    {name:"lastName", labelName: "Last name", errorName: "lastName"},
-    {name:"skills", labelName: "Skills", errorName: "skills"},
+    {type:"text", name:"firstName", labelName: "First name", errorName: "firstName"},
+    {type:"text", name:"lastName", labelName: "Last name", errorName: "lastName"},
+    {type:"text", name:"skills", labelName: "Skills", errorName: "skills"},
 ];
 
 export const inputFieldsforUpdateVolunteerForm = [
-    {name:"firstName", labelName: "First name", errorName: "firstName"},
-    {name:"lastName", labelName: "Last name", errorName: "lastName"},
-    {name:"skills", labelName: "Skills", errorName: "skills"},
+    {type:"text", name:"firstName", labelName: "First name", errorName: "firstName"},
+    {type:"text", name:"lastName", labelName: "Last name", errorName: "lastName"},
+    {type:"text", name:"skills", labelName: "Skills", errorName: "skills"},
 ];
