@@ -1,33 +1,56 @@
+/* Sidebar Container */
 .sidebar-container {
-  width: 300px; /* Adjust width as needed */
-  background-color: #212121; /* Adjust background color */
-  color: #ffffff; /* Adjust font color */
-  height: 100%; /* Make sure the sidebar covers the entire height */
+  background-color: #1a1a1a;
+  color: #fff;
+  width: 950px; /* Increase the width */
+  height: 100%;
+  padding-top: 30px; /* Increase the top padding */
+  padding-right: 10px; /* Increase the top padding */
+  padding-left: 3px; /* Increase the top padding */
+  transition: transform 0.3s ease-in-out;
 }
 
+/* Logo Container */
 .logo-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin: 20px 0;
+  margin-bottom: 20px;
 }
 
-.logo-container img {
-  width: 40px;
-  height: 40px;
-  margin-right: 8px;
-}
-
+/* App Name */
 .app-name {
-  white-space: nowrap; /* Prevent app name from breaking into multiple lines */
-  padding-left: 8px; /* Add padding to the left of the text */
-  padding-right: 20px; /* Add padding to the left of the text */
+  font-weight: bold;
+  margin-top: 8px;
 }
 
+/* Sidebar List */
 .sidebar-list {
   width: 100%;
+  padding: 0;
 }
 
+/* Sidebar Item */
 .sidebar-item {
-  color: #ffffff; /* Adjust font color */
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Sidebar Icon */
+.sidebar-icon {
+  color: #fff;
+  margin-right: 12px;
+}
+
+/* Sidebar Item Hover */
+.sidebar-item:hover {
+  background-color: #292929;
+}
+
+/* Drawer Container */
+.drawer-container {
+  /* Add additional styles if needed */
 }

@@ -9,19 +9,18 @@ import {
   Typography,
   ListItemButton,
 } from "@mui/material";
-import HomeIcon from '@mui/icons-material/Home';
-import EventIcon from '@mui/icons-material/Event';
-import PersonIcon from '@mui/icons-material/Person';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import BugReportIcon from '@mui/icons-material/BugReport';
+import HomeIcon from "@mui/icons-material/Home";
+import EventIcon from "@mui/icons-material/Event";
+import PersonIcon from "@mui/icons-material/Person";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import BugReportIcon from "@mui/icons-material/BugReport";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import { logOutOfProfile } from "../../actions/profileActions";
-import "./styles/Sidebar.css"; // Create a new CSS file for custom sidebar styles
+import "./styles/Sidebar.css";
 
 const Sidebar = ({ logOutOfProfileAction }: any) => {
   const myProfile = useSelector((state: any) => state.profileData.myProfile);
-
   const [isLoggedIn, setIsLoggedIn] = useState(myProfile !== undefined);
   const [isDebug, setIsDebug] = useState(
     !process.env.NODE_ENV || process.env.NODE_ENV === "development"
@@ -53,12 +52,17 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
       >
         <MenuIcon />
       </IconButton>
-      <Drawer anchor="left" open={isSidebarOpen} onClose={toggleSidebar}>
+      <Drawer
+        anchor="left"
+        open={isSidebarOpen}
+        onClose={toggleSidebar}
+        className="drawer-container" // Apply custom styles
+      >
         <Grid
           container
           direction="column"
           alignItems="center"
-          className="sidebar-container" // Apply custom styles
+          className="sidebar-container"
         >
           <div className="logo-container">
             <img src={require("../../images/logo-small.png")} alt="logo" />
@@ -81,7 +85,6 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
               className="sidebar-item"
             >
               <EventIcon className="sidebar-icon" />
-
               <ListItemText primary="Events" />
             </ListItemButton>
             <ListItemButton
