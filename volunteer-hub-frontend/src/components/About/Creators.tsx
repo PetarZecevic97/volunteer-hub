@@ -3,7 +3,7 @@ import AleksandraRuzicAvatar from "../../images/AleksandraRuzic-avatar.jpg";
 import PetarZecevicAvatar from "../../images/PetarZecevic-avatar.png";
 import backspacer303Avatar from "../../images/backspacer303-avatar.jpg";
 
-interface Creator {
+interface CreatorData {
   username: string;
   name: string;
   avatar: string;
@@ -12,7 +12,7 @@ interface Creator {
   description: string;
 }
 
-const creatorsData: Creator[] = [
+const creatorsData: CreatorData[] = [
   {
     username: "AleksandraRuzic",
     name: "Aleksandra Ruzic",
