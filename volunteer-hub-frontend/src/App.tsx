@@ -19,6 +19,7 @@ import DebugPanel from "./pages/DebugPanel";
 import VolunteerList from "./pages/Lists/VolunteerList";
 import OrganizationList from "./pages/Lists/OrganizationList";
 import MainThemeProvider from "./components/Providers/MainThemeProvider";
+import NotFoundPage from "./pages/NotFound";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/update-profile" element={<UpdateProfileForm />} />
           <Route path="/debug" element={<DebugPanel />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
     </MainThemeProvider>
