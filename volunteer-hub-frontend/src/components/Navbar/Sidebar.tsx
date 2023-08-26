@@ -12,8 +12,8 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import EventIcon from "@mui/icons-material/Event";
 import PersonIcon from "@mui/icons-material/Person";
-import LoginIcon from '@mui/icons-material/Login';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LoginIcon from "@mui/icons-material/Login";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import { Menu as MenuIcon } from "@mui/icons-material";
@@ -73,30 +73,6 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
             </Typography>
           </div>
           <List className="sidebar-list">
-            <ListItemButton
-              component={NavLink}
-              to="/about"
-              className="sidebar-item"
-            >
-              <HomeIcon className="sidebar-icon" />
-              <ListItemText primary="About" />
-            </ListItemButton>
-            <ListItemButton
-              component={NavLink}
-              to="/events"
-              className="sidebar-item"
-            >
-              <EventIcon className="sidebar-icon" />
-              <ListItemText primary="Events" />
-            </ListItemButton>
-            <ListItemButton
-              component={NavLink}
-              to="/profile"
-              className="sidebar-item"
-            >
-              <PersonIcon className="sidebar-icon" />
-              <ListItemText primary="Profile" />
-            </ListItemButton>
             {!isLoggedIn && (
               <ListItemButton
                 component={NavLink}
@@ -123,7 +99,32 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
                 <ListItemText primary="Log Out" />
               </ListItemButton>
             )}
-
+            <ListItemButton
+              component={NavLink}
+              to="/events"
+              className="sidebar-item"
+            >
+              <EventIcon className="sidebar-icon" />
+              <ListItemText primary="Events" />
+            </ListItemButton>
+            {isLoggedIn && (
+              <ListItemButton
+                component={NavLink}
+                to="/profile"
+                className="sidebar-item"
+              >
+                <PersonIcon className="sidebar-icon" />
+                <ListItemText primary="Profile" />
+              </ListItemButton>
+            )}
+            <ListItemButton
+              component={NavLink}
+              to="/about"
+              className="sidebar-item"
+            >
+              <HomeIcon className="sidebar-icon" />
+              <ListItemText primary="About" />
+            </ListItemButton>
             {isDebug && (
               <ListItemButton
                 component={NavLink}
