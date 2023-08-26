@@ -1,26 +1,27 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React from "react";
-import Profile from "./pages/Profile";
-import UpdateProfileForm from "./pages/Forms/UpdateForms/UpdateProfileForm";
-import Sidebar from "./components/Navbar/Sidebar";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Signin from "./pages/Forms/SigninForm";
-import Signup from "./pages/Forms/SignupForm";
-import CreateOrganizationForm from "./pages/Forms/CreateForms/CreateOrganizationForm";
-import CreateVolunteerForm from "./pages/Forms/CreateForms/CreateVolunteerForm";
-import CreateAdForm from "./pages/Forms/CreateForms/CreateAdForm";
-import UpdateAdForm from "./pages/Forms/UpdateForms/UpdateAdForm";
-import Volunteer from "./pages/Volunteer";
-import Organization from "./pages/Organization";
-import Ad from "./pages/Ad";
-import AdList from "./pages/Lists/AdList";
-import DebugPanel from "./pages/DebugPanel";
-import VolunteerList from "./pages/Lists/VolunteerList";
-import OrganizationList from "./pages/Lists/OrganizationList";
+import React, { lazy, Suspense } from "react";
 import MainThemeProvider from "./components/Providers/MainThemeProvider";
-import NotFoundPage from "./pages/NotFound";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, CircularProgress } from "@mui/material";
+import Sidebar from "./components/Navbar/Sidebar";
+
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const AdList = lazy(() => import("./pages/Lists/AdList"));
+const VolunteerList = lazy(() => import("./pages/Lists/VolunteerList"));
+const Volunteer = lazy(() => import("./pages/Volunteer"));
+const OrganizationList = lazy(() => import("./pages/Lists/OrganizationList"));
+const Organization = lazy(() => import("./pages/Organization"));
+const Ad = lazy(() => import("./pages/Ad"));
+const Signin = lazy(() => import("./pages/Forms/SigninForm"));
+const Signup = lazy(() => import("./pages/Forms/SignupForm"));
+const CreateOrganizationForm = lazy(() => import("./pages/Forms/CreateForms/CreateOrganizationForm"));
+const CreateVolunteerForm = lazy(() => import("./pages/Forms/CreateForms/CreateVolunteerForm"));
+const CreateAdForm = lazy(() => import("./pages/Forms/CreateForms/CreateAdForm"));
+const UpdateAdForm = lazy(() => import("./pages/Forms/UpdateForms/UpdateAdForm"));
+const Profile = lazy(() => import("./pages/Profile"));
+const UpdateProfileForm = lazy(() => import("./pages/Forms/UpdateForms/UpdateProfileForm"));
+const DebugPanel = lazy(() => import("./pages/DebugPanel"));
+const NotFoundPage = lazy(() => import("./pages/NotFound"));
 
 function App() {
   return (
@@ -29,31 +30,158 @@ function App() {
       <Router>
         <Sidebar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/events" element={<AdList />} />
-          <Route path="/volunteers" element={<VolunteerList />} />
-          <Route path="/volunteer/:volunteerId" element={<Volunteer />} />
-          <Route path="/organizations" element={<OrganizationList />} />
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <Home />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <About />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/events"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <AdList />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/volunteers"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <VolunteerList />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/volunteer/:volunteerId"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <Volunteer />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/organizations"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <OrganizationList />
+              </Suspense>
+            }
+          />
           <Route
             path="/organization/:organizationId"
-            element={<Organization />}
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <Organization />
+              </Suspense>
+            }
           />
-          <Route path="/ad/:adId" element={<Ad />} />
-          <Route path="/ads" element={<AdList />} />
-          <Route path="/sign-in" element={<Signin />} />
-          <Route path="/sign-up" element={<Signup />} />
-          <Route path="/create-org-form" element={<CreateOrganizationForm />} />
+          <Route
+            path="/ad/:adId"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <Ad />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/ads"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <AdList />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/sign-in"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <Signin />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/sign-up"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <Signup />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/create-org-form"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <CreateOrganizationForm />
+              </Suspense>
+            }
+          />
           <Route
             path="/create-volunteer-form"
-            element={<CreateVolunteerForm />}
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <CreateVolunteerForm />
+              </Suspense>
+            }
           />
-          <Route path="/create-ad-form" element={<CreateAdForm />} />
-          <Route path="/update-ad-form/:adId" element={<UpdateAdForm />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/update-profile" element={<UpdateProfileForm />} />
-          <Route path="/debug" element={<DebugPanel />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route
+            path="/create-ad-form"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <CreateAdForm />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/update-ad-form/:adId"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <UpdateAdForm />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <Profile />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/update-profile"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <UpdateProfileForm />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/debug"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <DebugPanel />
+              </Suspense>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <NotFoundPage />
+              </Suspense>
+            }
+          />
         </Routes>
       </Router>
     </MainThemeProvider>
