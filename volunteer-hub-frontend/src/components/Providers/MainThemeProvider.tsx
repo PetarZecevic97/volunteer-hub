@@ -5,16 +5,46 @@ import { ThemeProvider, createTheme } from '@mui/material';
 const customTheme = createTheme({
   palette: {
     primary: {
-      main: '#9c27b0', // Purple
+      main: '#8c1aff', // Light Purple
     },
     secondary: {
-      main: '#ffeb3b', // Yellow
+      main: '#FFC107', // Amber
     },
     background: {
-      default: '#333', // Dark Grey
+      default: '#212121', // Dark Background
+    },
+    text: {
+      primary: '#FFFFFF', // White Font Color
     },
   },
-  // Add more theme configurations if needed
+  typography: {
+    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'].join(','),
+    fontSize: 16,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 700,
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '&:hover $notchedOutline': {
+            borderColor: '#FFFFFF', // White Border Color on Hover
+          },
+        },
+        notchedOutline: {
+          borderColor: '#FFFFFF', // White Border Color
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: '#FFFFFF', // White Font Color for Labels
+        },
+      },
+    },
+  },
 });
 
 const MainThemeProvider = ({ children }) => {

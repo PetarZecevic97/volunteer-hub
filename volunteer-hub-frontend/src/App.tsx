@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React from "react";
 import Profile from "./pages/Profile";
 import UpdateProfileForm from "./pages/Forms/UpdateForms/UpdateProfileForm";
-import Navbar from "./components/Navbar/Navbar";
+import Sidebar from "./components/Navbar/Sidebar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Signin from "./pages/Forms/SigninForm";
@@ -25,7 +25,7 @@ function App() {
   return (
     <MainThemeProvider>
       <Router>
-        <Navbar />
+        <Sidebar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

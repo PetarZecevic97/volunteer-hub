@@ -1,0 +1,33 @@
+.sidebar-container {
+  width: 300px; /* Adjust width as needed */
+  background-color: #212121; /* Adjust background color */
+  color: #ffffff; /* Adjust font color */
+  height: 100%; /* Make sure the sidebar covers the entire height */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.logo-container img {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+
+.app-name {
+  white-space: nowrap; /* Prevent app name from breaking into multiple lines */
+  padding-left: 8px; /* Add padding to the left of the text */
+  padding-right: 20px; /* Add padding to the left of the text */
+}
+
+.sidebar-list {
+  width: 100%;
+}
+
+.sidebar-item {
+  color: #ffffff; /* Adjust font color */
+  margin-bottom: 10px;
+}
