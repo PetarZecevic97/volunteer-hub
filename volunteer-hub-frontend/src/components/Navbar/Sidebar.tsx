@@ -12,6 +12,8 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import EventIcon from "@mui/icons-material/Event";
 import PersonIcon from "@mui/icons-material/Person";
+import LoginIcon from '@mui/icons-material/Login';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import { Menu as MenuIcon } from "@mui/icons-material";
@@ -95,10 +97,33 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
               <PersonIcon className="sidebar-icon" />
               <ListItemText primary="Profile" />
             </ListItemButton>
-            <ListItemButton onClick={clearSession} className="sidebar-item">
-              <ExitToAppIcon className="sidebar-icon" />
-              <ListItemText primary="Log Out" />
-            </ListItemButton>
+            {!isLoggedIn && (
+              <ListItemButton
+                component={NavLink}
+                to="/sign-up"
+                className="sidebar-item"
+              >
+                <PersonAddIcon className="sidebar-icon" />
+                <ListItemText primary="Sign Up" />
+              </ListItemButton>
+            )}
+            {!isLoggedIn && (
+              <ListItemButton
+                component={NavLink}
+                to="/sign-in"
+                className="sidebar-item"
+              >
+                <LoginIcon className="sidebar-icon" />
+                <ListItemText primary="Log In" />
+              </ListItemButton>
+            )}
+            {isLoggedIn && (
+              <ListItemButton onClick={clearSession} className="sidebar-item">
+                <ExitToAppIcon className="sidebar-icon" />
+                <ListItemText primary="Log Out" />
+              </ListItemButton>
+            )}
+
             {isDebug && (
               <ListItemButton
                 component={NavLink}
