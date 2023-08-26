@@ -15,7 +15,7 @@ export const inputFieldsforSignin = [
     {type:"text", name:"username", labelName: "Username", errorName: "uname"},
     {type:"text", name:"password", labelName: "Password", errorName: "password"},
     {type:"checkbox", name:"remember", labelName: "Remember me"},
-    {type:"href", name:"signup", labelName: "Don't have an account? Sign Up"},
+    {type:"href", name:"sign-up", labelName: "Don't have an account? Sign Up"},
     // {type:"href", name:"forgotpassword", labelName: "Forgot password?"},
 ];
 

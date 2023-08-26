@@ -67,12 +67,21 @@ const Signup = () => {
       setErrorMessages({ name: "signup", message: "Sranje ti signup" });
     }
   };
+  const handleRedirect = (path: string) => {
+    navigate('/' + path, {replace:true})
+  }
 
   if (checkIsLoggedIn()) {
     navigate('/profile', { replace: true });
     return <></>
   } else {
-    return renderForm(handleSubmit, errorMessages, inputFieldsforSignup, "Sign up");
+    return renderForm(
+      handleSubmit, 
+      errorMessages, 
+      inputFieldsforSignup, 
+      "Sign up",
+      handleRedirect
+    );
   }
 };
 

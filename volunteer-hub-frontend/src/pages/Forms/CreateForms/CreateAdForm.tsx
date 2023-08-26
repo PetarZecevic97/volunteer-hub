@@ -46,9 +46,16 @@ const CreateAdForm = ({ createAdAction }: any) => {
       setErrorMessages({ name: "create ad", message: "Sranje ti createAd" });
     }
   };
+  const handleRedirect = (path: string) => {
+    navigate('/' + path, {replace:true})
+  }
 
   if (checkIsLoggedIn()) {
-    return renderForm(handleSubmit, errorMessages, inputFieldsforCreateAdForm, "Create your ad");
+    return renderForm(handleSubmit, 
+                      errorMessages, 
+                      inputFieldsforCreateAdForm, 
+                      "Create your ad",
+                      handleRedirect);
   } else {
     return renderErrorMessage("Nisi org", errorMessages);
   }

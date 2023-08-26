@@ -55,9 +55,18 @@ const UpdateOrganizationForm = ({ getProfileDataAction, updateOrganizationAction
       setErrorMessages({ name: "update organization", message: "Sranje ti updateOrganization" });
     }
   };
+  const handleRedirect = (path: string) => {
+    navigate('/' + path, {replace:true})
+  }
 
   if (checkIsLoggedIn()) {
-    return renderForm(handleSubmit, errorMessages, inputFieldsWithDefault, "Update your organization info!");
+    return renderForm(
+      handleSubmit, 
+      errorMessages, 
+      inputFieldsWithDefault, 
+      "Update your organization info!",
+      handleRedirect
+    );
   } else {
     return renderErrorMessage("Nisi profilna organizacija", errorMessages);
   }

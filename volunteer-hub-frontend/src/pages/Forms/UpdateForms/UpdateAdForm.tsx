@@ -62,9 +62,18 @@ const UpdateAdForm = ({ getAdAction, updateAdAction }: any) => {
       setErrorMessages({ name: "update ad", message: "Sranje ti updateAd" });
     }
   };
+  const handleRedirect = (path: string) => {
+    navigate('/' + path, {replace:true})
+  }
 
   if (checkIsLoggedIn()) {
-    return renderForm(handleSubmit, errorMessages, inputFieldsWithDefault, "Update your ad");
+    return renderForm(
+      handleSubmit, 
+      errorMessages, 
+      inputFieldsWithDefault, 
+      "Update your ad",
+      handleRedirect
+    );
   } else {
     return renderErrorMessage("Nisi org", errorMessages);
   }

@@ -47,11 +47,21 @@ const Signin = () => {
       setErrorMessages({ name: "login", message: "Sranje ti login" });
     }
   };
+
+  const handleRedirect = (path: string) => {
+    navigate('/' + path, {replace:true})
+  }
   
   if (checkIsLoggedIn()) {
     return <></>
   } else {
-    return renderForm(handleSubmit, errorMessages, inputFieldsforSignin, "Log in");
+    return renderForm(
+      handleSubmit, 
+      errorMessages, 
+      inputFieldsforSignin, 
+      "Log in", 
+      handleRedirect
+    );
   }
 };
 

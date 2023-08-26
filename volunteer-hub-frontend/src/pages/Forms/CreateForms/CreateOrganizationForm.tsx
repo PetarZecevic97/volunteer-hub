@@ -48,9 +48,18 @@ const CreateOrganizationForm = ({ createProfileAction }: any) => {
       setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
     }
   };
+  const handleRedirect = (path: string) => {
+    navigate('/' + path, {replace:true})
+  }
 
   if (checkIsLoggedIn()) {
-    return renderForm(handleSubmit, errorMessages, inputFieldsforCreateOrganizationForm, "Create your organization");
+    return renderForm(
+      handleSubmit, 
+      errorMessages, 
+      inputFieldsforCreateOrganizationForm, 
+      "Create your organization",
+      handleRedirect
+    );
   } else {
     return renderErrorMessage("You're not signed up. Please sign up first.", errorMessages);
   }

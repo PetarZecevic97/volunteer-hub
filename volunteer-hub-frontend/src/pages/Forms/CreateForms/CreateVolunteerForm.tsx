@@ -45,9 +45,20 @@ const CreateVolunteerForm = ({ createProfileAction }: any) => {
       setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
     }
   };
+  const handleRedirect = (path: string) => {
+    navigate('/' + path, {replace:true})
+  }
+
+  
 
   if (checkIsLoggedIn()) {
-    return renderForm(handleSubmit, errorMessages, inputFieldsforCreateVolunteerForm, "Create your volunteer profile!");
+    return renderForm(
+      handleSubmit, 
+      errorMessages, 
+      inputFieldsforCreateVolunteerForm, 
+      "Create your volunteer profile!",
+      handleRedirect
+    );
   } else {
     return renderErrorMessage("You're not signed up. Please sign up first.", errorMessages);
   }
