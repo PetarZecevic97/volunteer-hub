@@ -14,12 +14,23 @@ to
 "start": "react-scripts --openssl-legacy-provider start"
 ```
 
-After that, you'll need to run the `npm install` command inside the project root.
+After that, if you're getting the following error:
+
+```bash
+[eslint] Failed to load config "react-app" to extend from.
+```
+
+This is due to missing or malformed depenencies in your `package.json` file and you'll need to run the following command in your terminal to resolve them:
+
+```bash
+npm install eslint-config-react-app --save-dev
+```
+
+you'll need to run the `npm install` command inside the project root.
 
 ### Mac/Linux
 
 Run the `npm install` command inside the project root.
-
 
 ## Available Scripts
 
