@@ -10,7 +10,6 @@ import {
   TablePagination,
   TableRow,
   Paper,
-  Typography,
   IconButton,
   Box,
 } from "@mui/material";

@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
     "&:hover": {
-      transform: "translateY(-10px) scale(1.05)",
-      boxShadow: `0 0 20px ${theme.palette.primary.main}`, // Use primary color (purple) for the box shadow
+      transform: "translateY(-10px) scale(1.07)",
+      boxShadow: `0 0 30px ${theme.palette.primary.main}`, // Use primary color (purple) for the box shadow
     },
   },
   titleChip: {
@@ -46,6 +46,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     background: "transparent", // Set background to transparent
   },
+  regularPassage: {
+    color: theme.palette.text.primary,
+    textAlign: "center",
+    padding: theme.spacing(2),
+    background: "transparent", // Set background to transparent
+  }
 }));
 
 const AboutPage = () => {
@@ -63,6 +69,12 @@ const AboutPage = () => {
       >
         VolunteerHub is a dynamic application that bridges the gap between individuals eager to engage in charity work and companies seeking to organize impactful events. By seamlessly connecting volunteers with meaningful opportunities and helping companies orchestrate successful charity endeavors, VolunteerHub embodies a powerful collaboration for positive change.
       </Typography>
+      <Typography
+        variant="body1"
+        className={classes.regularPassage}
+        gutterBottom
+      >
+        This app is a student project for the RS2 course on the University of Belgrade: Faculty of Mathematics. You can find the creators' info below:
       <Grid container spacing={3}>
         {creatorsData.map((creator) => (
           <Grid item xs={12} md={6} lg={3} key={creator.username}>
@@ -103,6 +115,7 @@ const AboutPage = () => {
           </Grid>
         ))}
       </Grid>
+      </Typography>
       <div style={{ textAlign: "center", marginTop: 40 }}>
         <Typography variant="caption" color="textPrimary">
           © {new Date().getFullYear()} VolunteerHub. All rights reserved.
