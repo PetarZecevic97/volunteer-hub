@@ -14,12 +14,22 @@ const Organization = lazy(() => import("./pages/Organization"));
 const Ad = lazy(() => import("./pages/Ad"));
 const Signin = lazy(() => import("./pages/Forms/SigninForm"));
 const Signup = lazy(() => import("./pages/Forms/SignupForm"));
-const CreateOrganizationForm = lazy(() => import("./pages/Forms/CreateForms/CreateOrganizationForm"));
-const CreateVolunteerForm = lazy(() => import("./pages/Forms/CreateForms/CreateVolunteerForm"));
-const CreateAdForm = lazy(() => import("./pages/Forms/CreateForms/CreateAdForm"));
-const UpdateAdForm = lazy(() => import("./pages/Forms/UpdateForms/UpdateAdForm"));
+const CreateOrganizationForm = lazy(
+  () => import("./pages/Forms/CreateForms/CreateOrganizationForm")
+);
+const CreateVolunteerForm = lazy(
+  () => import("./pages/Forms/CreateForms/CreateVolunteerForm")
+);
+const CreateAdForm = lazy(
+  () => import("./pages/Forms/CreateForms/CreateAdForm")
+);
+const UpdateAdForm = lazy(
+  () => import("./pages/Forms/UpdateForms/UpdateAdForm")
+);
 const Profile = lazy(() => import("./pages/Profile"));
-const UpdateProfileForm = lazy(() => import("./pages/Forms/UpdateForms/UpdateProfileForm"));
+const UpdateProfileForm = lazy(
+  () => import("./pages/Forms/UpdateForms/UpdateProfileForm")
+);
 const DebugPanel = lazy(() => import("./pages/DebugPanel"));
 const NotFoundPage = lazy(() => import("./pages/NotFound"));
 
