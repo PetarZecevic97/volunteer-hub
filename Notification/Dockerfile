@@ -6,17 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["VolunteerHubBackend/VolunteerHubBackend.csproj", "VolunteerHubBackend/"]
+COPY ["Notification/Notification.csproj", "Notification/"]
 COPY ["Common/EventBus.Messages/EventBus.Messages.csproj", "Common/EventBus.Messages/"]
-RUN dotnet restore "VolunteerHubBackend/VolunteerHubBackend.csproj"
+RUN dotnet restore "Notification/Notification.csproj"
 COPY . .
-WORKDIR "/src/VolunteerHubBackend"
-RUN dotnet build "VolunteerHubBackend.csproj" -c Release -o /app/build
+WORKDIR "/src/Notification"
+RUN dotnet build "Notification.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "VolunteerHubBackend.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Notification.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "VolunteerHubBackend.dll"]
+ENTRYPOINT ["dotnet", "Notification.dll"]

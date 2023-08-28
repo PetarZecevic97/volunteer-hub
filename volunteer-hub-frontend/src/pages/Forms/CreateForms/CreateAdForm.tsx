@@ -39,6 +39,7 @@ const CreateAdForm = ({ createAdAction }: any) => {
         summary: event.currentTarget.summary.value,
         skills: event.currentTarget.skills.value,
         location: event.currentTarget.location.value,
+        isEmergency: event.currentTarget.isEmergency.value === "true",
         organizationId: id,
       }
       await createAdAction(dataForCreate);

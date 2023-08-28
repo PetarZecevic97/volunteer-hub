@@ -34,6 +34,7 @@ export const inputFieldsforCreateAdForm = [
     {type:"text", name:"summary", labelName: "Summary", errorName: "summary"},
     {type:"text", name:"location", labelName: "Location", errorName: "location"},
     {type:"text", name:"skills", labelName: "Skills necessary", errorName: "skills"},
+    {type:"checkbox", name:"isEmergency", labelName: "Is this an emergency?", errorName: "isEmergency"},
 ];
 
 export const inputFieldsforUpdateAdForm = [

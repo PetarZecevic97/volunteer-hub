@@ -35,9 +35,11 @@ services:
   volunteerhubbackend:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    depends_on:
+      - rabbitmq
     ports:
       - "4003:80"
-
 
   identityserver:
     container_name: identityserver
@@ -48,6 +50,16 @@ services:
       - "ConnectionStrings:IdentityConnectionString=Server=mssql;Database=IdentityDb;User Id=sa;Password=Volunteerhub12345"
     ports:
       - "4004:80"
+
+  notification:
+    container_name: notification
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    depends_on:
+      - rabbitmq
+    ports:
+      - "4005:80"
 
   mssql:
     container_name: organizationdb
@@ -69,3 +81,10 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+    - "5672:5672"
+    - "15672:15672"
