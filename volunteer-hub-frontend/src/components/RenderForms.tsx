@@ -73,8 +73,14 @@ export const renderForm = (
             }
             if (input.type === "href") {
               return (
-                <Grid item xs>
-                  <Link onClick={() => handleRedirect(input.name)}>
+                <Grid 
+                  item 
+                  xs
+                  key={index}
+                >
+                  <Link 
+                    onClick={() => handleRedirect(input.name)}
+                  >
                     {input.labelName}
                   </Link>
                 </Grid>
@@ -84,6 +90,7 @@ export const renderForm = (
               return (
                 <FormControlLabel
                   control={<Checkbox value={input.name} color="primary" />}
+                  key={index}
                   label={input.labelName}
                 />
               );
