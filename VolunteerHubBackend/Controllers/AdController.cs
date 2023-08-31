@@ -40,7 +40,7 @@ namespace VolunteerHubBackend.Controllers
             if (result.Id == null)
             {
                 return NotFound(result);
-            }
+            } 
             return Ok(result);
         }
 
@@ -49,6 +49,10 @@ namespace VolunteerHubBackend.Controllers
         [ProducesResponseType(typeof(Ad), StatusCodes.Status201Created)]
         public async Task<ActionResult<Ad>> CreateAd([FromBody] AdCreate ad)
         {
+            if (User.FindFirst("id").Value != ad.OrganizationId)
+            {
+                return Forbid();
+            }
             var res = await _adService.CreateAd(ad);
             if(res.Id == null)
             {
@@ -77,6 +81,11 @@ namespace VolunteerHubBackend.Controllers
         public async Task<IActionResult> DeleteAd(String id)
         {
             var existingAd = await _adService.GetAdById(id);
+            if (existingAd == null)
+            {
+                return NotFound("Specified Add to delete does not exist.");
+            }
+
             if (User.FindFirst("id").Value != existingAd.OrganizationId)
             {
                 return Forbid();
@@ -94,6 +103,14 @@ namespace VolunteerHubBackend.Controllers
             {
                 return Forbid();
             }
+            if (volunteerId != adVolunteer.VolunteerId)
+            {
+                return Forbid();
+            }
+            if (id != adVolunteer.AdId)
+            {
+                return Forbid();
+            }
             var res = await _adService.AddVolunteer(adVolunteer);
             if (res.Id == null)
             {
@@ -102,11 +119,19 @@ namespace VolunteerHubBackend.Controllers
             return Ok(res);
         }
 
+        [Authorize(Roles = "Volunteer")]
         [HttpDelete("{id}/{volunteerId}", Name = "DeleteVolunteer")]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteVolunteer(string id, string volunteerId)
         {
             var existingAd = await _adService.GetAdById(id);
+            if (existingAd == null)
+            {
+                return NotFound("Specified Add does not exist.");
+            }
+
+            // TODO: Da li ovde treba provera da je volonter prijavljen na Add??
+            //       Ili ovo ipak treba da radi organizacija za svoje Add-ove??
             if (User.FindFirst("id").Value != volunteerId && User.FindFirst("id").Value != existingAd.OrganizationId)
             {
                 return Forbid();

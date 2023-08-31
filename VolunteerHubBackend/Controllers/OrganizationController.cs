@@ -65,9 +65,13 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Organization")]
         [HttpPut("{id}", Name = "PutOrganization")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Organization>> UpdateOrganization([FromBody] Organization organization)
+        public async Task<ActionResult<Organization>> UpdateOrganization([FromRoute] string id, [FromBody] Organization organization)
         {
             if (User.FindFirst("id").Value != organization.Id)
+            {
+                return Forbid();
+            }
+            if (User.FindFirst("id").Value != id)
             {
                 return Forbid();
             }

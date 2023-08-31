@@ -75,6 +75,10 @@ namespace VolunteerHubBackend.Controllers
             {
                 return Forbid();
             }
+            if (User.FindFirst("id").Value != id)
+            {
+                return Forbid();
+            }
             return Ok(await _service.UpdateVolunteer(volunteer));
         }
 
