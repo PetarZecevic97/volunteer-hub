@@ -51,7 +51,7 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != organization.Id)
             {
-                return Forbid();
+                return Forbid("ID value from jwt token does not match ID value from request body.");
             }
             var res = await _organizationService.CreateOrganization(organization);
             if(res.Id == null)
@@ -69,11 +69,11 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != organization.Id)
             {
-                return Forbid();
+                return Forbid("Cannot update other organization profile.");
             }
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid();
+                return Forbid("ID value from Route must match ID value from jwt token.");
             }
             Organization  result = await _organizationService.UpdateOrganization(organization);
             return Ok(result);
@@ -86,7 +86,7 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid();
+                return Forbid("Cannot delete other organization profile.");
             }
             await _organizationService.DeleteOrganization(id);
             return Ok("Organization deleted!");

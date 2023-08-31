@@ -56,7 +56,7 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != volunteer.Id)
             {
-                return Forbid();
+                return Forbid("ID value from jwt token does not match ID value from request body.");
             }
             var product = await _service.CreateVolunteer(volunteer);
 
@@ -73,11 +73,11 @@ namespace VolunteerHubBackend.Controllers
             //Console.WriteLine("Ljeks kraj");
             if (User.FindFirst("id").Value != volunteer.Id)
             {
-                return Forbid();
+                return Forbid("Cannot update other volunteer profile");
             }
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid();
+                return Forbid("ID value from Route must match ID value from jwt token.");
             }
             return Ok(await _service.UpdateVolunteer(volunteer));
         }
@@ -89,7 +89,7 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid();
+                return Forbid("Cannot delete other volunteer profile");
             }
             return Ok(await _service.DeleteVolunteer(id));
         }

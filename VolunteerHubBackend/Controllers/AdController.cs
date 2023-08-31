@@ -51,7 +51,7 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != ad.OrganizationId)
             {
-                return Forbid();
+                return Forbid("ID value from jwt token does not match OrganizationId value from request body.");
             }
             var res = await _adService.CreateAd(ad);
             if(res.Id == null)
@@ -69,7 +69,7 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != ad.OrganizationId)
             {
-                return Forbid();
+                return Forbid("Cannot update Add that is created by another organization.");
             }
             Ad  result = await _adService.UpdateAd(ad);
             return Ok(result);
@@ -88,7 +88,7 @@ namespace VolunteerHubBackend.Controllers
 
             if (User.FindFirst("id").Value != existingAd.OrganizationId)
             {
-                return Forbid();
+                return Forbid("Cannot delete Add that is created by another organization.");
             }
             await _adService.DeleteAd(id);
             return Ok("Ad deleted!");
@@ -101,15 +101,15 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != volunteerId)
             {
-                return Forbid();
+                return Forbid("Volunteer ID value from jwt token must match volunteer ID value from Route.");
             }
             if (volunteerId != adVolunteer.VolunteerId)
             {
-                return Forbid();
+                return Forbid("Volunteer ID value from request body must match volunteer ID value from Route.");
             }
             if (id != adVolunteer.AdId)
             {
-                return Forbid();
+                return Forbid("Ad ID value from request body must match ad ID value from Route.");
             }
             var res = await _adService.AddVolunteer(adVolunteer);
             if (res.Id == null)
