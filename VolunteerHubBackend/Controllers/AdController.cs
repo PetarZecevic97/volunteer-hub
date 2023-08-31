@@ -69,7 +69,7 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != ad.OrganizationId)
             {
-                return Forbid("Cannot update Add that is created by another organization.");
+                return Forbid("Cannot update ad that is created by another organization.");
             }
             Ad  result = await _adService.UpdateAd(ad);
             return Ok(result);
@@ -83,12 +83,12 @@ namespace VolunteerHubBackend.Controllers
             var existingAd = await _adService.GetAdById(id);
             if (existingAd == null)
             {
-                return NotFound("Specified Add to delete does not exist.");
+                return NotFound("Specified ad to delete from organization, does not exist.");
             }
 
             if (User.FindFirst("id").Value != existingAd.OrganizationId)
             {
-                return Forbid("Cannot delete Add that is created by another organization.");
+                return Forbid("Cannot delete ad that is created by another organization.");
             }
             await _adService.DeleteAd(id);
             return Ok("Ad deleted!");
@@ -102,6 +102,10 @@ namespace VolunteerHubBackend.Controllers
             if (User.FindFirst("id").Value != volunteerId)
             {
                 return Forbid("Volunteer ID value from jwt token must match volunteer ID value from Route.");
+            }
+            if (User.FindFirst("id").Value != adVolunteer.VolunteerId)
+            {
+                return Forbid("Volunteer ID value from jwt token must match volunteer ID value from request body.");
             }
             if (volunteerId != adVolunteer.VolunteerId)
             {
@@ -127,12 +131,17 @@ namespace VolunteerHubBackend.Controllers
             var existingAd = await _adService.GetAdById(id);
             if (existingAd == null)
             {
-                return NotFound("Specified Add does not exist.");
+                return NotFound("Specified ad to delete volunteer from, does not exist.");
+            }
+
+            if (User.FindFirst("id").Value != volunteerId)
+            {
+                return Forbid("Cannot delete other volunteer from ad.");
             }
 
             // TODO: Da li ovde treba provera da je volonter prijavljen na Add??
             //       Ili ovo ipak treba da radi organizacija za svoje Add-ove??
-            if (User.FindFirst("id").Value != volunteerId && User.FindFirst("id").Value != existingAd.OrganizationId)
+            if (User.FindFirst("id").Value != existingAd.OrganizationId)
             {
                 return Forbid();
             }

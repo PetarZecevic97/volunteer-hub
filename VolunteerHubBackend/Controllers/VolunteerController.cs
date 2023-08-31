@@ -73,7 +73,7 @@ namespace VolunteerHubBackend.Controllers
             //Console.WriteLine("Ljeks kraj");
             if (User.FindFirst("id").Value != volunteer.Id)
             {
-                return Forbid("Cannot update other volunteer profile");
+                return Forbid("Cannot update other volunteer profile.");
             }
             if (User.FindFirst("id").Value != id)
             {
@@ -89,7 +89,7 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid("Cannot delete other volunteer profile");
+                return Forbid("Cannot delete other volunteer profile.");
             }
             return Ok(await _service.DeleteVolunteer(id));
         }
