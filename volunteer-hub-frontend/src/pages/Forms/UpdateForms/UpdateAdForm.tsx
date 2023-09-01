@@ -60,7 +60,7 @@ const UpdateAdForm = ({ getAdAction, updateAdAction }: any) => {
       await updateAdAction(dataForUpdate, myAd.id);
       navigate('/ad/' + myAd.id, { replace: true });
     } else {
-      setErrorMessages({ name: "update ad", message: "Sranje ti updateAd" });
+      setErrorMessages({ name: "update ad", message: "Invalid updateAd" });
     }
   };
   const handleRedirect = (path: string) => {

@@ -44,7 +44,7 @@ const Signin = () => {
       
     } else {
       // email not found
-      setErrorMessages({ name: "login", message: "Sranje ti login" });
+      setErrorMessages({ name: "login", message: "Invalid login" });
     }
   };
 

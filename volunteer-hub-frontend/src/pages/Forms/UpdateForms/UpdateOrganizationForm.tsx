@@ -53,7 +53,7 @@ const UpdateOrganizationForm = ({ getProfileDataAction, updateOrganizationAction
       await updateOrganizationAction(dataForUpdate, myOrganization.id);
       navigate('/profile', { replace: true });
     } else {
-      setErrorMessages({ name: "update organization", message: "Sranje ti updateOrganization" });
+      setErrorMessages({ name: "update organization", message: "Invalid updateOrganization" });
     }
   };
   const handleRedirect = (path: string) => {

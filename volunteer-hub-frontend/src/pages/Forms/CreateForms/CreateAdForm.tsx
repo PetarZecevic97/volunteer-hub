@@ -45,7 +45,7 @@ const CreateAdForm = ({ createAdAction }: any) => {
       }
       await createAdAction(dataForCreate);
     } else {
-      setErrorMessages({ name: "create ad", message: "Sranje ti createAd" });
+      setErrorMessages({ name: "create ad", message: "Invalid createAd" });
     }
   };
   const handleRedirect = (path: string) => {

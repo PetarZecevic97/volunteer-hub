@@ -80,7 +80,7 @@ const Signup = () => {
         // email not found
         setErrorMessages([
           ...errorMessages,
-          { name: "signup", message: "Sranje ti signup" },
+          { name: "signup", message: "Invalid signup" },
         ]);
       }
     } catch (e) {

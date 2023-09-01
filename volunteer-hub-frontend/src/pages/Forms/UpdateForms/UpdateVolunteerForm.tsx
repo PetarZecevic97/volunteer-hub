@@ -66,7 +66,7 @@ const UpdateVolunteerForm = ({
     } else {
       setErrorMessages({
         name: "update volunteer",
-        message: "Sranje ti updateVolunteer",
+        message: "Invalid updateVolunteer",
       });
     }
   };

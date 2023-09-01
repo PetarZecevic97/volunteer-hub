@@ -43,7 +43,7 @@ const CreateVolunteerForm = ({ createProfileAction }: any) => {
       await createProfileAction(dataForCreate, "Volunteer");
     } else {
         // email not found
-      setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
+      setErrorMessages({ name: "signup", message: "Invalid createOrg" });
     }
   };
   const handleRedirect = (path: string) => {

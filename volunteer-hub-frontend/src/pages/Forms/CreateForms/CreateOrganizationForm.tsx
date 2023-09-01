@@ -46,7 +46,7 @@ const CreateOrganizationForm = ({ createProfileAction }: any) => {
       await createProfileAction(dataForCreate, "Organization");
     } else {
       // email not found
-      setErrorMessages({ name: "signup", message: "Sranje ti createOrg" });
+      setErrorMessages({ name: "signup", message: "Invalid createOrg" });
     }
   };
   const handleRedirect = (path: string) => {
