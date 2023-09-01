@@ -1,52 +1,97 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import {
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  TextField,
+  Button,
+  Typography,
+  Grid,
+} from "@mui/material";
+import { Search as SearchIcon } from "@mui/icons-material";
+import { makeStyles } from "@mui/styles"; // Import makeStyles from MUI
+import { useTheme } from "@mui/material/styles"; // Import useTheme
 
-// Component receives a string and as a result filters rows that contain that string in columns that the user checks
-// Fields are columns in which we're searching the word we write in input
-const SearchComponent = ({ fields, rows, setShownRows }) => {
-  const [fieldsForFiltering, setFieldsForFiltering] = useState(fields.map((x) => { return {field: x, isSelected: true} }));
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: theme.spacing(2),
+    padding: theme.spacing(3),
+    backgroundColor: theme.palette.primary.main, // Use primary color
+    borderRadius: theme.spacing(1),
+    boxShadow: theme.shadows[3],
+  },
+}));
+
+const SearchComponent = ({getRefreshedRows, fields, rows, setShownRows }) => {
+  const classes = useStyles(); // Apply styles
+  const theme = useTheme(); // Get the current theme
+
+  const [fieldsForFiltering, setFieldsForFiltering] = useState(
+    fields.map((x) => ({ field: x, isSelected: true }))
+  );
   const [searchBy, setSearchBy] = useState("");
 
-  // See if a given row contains wantedString in any of the checked columns
-  // Iterate through columns, see if it's checked and if the given row
-  const filterBySearch = (row: any, wantedWord: string) => {
-    return fieldsForFiltering.reduce((acc: boolean, curr: any) => 
-                                          (curr.isSelected && row[curr.field].includes(wantedWord)) || acc, false);
+  const filterBySearch = (row, wantedWord) => {
+    return fieldsForFiltering.some(
+      (curr) =>
+        curr.isSelected && row[curr.field].toLowerCase().includes(wantedWord.toLowerCase())
+    );
   };
 
-  const handleCheckChange = (event: any) => {
-    const newFieldsForFiltering = fieldsForFiltering;
-    fieldsForFiltering[event.target.id].isSelected = event.target.checked;
+  const handleCheckChange = (event) => {
+    const newFieldsForFiltering = [...fieldsForFiltering];
+    newFieldsForFiltering[event.target.id].isSelected = event.target.checked;
     setFieldsForFiltering(newFieldsForFiltering);
   };
 
-  const handleChangeSearch = (event: any) => {
-    setSearchBy(event.target.value);
+  const handleChangeSearch = (event) => {
+    setSearchBy(event.target.value.toLowerCase());
   };
 
-  // On submit, iterate through rows and try to find given string
-  // Rows that contain wanted string are set to be shownRows
-  // Uses filterBySearch
-  const handleSubmitSearch = (event: any) => {
-    setShownRows(rows.filter(x => filterBySearch(x, searchBy)));
+  const handleSubmitSearch = (event) => {
+    event.preventDefault();
+    rows = getRefreshedRows()
+    setShownRows(rows.filter((x) => filterBySearch(x, searchBy)));
   };
-
 
   return (
     <>
-      <label>What do you want to find?</label>
-      <input name="search" id="search" required  onChange={handleChangeSearch}/>
-      <button type="submit" value="Submit" onClick={handleSubmitSearch}>Search</button>
+      <Typography variant="h5">What do you want to find?</Typography>
+      <TextField
+        name="search"
+        id="search"
+        variant="outlined"
+        size="small"
+        required
+        onChange={handleChangeSearch}
+      />
+      <Button
+        variant="contained"
+        color="secondary" // Use secondary color for the button
+        startIcon={<SearchIcon />}
+        onClick={handleSubmitSearch}
+      >
+        Search
+      </Button>
       <FormGroup>
-        {fields.map((field, index) => {
-            return (
-              <FormControlLabel key={index}
-                              control={<Checkbox id={index} defaultChecked onChange={handleCheckChange}/>} label={field} />
-            );
-        })}
+        {fields.map((field, index) => (
+          <FormControlLabel
+            key={index}
+            control={
+              <Checkbox
+                id={index}
+                defaultChecked
+                onChange={handleCheckChange}
+                color="secondary" // Use secondary color for the checkbox
+              />
+            }
+            label={field}
+          />
+        ))}
       </FormGroup>
     </>
   );

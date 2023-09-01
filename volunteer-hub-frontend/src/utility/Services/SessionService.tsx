@@ -5,6 +5,9 @@ export function isDebug() {
 export function getUserInfo() {
     const email = sessionStorage.getItem("email");
     const username = sessionStorage.getItem("username");
+    console.log({
+        email: email,
+        username: username,})
     return {
         email: email,
         username: username,

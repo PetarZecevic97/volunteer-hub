@@ -1,0 +1,56 @@
+/* Sidebar Container */
+.sidebar-container {
+  background-color: #1a1a1a;
+  color: #fff;
+  width: 950px; /* Increase the width */
+  height: 100%;
+  padding-top: 30px; /* Increase the top padding */
+  padding-right: 10px; /* Increase the top padding */
+  padding-left: 3px; /* Increase the top padding */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Logo Container */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* App Name */
+.app-name {
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* Sidebar List */
+.sidebar-list {
+  width: 100%;
+  padding: 0;
+}
+
+/* Sidebar Item */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Sidebar Icon */
+.sidebar-icon {
+  color: #fff;
+  margin-right: 12px;
+}
+
+/* Sidebar Item Hover */
+.sidebar-item:hover {
+  background-color: #292929;
+}
+
+/* Drawer Container */
+.drawer-container {
+  /* Add additional styles if needed */
+}

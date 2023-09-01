@@ -29,11 +29,11 @@ const Signin = () => {
   const handleSubmit = async (event: any) => {
     //Prevent page reload
     event.preventDefault();
-    const pass = event.currentTarget.pass.value;    
+    const password = event.currentTarget.password.value;    
     const username = event.currentTarget.username.value;
 
     // Find user login info
-    await userService.logIn(username, pass);
+    await userService.logIn(username, password);
     const userStr = sessionStorage.getItem('user');
     const user = userStr ? JSON.parse(userStr) : undefined;
     const id = sessionStorage.getItem('id');
@@ -44,14 +44,24 @@ const Signin = () => {
       
     } else {
       // email not found
-      setErrorMessages({ name: "login", message: "Sranje ti login" });
+      setErrorMessages({ name: "login", message: "Invalid login" });
     }
   };
+
+  const handleRedirect = (path: string) => {
+    navigate('/' + path, {replace:true})
+  }
   
   if (checkIsLoggedIn()) {
     return <></>
   } else {
-    return renderForm(handleSubmit, errorMessages, inputFieldsforSignin, "Log in");
+    return renderForm(
+      handleSubmit, 
+      errorMessages, 
+      inputFieldsforSignin, 
+      "Log in", 
+      handleRedirect
+    );
   }
 };
 
