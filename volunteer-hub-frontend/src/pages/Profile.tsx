@@ -4,64 +4,63 @@ import { NavLink as Link } from "react-router-dom";
 
 import Organization from "./Organization";
 import Volunteer from "./Volunteer";
-import { PageContainer } from '../components/Profile/styles/ProfileSC';
+import { PageContainer } from "../components/Profile/styles/ProfileSC";
 import { ButtonWrapper } from "../components/Login/styles/LoginSC";
 import { getProfileData } from "../actions/profileActions";
 import { nullifyCurrentAd } from "../actions/adActions";
 import DebugPanel from "./DebugPanel";
 import { Box, Button, CssBaseline } from "@mui/material";
 
-const Profile = ({ getProfileDataAction, nullifyCurrentAdAction } : any) => {
-  const role = sessionStorage.getItem('role');
-  const nullableId = sessionStorage.getItem('id');
-  const id = nullableId ? nullableId : '';
+const Profile = ({ getProfileDataAction, nullifyCurrentAdAction }: any) => {
+  const role = sessionStorage.getItem("role");
+  const nullableId = sessionStorage.getItem("id");
+  const id = nullableId ? nullableId : "";
 
   useEffect(() => {
-    if(id && role) {
+    if (id && role) {
       getProfileDataAction(id, role);
     }
   }, [role, id]);
-  
 
   const renderButtons = () => {
     return (
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '16px', // Add gap between buttons
+          display: "flex",
+          justifyContent: "center",
+          gap: "16px", // Add gap between buttons
         }}
       >
         <Button
           component={Link}
-          to="/ad"
+          to="/events"
           variant="contained"
           sx={{
-            width: '250px', // Set button width
+            width: "250px", // Set button width
           }}
         >
           Go checkout ads! c:
         </Button>
-  
+
         <Button
           component={Link}
           to="/update-profile"
           variant="contained"
           sx={{
-            width: '250px', 
+            width: "250px",
           }}
         >
           Update your profile info?
         </Button>
-  
-        {role === 'Organization' && (
+
+        {role === "Organization" && (
           <Button
             component={Link}
             to="/create-ad-form"
             variant="contained"
             onClick={() => nullifyCurrentAdAction()}
             sx={{
-              width: '250px', // Set button width
+              width: "250px", // Set button width
             }}
           >
             Create new ad? C:
@@ -72,36 +71,33 @@ const Profile = ({ getProfileDataAction, nullifyCurrentAdAction } : any) => {
   };
   const renderOrganization = () => {
     return (
-      <>
       <PageContainer>
-        <Organization />
+        <div style={{ maxHeight: "1150px" }}>
+          <Organization />
+        </div>
         {renderButtons()}
       </PageContainer>
-
-      </>
     );
   };
 
   const renderVolunteer = () => {
     return (
-      <>
       <PageContainer>
-        <Volunteer />
+        <div style={{ maxHeight: "1150px" }}>
+          <Volunteer />
+        </div>
         {renderButtons()}
       </PageContainer>
-
-      </>
     );
   };
 
   const renderAdmin = () => {
     return (
-      <>
       <PageContainer>
-        <DebugPanel />
+        <div style={{ maxHeight: "1150px" }}>
+          <DebugPanel />
+        </div>
       </PageContainer>
-
-      </>
     );
   };
 
@@ -111,7 +107,7 @@ const Profile = ({ getProfileDataAction, nullifyCurrentAdAction } : any) => {
         <p>{msg}</p>
       </>
     );
-  }
+  };
 
   const isOrganization = role === "Organization";
   const isAdmin = role === "Administrator";
@@ -120,15 +116,15 @@ const Profile = ({ getProfileDataAction, nullifyCurrentAdAction } : any) => {
 
   if (isOrganization) {
     return renderOrganization();
-  } else if (isVolunteer){
+  } else if (isVolunteer) {
     return renderVolunteer();
   } else if (isAdmin) {
     return renderAdmin();
   } else if (!id) {
-    return error('Not logged in');
-  } else  {
-    return error('Not permitted role');
-  } 
+    return error("Not logged in");
+  } else {
+    return error("Not permitted role");
+  }
 };
 
 const mapDispatchToProps = {
