@@ -19,7 +19,7 @@ const AdList = ({ getAdListAction }: any) => {
 
   useEffect(() => {
     getAdListAction();
-  }, []);
+  }, [getAdListAction]);
 
   useEffect(() => {
     setAdListRows(adList.map(x => createData(x)))

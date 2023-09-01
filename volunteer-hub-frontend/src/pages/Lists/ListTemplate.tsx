@@ -12,7 +12,6 @@ import {
   IconButton,
   Box,
   CssBaseline,
-  TableHead,
 } from "@mui/material";
 import { PageContainer } from "../../components/Profile/styles/ProfileSC";
 import SearchComponent from "./SearchComponent";
@@ -23,7 +22,6 @@ import {
   LastPage as LastPageIcon,
 } from "@mui/icons-material";
 import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
-import { MainPalette } from "../../components/Providers/MainThemeProvider";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -135,6 +133,10 @@ const ListTemplate = ({ rows, fields, avatarName }: any) => {
     setShownRows(rows);
   }, [rows]);
 
+
+  const getRefreshedRows = () =>{
+    return rows;
+  }
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - shownRows.length) : 0;
 
@@ -163,7 +165,7 @@ const ListTemplate = ({ rows, fields, avatarName }: any) => {
 
   return (
     <PageContainer>
-      <SearchComponent fields={fields} rows={shownRows} setShownRows={setShownRows} />
+      <SearchComponent getRefreshedRows={getRefreshedRows} fields={fields} rows={shownRows} setShownRows={setShownRows} />
       <ThemeProvider theme={theme}>
         <Paper
           sx={{

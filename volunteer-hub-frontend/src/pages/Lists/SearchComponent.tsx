@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchComponent = ({ fields, rows, setShownRows }) => {
+const SearchComponent = ({getRefreshedRows, fields, rows, setShownRows }) => {
   const classes = useStyles(); // Apply styles
   const theme = useTheme(); // Get the current theme
 
@@ -54,6 +54,7 @@ const SearchComponent = ({ fields, rows, setShownRows }) => {
 
   const handleSubmitSearch = (event) => {
     event.preventDefault();
+    rows = getRefreshedRows()
     setShownRows(rows.filter((x) => filterBySearch(x, searchBy)));
   };
 
