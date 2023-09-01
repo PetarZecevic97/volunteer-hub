@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
   checkbox: {
     color: theme.palette.secondary.main, // Default color for checkboxes
-    '&.Mui-checked': {
+    "&.Mui-checked": {
       color: theme.palette.secondary.main, // Amber color for checked checkboxes
     },
   },
@@ -82,10 +82,18 @@ const DebugPanel = () => {
   const [flags, setFlags] = useState([
     { id: "debug_admin_toggle", label: "Admin", checked: true },
     { id: "debug_jwt_toggle", label: "Require JWT Token", checked: true },
-    { id: "debug_all_visibility_toggle", label: "All content visible", checked: true },
+    {
+      id: "debug_all_visibility_toggle",
+      label: "All content visible",
+      checked: true,
+    },
     { id: "debug_auth_toggle", label: "Authorization checks", checked: true },
     { id: "debug_volunteer_toggle", label: "Volunteer account", checked: true },
-    { id: "debug_organization_toggle", label: "Organization account", checked: true },
+    {
+      id: "debug_organization_toggle",
+      label: "Organization account",
+      checked: true,
+    },
   ]);
 
   const [sessionInfo, setSessionInfo] = useState(getUserInfo());
@@ -128,11 +136,8 @@ const DebugPanel = () => {
   };
 
   return (
-    <Box className={classes.debugContainer}>
-      <Paper className={classes.debugForm}>
-        <Typography className={classes.debugTitle}>
-          Manually set user info
-        </Typography>
+    <>
+      <Box className={classes.debugContainer}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} className={classes.debugInputContainer}>
             <Grid item xs={12} md={6}>
@@ -156,7 +161,10 @@ const DebugPanel = () => {
               {renderErrorMessage("email")}
             </Grid>
           </Grid>
-          <FormControl component="fieldset" className={classes.debugInputContainer}>
+          <FormControl
+            component="fieldset"
+            className={classes.debugInputContainer}
+          >
             <Typography variant="subtitle1">Account Flags:</Typography>
             <RadioGroup
               className={classes.checkboxGroup}
@@ -185,8 +193,8 @@ const DebugPanel = () => {
             Update Info
           </Button>
         </form>
-      </Paper>
-    </Box>
+      </Box>
+    </>
   );
 };
 

@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
 import { inputFieldsforUpdateOrganizationForm } from "../../../utility/formInputFields";
-import { renderForm, renderErrorMessage } from "../../../components/RenderForms";
+import { renderForm } from "../../../components/RenderForms";
 import { updateOrganization } from "../../../actions/organizationActions";
 import { getProfileData } from "../../../actions/profileActions";
 import { checkIsLoggedIn } from "../../../utility/Services/SessionService";
+import { LoginError } from "../../../components/Login/styles/LoginSC";
 
 interface IErrorMessages {
   name?: string;
@@ -58,6 +59,21 @@ const UpdateOrganizationForm = ({ getProfileDataAction, updateOrganizationAction
   const handleRedirect = (path: string) => {
     navigate('/' + path, {replace:true})
   }
+  const updateErrorMessage = (name: string, errors: any) => {
+    console.log("Errors");
+    let errorMessages: string[] = [];
+  
+    errors.forEach((error) => {
+      if (name === error.name) {
+        errorMessages.push(error.message);
+        console.log(error);
+      }
+    });
+    if (errorMessages.length > 0) {
+      return <LoginError>{errorMessages.join(", ")}</LoginError>;
+    }
+    return <></>;
+  };
 
   if (checkIsLoggedIn()) {
     return renderForm(
@@ -68,7 +84,7 @@ const UpdateOrganizationForm = ({ getProfileDataAction, updateOrganizationAction
       handleRedirect
     );
   } else {
-    return renderErrorMessage("Nisi profilna organizacija", errorMessages);
+    return updateErrorMessage("Nisi profilna organizacija", errorMessages);
   }
 };
 

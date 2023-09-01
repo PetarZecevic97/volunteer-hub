@@ -3,10 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
 import { inputFieldsforUpdateAdForm } from "../../../utility/formInputFields";
-import { renderForm, renderErrorMessage } from "../../../components/RenderForms";
+import { renderForm } from "../../../components/RenderForms";
 import { getAd, updateAd } from "../../../actions/adActions";
 
 import { checkIsLoggedIn } from "../../../utility/Services/SessionService";
+import { LoginError } from "../../../components/Login/styles/LoginSC";
 
 interface IErrorMessages {
   name?: string;
@@ -65,6 +66,21 @@ const UpdateAdForm = ({ getAdAction, updateAdAction }: any) => {
   const handleRedirect = (path: string) => {
     navigate('/' + path, {replace:true})
   }
+  const updateErrorMessage = (name: string, errors: any) => {
+    console.log("Errors");
+    let errorMessages: string[] = [];
+  
+    errors.forEach((error) => {
+      if (name === error.name) {
+        errorMessages.push(error.message);
+        console.log(error);
+      }
+    });
+    if (errorMessages.length > 0) {
+      return <LoginError>{errorMessages.join(", ")}</LoginError>;
+    }
+    return <></>;
+  };
 
   if (checkIsLoggedIn()) {
     return renderForm(
@@ -75,7 +91,7 @@ const UpdateAdForm = ({ getAdAction, updateAdAction }: any) => {
       handleRedirect
     );
   } else {
-    return renderErrorMessage("Nisi org", errorMessages);
+    return updateErrorMessage("Nisi org", errorMessages);
   }
 };
 

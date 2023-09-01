@@ -7,7 +7,7 @@ export const inputFieldsforSignup = [
     {type:"text", name:"username", labelName: "Username", errorName: "uname"},
     {type:"text", name:"email", labelName: "E-mail", errorName: "email"},
     {type:"text", name:"pass", labelName: "Password", errorName: "pass"},
-    {type:"text", name:"role", labelName: "Role", errorName: "role"},
+    {type:"radio", name:"role", choices:["Volunteer", "Organization"], labelName: "Role", errorName: "role"},
     {type:"text", name:"phone", labelName: "Phone number", errorName: "phone"},
 ];
 

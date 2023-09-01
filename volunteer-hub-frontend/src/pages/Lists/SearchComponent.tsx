@@ -38,7 +38,7 @@ const SearchComponent = ({ fields, rows, setShownRows }) => {
   const filterBySearch = (row, wantedWord) => {
     return fieldsForFiltering.some(
       (curr) =>
-        curr.isSelected && row[curr.field].includes(wantedWord.toLowerCase())
+        curr.isSelected && row[curr.field].toLowerCase().includes(wantedWord.toLowerCase())
     );
   };
 
@@ -58,7 +58,7 @@ const SearchComponent = ({ fields, rows, setShownRows }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <>
       <Typography variant="h5">What do you want to find?</Typography>
       <TextField
         name="search"
@@ -92,7 +92,7 @@ const SearchComponent = ({ fields, rows, setShownRows }) => {
           />
         ))}
       </FormGroup>
-    </div>
+    </>
   );
 };
 

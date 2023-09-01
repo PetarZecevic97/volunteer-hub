@@ -6,12 +6,13 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableFooter,
   TablePagination,
   TableRow,
   Paper,
   IconButton,
   Box,
+  CssBaseline,
+  TableHead,
 } from "@mui/material";
 import { PageContainer } from "../../components/Profile/styles/ProfileSC";
 import SearchComponent from "./SearchComponent";
@@ -21,7 +22,8 @@ import {
   KeyboardArrowRight,
   LastPage as LastPageIcon,
 } from "@mui/icons-material";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
+import { MainPalette } from "../../components/Providers/MainThemeProvider";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -58,10 +60,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   const handleLastPageButtonClick = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
-    onPageChange(
-      event,
-      Math.max(0, Math.ceil(count / rowsPerPage) - 1)
-    );
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
   return (
@@ -71,11 +70,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
         disabled={page === 0}
         aria-label="first page"
       >
-        {theme.direction === "rtl" ? (
-          <LastPageIcon />
-        ) : (
-          <FirstPageIcon />
-        )}
+        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
@@ -104,11 +99,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
       >
-        {theme.direction === "rtl" ? (
-          <FirstPageIcon />
-        ) : (
-          <LastPageIcon />
-        )}
+        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </Box>
   );
@@ -120,14 +111,14 @@ interface AvatarProps {
   name: any;
 }
 
-const Avatar = ({ size, round, name }: AvatarProps) => (
+const Avatar = ({ size, round, name }) => (
   <MuiAvatar
     sx={{
       width: size,
       height: size,
       borderRadius: round ? "50%" : "0%",
-      bgcolor: "#8c1aff", // Purple background color
-      color: "#ffffff", // White text color
+      bgcolor: "#8c1aff",
+      color: "#ffffff",
     }}
     alt={name}
   >
@@ -161,62 +152,84 @@ const ListTemplate = ({ rows, fields, avatarName }: any) => {
     setPage(0);
   };
 
+  const theme = createTheme({
+    palette: {
+      mode: "dark",
+      text: {
+        primary: "#fafaff",
+      },
+    },
+  });
+
   return (
     <PageContainer>
-      <SearchComponent fields={fields} rows={rows} setShownRows={setShownRows} />
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-          <TableBody>
-            {(rowsPerPage > 0
-              ? shownRows.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-              : shownRows
-            ).map((row, index: any) => (
-              <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                  <Avatar
-                    size="50"
-                    round={true}
-                    name={row ? row[avatarName] : "sampleVolunteerData"}
-                  />
-                </TableCell>
-                {fields.map((field: any, index: any) => (
-                  <TableCell align="left" key={index}>
-                    {row[field]}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
-              </TableRow>
-            )}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                colSpan={3}
-                count={shownRows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: {
-                    "aria-label": "rows per page",
-                  },
-                  native: true,
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
+      <SearchComponent fields={fields} rows={shownRows} setShownRows={setShownRows} />
+      <ThemeProvider theme={theme}>
+        <Paper
+          sx={{
+            width: "100%",
+            overflow: "hidden",
+            bgcolor: "#333", // Set the background color to dark theme
+            color: "#fff", // Set the text color to white
+          }}
+        >
+          <TableContainer component={Paper}>
+            <CssBaseline />
+            <Table stickyHeader aria-label="sticky table">
+              <TableBody>
+                {shownRows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={index}
+                      sx={{
+                        "&:hover": { bgcolor: "#aaa3e0" },
+                        cursor: "pointer", // Make the row clickable
+                      }}
+                      onClick={() => {
+                        // Handle row click here
+                        console.log("Row clicked:", row);
+                      }}
+                    >
+                      {fields.map((column) => {
+                        const value = row[column];
+                        return (
+                          <TableCell
+                            key={column.id}
+                            sx={{
+                              borderBottom: "1px solid #ccc",
+                              bgcolor: "#333", // Set cell background color to dark theme
+                              color: "#fff", // Set cell text color to white
+                            }}
+                          >
+                            {value}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={shownRows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            sx={{
+              bgcolor: "#333", // Set pagination background color to dark theme
+              color: "#fff", // Set pagination text color to white
+              borderTop: "1px solid #ccc",
+            }}
+          />
+        </Paper>
+      </ThemeProvider>
     </PageContainer>
   );
 };

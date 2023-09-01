@@ -5,12 +5,12 @@ import { connect, useSelector } from "react-redux";
 import { inputFieldsforUpdateVolunteerForm } from "../../../utility/formInputFields";
 import {
   renderForm,
-  renderErrorMessage,
 } from "../../../components/RenderForms";
 import { updateVolunteer } from "../../../actions/volunteerActions";
 import { getProfileData } from "../../../actions/profileActions";
 
 import { checkIsLoggedIn } from "../../../utility/Services/SessionService";
+import { LoginError } from "../../../components/Login/styles/LoginSC";
 
 interface IErrorMessages {
   name?: string;
@@ -73,6 +73,21 @@ const UpdateVolunteerForm = ({
   const handleRedirect = (path: string) => {
     navigate('/' + path, {replace:true})
   }
+  const updateErrorMessage = (name: string, errors: any) => {
+    console.log("Errors");
+    let errorMessages: string[] = [];
+  
+    errors.forEach((error) => {
+      if (name === error.name) {
+        errorMessages.push(error.message);
+        console.log(error);
+      }
+    });
+    if (errorMessages.length > 0) {
+      return <LoginError>{errorMessages.join(", ")}</LoginError>;
+    }
+    return <></>;
+  };
 
   if (checkIsLoggedIn()) {
     return renderForm(
@@ -83,7 +98,7 @@ const UpdateVolunteerForm = ({
       handleRedirect
     );
   } else {
-    return renderErrorMessage("Nisi profilni volonter", errorMessages);
+    return updateErrorMessage("Nisi profilni volonter", errorMessages);
   }
 };
 

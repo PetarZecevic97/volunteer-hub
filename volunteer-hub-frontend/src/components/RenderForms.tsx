@@ -1,7 +1,4 @@
 import React from "react";
-import {
-  LoginError,
-} from "./Login/styles/LoginSC";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,15 +11,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
-export const renderErrorMessage = (name: string, errorMessages: any) => {
-  if (errorMessages && name === errorMessages.name) {
-    return <LoginError>{errorMessages.message}</LoginError>;
-  } else {
-    return <></>;
-  }
-};
-
+import { FormControl, FormLabel, Radio, RadioGroup } from "@mui/material";
 
 // Pass the title and list of input fields you want generated and you shall receive th form.
 // One object of that list should contain name, labelName and default value (default value is optional)
@@ -32,8 +21,11 @@ export const renderForm = (
   errorMessages: any,
   inputFields: any,
   title: string,
-  handleRedirect: (path: string) => void
-) => (
+  handleRedirect: (path: string) => void,
+  updateErrorMessage?,
+  handleSelect?
+) => {
+  return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
@@ -67,23 +59,40 @@ export const renderForm = (
                   defaultValue={input.default}
                   autoFocus
                 >
-                  {renderErrorMessage(input.errorName, errorMessages)}
+                  {/* {updateErrorMessage(input.errorName, errorMessages)} */}
                 </TextField>
               );
             }
             if (input.type === "href") {
               return (
-                <Grid 
-                  item 
-                  xs
-                  key={index}
-                >
+                <Grid item xs key={index}>
                   <Link 
-                    onClick={() => handleRedirect(input.name)}
-                  >
+                  onClick={() => handleRedirect(input.name)
+                  }>
                     {input.labelName}
                   </Link>
                 </Grid>
+              );
+            }
+            if (input.type === "radio") {
+              return (
+                <FormControl component="fieldset" key={index}>
+                  <FormLabel component="legend">{input.labelName}</FormLabel>
+                  <RadioGroup
+                    aria-label={input.name}
+                    name={input.name}
+                    onChange={(event) => handleSelect(event.target.value)}
+                  >
+                    {input.choices.map((choice: string, choiceIndex: number) => (
+                      <FormControlLabel
+                        key={choiceIndex}
+                        value={choice}
+                        control={<Radio />}
+                        label={choice}
+                      />
+                    ))}
+                  </RadioGroup>
+                </FormControl>
               );
             }
             if (input.type === "checkbox") {
@@ -107,4 +116,5 @@ export const renderForm = (
         </Box>
       </Box>
     </Container>
-);
+  );
+};

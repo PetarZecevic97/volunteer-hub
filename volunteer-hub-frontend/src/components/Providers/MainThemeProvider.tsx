@@ -55,4 +55,9 @@ const MainThemeProvider = ({ children }) => {
   );
 };
 
+export function MainPalette({ children }) {
+  return <ThemeProvider theme={customTheme}>{children}</ThemeProvider>;
+}
+
 export default MainThemeProvider;
+

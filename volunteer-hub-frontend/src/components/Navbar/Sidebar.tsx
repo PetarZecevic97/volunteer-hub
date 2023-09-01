@@ -16,6 +16,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import BugReportIcon from "@mui/icons-material/BugReport";
+import InfoIcon from "@mui/icons-material/Info";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import { logOutOfProfile } from "../../actions/profileActions";
@@ -27,6 +28,7 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
   const [isDebug, setIsDebug] = useState(
     !process.env.NODE_ENV || process.env.NODE_ENV === "development"
   );
+  const role = sessionStorage.getItem("role");
 
   const clearSession = () => {
     logOutOfProfileAction();
@@ -36,7 +38,7 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
 
   useEffect(() => {
     setIsLoggedIn(myProfile !== undefined);
-  }, [myProfile]);
+  }, [role, myProfile]);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -51,6 +53,7 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
         color="inherit"
         aria-label="menu"
         onClick={toggleSidebar}
+        className="sidebar-button"
       >
         <MenuIcon />
       </IconButton>
@@ -73,14 +76,22 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
             </Typography>
           </div>
           <List className="sidebar-list">
-            {!isLoggedIn && (
+            <ListItemButton
+              component={NavLink}
+              to="/home"
+              className="sidebar-item"
+            >
+              <HomeIcon className="sidebar-icon" />
+              <ListItemText primary="Home" />
+            </ListItemButton>
+            {isLoggedIn && (
               <ListItemButton
                 component={NavLink}
-                to="/sign-up"
+                to="/profile"
                 className="sidebar-item"
               >
-                <PersonAddIcon className="sidebar-icon" />
-                <ListItemText primary="Sign Up" />
+                <PersonIcon className="sidebar-icon" />
+                <ListItemText primary="Profile" />
               </ListItemButton>
             )}
             {!isLoggedIn && (
@@ -93,28 +104,25 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
                 <ListItemText primary="Log In" />
               </ListItemButton>
             )}
-            {isLoggedIn && (
-              <ListItemButton onClick={clearSession} className="sidebar-item">
-                <ExitToAppIcon className="sidebar-icon" />
-                <ListItemText primary="Log Out" />
+            {!isLoggedIn && (
+              <ListItemButton
+                component={NavLink}
+                to="/sign-up"
+                className="sidebar-item"
+              >
+                <PersonAddIcon className="sidebar-icon" />
+                <ListItemText primary="Sign Up" />
               </ListItemButton>
             )}
-            <ListItemButton
-              component={NavLink}
-              to="/events"
-              className="sidebar-item"
-            >
-              <EventIcon className="sidebar-icon" />
-              <ListItemText primary="Events" />
-            </ListItemButton>
+
             {isLoggedIn && (
               <ListItemButton
                 component={NavLink}
-                to="/profile"
+                to="/events"
                 className="sidebar-item"
               >
-                <PersonIcon className="sidebar-icon" />
-                <ListItemText primary="Profile" />
+                <EventIcon className="sidebar-icon" />
+                <ListItemText primary="Events" />
               </ListItemButton>
             )}
             <ListItemButton
@@ -122,7 +130,7 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
               to="/about"
               className="sidebar-item"
             >
-              <HomeIcon className="sidebar-icon" />
+              <InfoIcon className="sidebar-icon" />
               <ListItemText primary="About" />
             </ListItemButton>
             {isDebug && (
@@ -133,6 +141,12 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
               >
                 <BugReportIcon className="sidebar-icon" />
                 <ListItemText primary="Debug" />
+              </ListItemButton>
+            )}
+            {isLoggedIn && (
+              <ListItemButton onClick={clearSession} className="sidebar-item">
+                <ExitToAppIcon className="sidebar-icon" />
+                <ListItemText primary="Log Out" />
               </ListItemButton>
             )}
           </List>

@@ -21,7 +21,7 @@ const CreateVolunteerForm = lazy(
   () => import("./pages/Forms/CreateForms/CreateVolunteerForm")
 );
 const CreateAdForm = lazy(
-  () => import("./pages/Forms/CreateForms/CreateAdForm")
+() => import("./pages/Forms/CreateForms/CreateAdForm")
 );
 const UpdateAdForm = lazy(
   () => import("./pages/Forms/UpdateForms/UpdateAdForm")
@@ -42,6 +42,14 @@ function App() {
         <Routes>
           <Route
             path="/"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <Home />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/home"
             element={
               <Suspense fallback={<CircularProgress />}>
                 <Home />
