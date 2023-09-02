@@ -209,7 +209,7 @@ const ListTemplate = ({ entityName, rows, fields, avatarName }: any) => {
             >
               {fields.map((column, columnIndex) => {
                 const value = row[column];
-                const cellWidth = `calc(100% / ${fields.length-1})`; // Calculate equal width
+                const cellWidth = `calc(100% / ${fields.length})`; // Calculate equal width
 
                 return (
                   <TableCell

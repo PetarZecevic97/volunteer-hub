@@ -71,7 +71,7 @@ const Profile = ({ getProfileDataAction, nullifyCurrentAdAction }: any) => {
   const renderOrganization = () => {
     return (
       <PageContainer>
-        <div style={{ maxHeight: "1150px" }}>
+        <div style={{ maxHeight: "800px" }}>
           <Organization />
         </div>
         {renderButtons()}
@@ -82,7 +82,7 @@ const Profile = ({ getProfileDataAction, nullifyCurrentAdAction }: any) => {
   const renderVolunteer = () => {
     return (
       <PageContainer>
-        <div style={{ maxHeight: "1150px" }}>
+        <div style={{ maxHeight: "800px" }}>
           <Volunteer />
         </div>
         {renderButtons()}
@@ -93,7 +93,7 @@ const Profile = ({ getProfileDataAction, nullifyCurrentAdAction }: any) => {
   const renderAdmin = () => {
     return (
       <PageContainer>
-        <div style={{ maxHeight: "1150px" }}>
+        <div style={{ maxHeight: "800px" }}>
           <DebugPanel />
         </div>
       </PageContainer>
