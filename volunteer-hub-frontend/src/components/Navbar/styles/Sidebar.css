@@ -2,12 +2,32 @@
 .sidebar-container {
   background-color: #1a1a1a;
   color: #fff;
-  width: 950px; /* Increase the width */
+  width: 250px; /* Increase the width */
   height: 100%;
   padding-top: 30px; /* Increase the top padding */
   padding-right: 10px; /* Increase the top padding */
   padding-left: 3px; /* Increase the top padding */
   transition: transform 0.3s ease-in-out;
+}
+
+/* Stylish Sidebar Button */
+.sidebar-button {
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 24px; /* Increase the font size */
+  padding: 10px; /* Increase the padding */
+  border: none;
+  transition: background-color 0.2s ease-in-out;
+}
+/* Sidebar Item Hover with Glow Effect */
+.sidebar-item:hover {
+  background-color: #292929;
+  box-shadow: 0 0 10px rgb(255, 191, 0); /* Amber glow effect */
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Transition for smooth effect */
+}
+/* Add hover effect to the button */
+.sidebar-button:hover {
+  background-color: #292929;
 }
 
 /* Logo Container */
@@ -34,7 +54,7 @@
 .sidebar-item {
   display: flex;
   align-items: center;
-  padding: 12px 24px;
+  padding: 16px 24px; /* Increase the padding */
   transition: background-color 0.2s ease-in-out;
   cursor: pointer;
 }

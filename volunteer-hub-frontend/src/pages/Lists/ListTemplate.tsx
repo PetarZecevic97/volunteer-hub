@@ -22,6 +22,7 @@ import {
   LastPage as LastPageIcon,
 } from "@mui/icons-material";
 import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -124,7 +125,7 @@ const Avatar = ({ size, round, name }) => (
   </MuiAvatar>
 );
 
-const ListTemplate = ({ rows, fields, avatarName }: any) => {
+const ListTemplate = ({ entityName, rows, fields, avatarName }: any) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [shownRows, setShownRows] = useState(rows);
@@ -133,10 +134,9 @@ const ListTemplate = ({ rows, fields, avatarName }: any) => {
     setShownRows(rows);
   }, [rows]);
 
-
-  const getRefreshedRows = () =>{
+  const getRefreshedRows = () => {
     return rows;
-  }
+  };
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - shownRows.length) : 0;
 
@@ -165,7 +165,12 @@ const ListTemplate = ({ rows, fields, avatarName }: any) => {
 
   return (
     <PageContainer>
-      <SearchComponent getRefreshedRows={getRefreshedRows} fields={fields} rows={shownRows} setShownRows={setShownRows} />
+      <SearchComponent
+        getRefreshedRows={getRefreshedRows}
+        fields={fields}
+        rows={shownRows}
+        setShownRows={setShownRows}
+      />
       <ThemeProvider theme={theme}>
         <Paper
           sx={{
@@ -175,47 +180,56 @@ const ListTemplate = ({ rows, fields, avatarName }: any) => {
             color: "#fff", // Set the text color to white
           }}
         >
-          <TableContainer component={Paper}>
-            <CssBaseline />
-            <Table stickyHeader aria-label="sticky table">
-              <TableBody>
-                {shownRows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={index}
-                      sx={{
-                        "&:hover": { bgcolor: "#aaa3e0" },
-                        cursor: "pointer", // Make the row clickable
-                      }}
-                      onClick={() => {
-                        // Handle row click here
-                        console.log("Row clicked:", row);
-                      }}
-                    >
-                      {fields.map((column) => {
-                        const value = row[column];
-                        return (
-                          <TableCell
-                            key={column.id}
-                            sx={{
-                              borderBottom: "1px solid #ccc",
-                              bgcolor: "#333", // Set cell background color to dark theme
-                              color: "#fff", // Set cell text color to white
-                            }}
-                          >
-                            {value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+<TableContainer component={Paper}>
+  <CssBaseline />
+  <Table stickyHeader aria-label="sticky table">
+    <TableBody>
+      {shownRows
+        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        .map((row, index) => (
+          <Link
+            to={`/${entityName}/${row.id}`}
+            key={row.id}
+            style={{ textDecoration: "none", display: "block" }}
+          >
+            <TableRow
+              hover
+              role="checkbox"
+              tabIndex={-1}
+              key={index}
+              sx={{
+                "&:hover": { bgcolor: "#aaa3e0" },
+                cursor: "pointer",
+                display: "block",
+                width: "100%",
+              }}
+              onClick={() => {
+                console.log("Row clicked:", row);
+              }}
+            >
+              {fields.map((column, columnIndex) => {
+                const value = row[column];
+                const cellWidth = `calc(100% / ${fields.length-1})`; // Calculate equal width
+
+                return (
+                  <TableCell
+                    key={column.id}
+                    sx={{
+                      borderBottom: "1px solid #ccc",
+                      color: "#fff",
+                      width: cellWidth,
+                    }}
+                  >
+                    {value}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </Link>
+        ))}
+    </TableBody>
+  </Table>
+</TableContainer>
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"

@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { NavLink as Link } from "react-router-dom";
 
 import Organization from "./Organization";
 import Volunteer from "./Volunteer";
 import { PageContainer } from "../components/Profile/styles/ProfileSC";
-import { ButtonWrapper } from "../components/Login/styles/LoginSC";
 import { getProfileData } from "../actions/profileActions";
 import { nullifyCurrentAd } from "../actions/adActions";
 import DebugPanel from "./DebugPanel";
-import { Box, Button, CssBaseline } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const Profile = ({ getProfileDataAction, nullifyCurrentAdAction }: any) => {
   const role = sessionStorage.getItem("role");
