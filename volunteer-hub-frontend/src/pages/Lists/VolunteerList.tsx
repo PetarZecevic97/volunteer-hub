@@ -14,15 +14,15 @@ const VolunteerList = ({ getVolunteerListAction }: any) => {
   const fields = ["firstName", "lastName", "skills"];
   const avatarName = "firstName";
 
-  function createData({firstName, lastName, skills}: any) {
+  function createData({id, firstName, lastName, skills}: any) {
     const skillList = skills.join(", ");
-    return { firstName, lastName, skills: skillList };
+    return {id, firstName, lastName, skills: skillList };
   }
   const volunteerListRows = volunteerList.map(x => createData(x));
 
   return (
     <>
-      <ListTemplate rows={volunteerListRows} fields={fields} avatarName={avatarName}/>
+      <ListTemplate entityName={"volunteer"} rows={volunteerListRows} fields={fields} avatarName={avatarName}/>
     </>
     );
 };

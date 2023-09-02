@@ -8,32 +8,42 @@ import {
   Grid,
   Typography,
   ListItemButton,
+  Collapse,
+  ListItemIcon,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import EventIcon from "@mui/icons-material/Event";
 import PersonIcon from "@mui/icons-material/Person";
 import LoginIcon from "@mui/icons-material/Login";
+import SearchIcon from "@mui/icons-material/Search";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import BugReportIcon from "@mui/icons-material/BugReport";
+import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import InfoIcon from "@mui/icons-material/Info";
-import { Menu as MenuIcon } from "@mui/icons-material";
+import { ExpandLess, ExpandMore, Menu as MenuIcon } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import { logOutOfProfile } from "../../actions/profileActions";
+import { useNavigate } from "react-router-dom";
 import "./styles/Sidebar.css";
 
 const Sidebar = ({ logOutOfProfileAction }: any) => {
   const myProfile = useSelector((state: any) => state.profileData.myProfile);
   const [isLoggedIn, setIsLoggedIn] = useState(myProfile !== undefined);
+  const [isBrowseOpen, setIsBrowseOpen] = useState(false);
   const [isDebug, setIsDebug] = useState(
     !process.env.NODE_ENV || process.env.NODE_ENV === "development"
   );
   const role = sessionStorage.getItem("role");
 
+  const navigate = useNavigate();
+
   const clearSession = () => {
     logOutOfProfileAction();
     sessionStorage.clear();
     setIsLoggedIn(false);
+    navigate("/home", { replace: true });
   };
 
   useEffect(() => {
@@ -44,6 +54,10 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+  // Function to toggle the "Browse" dropdown
+  const toggleBrowse = () => {
+    setIsBrowseOpen(!isBrowseOpen);
   };
 
   return (
@@ -114,17 +128,56 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
                 <ListItemText primary="Sign Up" />
               </ListItemButton>
             )}
-
             {isLoggedIn && (
-              <ListItemButton
-                component={NavLink}
-                to="/events"
-                className="sidebar-item"
-              >
-                <EventIcon className="sidebar-icon" />
-                <ListItemText primary="Events" />
+              <ListItemButton onClick={toggleBrowse} className="sidebar-item">
+                <SearchIcon>
+                  <EventIcon className="sidebar-icon" />
+                </SearchIcon>
+                <ListItemText primary="Browse" />
+                {isBrowseOpen ? <ExpandLess /> : <ExpandMore />}{" "}
+                {/* Add expand icon */}
               </ListItemButton>
             )}
+            <Collapse in={isBrowseOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {isLoggedIn && (
+                  <ListItemButton
+                    component={NavLink}
+                    to="/events"
+                    className="sidebar-item"
+                  >
+                    <ListItemIcon>
+                      <EventIcon className="sidebar-icon" />
+                    </ListItemIcon>
+                    <ListItemText primary="Events" />
+                  </ListItemButton>
+                )}
+                {isLoggedIn && (
+                  <ListItemButton
+                    component={NavLink}
+                    to="/volunteers"
+                    className="sidebar-item"
+                  >
+                    <PersonSearchIcon>
+                      <EventIcon className="sidebar-icon" />
+                    </PersonSearchIcon>
+                    <ListItemText primary=" Volunteers" />
+                  </ListItemButton>
+                )}
+                {isLoggedIn && (
+                  <ListItemButton
+                    component={NavLink}
+                    to="/organizations"
+                    className="sidebar-item"
+                  >
+                    <CorporateFareIcon>
+                      <EventIcon className="sidebar-icon" />
+                    </CorporateFareIcon>
+                    <ListItemText primary=" Organizations" />
+                  </ListItemButton>
+                )}
+              </List>
+            </Collapse>
             <ListItemButton
               component={NavLink}
               to="/about"
