@@ -52,11 +52,17 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Volunteer")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<VolunteerInfo>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<VolunteerInfo>> CreateVolunteer([FromBody] VolunteerInfo volunteer)
         {
             if (User.FindFirst("id").Value != volunteer.Id)
             {
-                return Forbid();
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "ID value from jwt token does not match ID value from request body.",
+                    ContentType = "text/plain"
+                };
             }
             var product = await _service.CreateVolunteer(volunteer);
 
@@ -66,14 +72,26 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Volunteer")]
         [HttpPut("{id}", Name = "UpdateVolunteer")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<VolunteerInfo>> UpdateVolunteer([FromRoute] string id, [FromBody] VolunteerInfo volunteer)
         {
-            //Console.WriteLine("Ljeks pocetak");
-            //Console.WriteLine(volunteer.Id);
-            //Console.WriteLine("Ljeks kraj");
             if (User.FindFirst("id").Value != volunteer.Id)
             {
-                return Forbid();
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot update other volunteer profile.",
+                    ContentType = "text/plain"
+                };
+            }
+            if (User.FindFirst("id").Value != id)
+            {
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "ID value from Route must match ID value from jwt token.",
+                    ContentType = "text/plain"
+                };
             }
             return Ok(await _service.UpdateVolunteer(volunteer));
         }
@@ -81,11 +99,17 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Volunteer")]
         [HttpDelete("{id}", Name = "DeleteProduct")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteVolunteer(string id)
         {
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid();
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot delete other volunteer profile.",
+                    ContentType = "text/plain"
+                };
             }
             return Ok(await _service.DeleteVolunteer(id));
         }

@@ -47,11 +47,18 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Organization")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<Organization>), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Organization>> CreateOrganization([FromBody] OrganizationCreate organization)
         {
             if (User.FindFirst("id").Value != organization.Id)
             {
-                return Forbid();
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "ID value from jwt token does not match ID value from request body.",
+                    ContentType = "text/plain"
+                };
             }
             var res = await _organizationService.CreateOrganization(organization);
             if(res.Id == null)
@@ -65,11 +72,26 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Organization")]
         [HttpPut("{id}", Name = "PutOrganization")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Organization>> UpdateOrganization([FromBody] Organization organization)
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<Organization>> UpdateOrganization([FromRoute] string id, [FromBody] Organization organization)
         {
             if (User.FindFirst("id").Value != organization.Id)
             {
-                return Forbid();
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot update other organization profile.",
+                    ContentType = "text/plain"
+                };
+            }
+            if (User.FindFirst("id").Value != id)
+            {
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "ID value from Route must match ID value from jwt token.",
+                    ContentType = "text/plain"
+                };
             }
             Organization  result = await _organizationService.UpdateOrganization(organization);
             return Ok(result);
@@ -78,11 +100,17 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Organization")]
         [HttpDelete("{id}", Name = "DeleteOrganization")]
         [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteOrganization(String id)
         {
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid();
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot delete other organization profile.",
+                    ContentType = "text/plain"
+                };
             }
             await _organizationService.DeleteOrganization(id);
             return Ok("Organization deleted!");
