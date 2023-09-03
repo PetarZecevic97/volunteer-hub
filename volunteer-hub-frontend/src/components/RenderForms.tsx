@@ -23,7 +23,8 @@ export const renderForm = (
   title: string,
   handleRedirect: (path: string) => void,
   updateErrorMessage?,
-  handleSelect?
+  handleSelect?,
+  handleCheckbox?
 ) => {
   return (
     <Container component="main" maxWidth="xs">
@@ -98,7 +99,13 @@ export const renderForm = (
             if (input.type === "checkbox") {
               return (
                 <FormControlLabel
-                  control={<Checkbox value={input.name} color="primary" />}
+                  control={
+                    <Checkbox 
+                    value={input.name} 
+                    color="primary" 
+                    onChange={handleCheckbox}
+                    />
+                  }
                   key={index}
                   label={input.labelName}
                 />

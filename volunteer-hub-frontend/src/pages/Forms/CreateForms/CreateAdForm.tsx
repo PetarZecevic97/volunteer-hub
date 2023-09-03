@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
@@ -20,6 +20,7 @@ const CreateAdForm = ({ createAdAction }: any) => {
   const myAd = useSelector((state: any) => state.ads.ad);
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
   const navigate = useNavigate();
+  const [isEmergency, setIsEmergency] = useState(false)
     
   const id = sessionStorage.getItem('id');
   const role = sessionStorage.getItem('role');
@@ -40,7 +41,7 @@ const CreateAdForm = ({ createAdAction }: any) => {
         summary: event.currentTarget.summary.value,
         skills: event.currentTarget.skills.value,
         location: event.currentTarget.location.value,
-        isEmergency: event.currentTarget.isEmergency.value === "true",
+        isEmergency: isEmergency,
         organizationId: id,
       }
       await createAdAction(dataForCreate);
@@ -51,6 +52,9 @@ const CreateAdForm = ({ createAdAction }: any) => {
   const handleRedirect = (path: string) => {
     navigate('/' + path, {replace:true})
   }
+  const handleCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsEmergency(event.target.checked);
+  };
   const updateErrorMessage = (name: string, errors: any) => {
     console.log("Errors");
     let errorMessages: string[] = [];
@@ -73,7 +77,9 @@ const CreateAdForm = ({ createAdAction }: any) => {
                       inputFieldsforCreateAdForm, 
                       "Create your ad",
                       handleRedirect,
-                      updateErrorMessage);
+                      updateErrorMessage,
+                      null,
+                      handleCheckbox);
   } else {
     return updateErrorMessage("Nisi org", errorMessages);
   }
