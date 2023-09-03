@@ -34,6 +34,7 @@ namespace VolunteerHubBackend.Controllers
 
         [HttpGet("{id}", Name = "GetAd")]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Ad>> GetAdById(string id)
         {
             var result = await _adService.GetAdById(id);
@@ -47,10 +48,12 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Organization")]
         [HttpPost]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Ad>> CreateAd([FromBody] AdCreate ad)
         {
-            //System.Diagnostics.Debug.WriteLine(User.FindFirst("id").Value);
-            //System.Diagnostics.Debug.WriteLine(ad.OrganizationId);
+            System.Diagnostics.Debug.WriteLine(User.FindFirst("id").Value);
+            System.Diagnostics.Debug.WriteLine(ad.OrganizationId);
 
             if (User.FindFirst("id").Value != ad.OrganizationId)
             {
@@ -73,6 +76,7 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Organization")]
         [HttpPut("{id}", Name = "PutAd")]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Ad>> UpdateAd([FromBody] Ad ad)
         {
             if (User.FindFirst("id").Value != ad.OrganizationId)
@@ -90,7 +94,9 @@ namespace VolunteerHubBackend.Controllers
 
         [Authorize(Roles = "Organization")]
         [HttpDelete("{id}", Name = "DeleteAd")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteAd(String id)
         {
             var existingAd = await _adService.GetAdById(id);
@@ -115,6 +121,8 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Volunteer")]
         [HttpPost("{id}/{volunteerId}", Name = "AddVolunteer")]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Ad>> AddVolunteer([FromBody] AdVolunteerCreate adVolunteer, [FromRoute] string id, [FromRoute] string volunteerId)
         {
             if (User.FindFirst("id").Value != volunteerId)
@@ -164,6 +172,8 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Volunteer")]
         [HttpDelete("{id}/{volunteerId}", Name = "DeleteVolunteer")]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteVolunteer(string id, string volunteerId)
         {
             var existingAd = await _adService.GetAdById(id);
@@ -180,13 +190,6 @@ namespace VolunteerHubBackend.Controllers
                     Content = "Cannot delete other volunteer from ad.",
                     ContentType = "text/plain"
                 };
-            }
-
-            // TODO: Da li ovde treba provera da je volonter prijavljen na Add??
-            //       Ili ovo ipak treba da radi organizacija za svoje Add-ove??
-            if (User.FindFirst("id").Value != existingAd.OrganizationId)
-            {
-                return Forbid();
             }
             var res = await _adService.DeleteVolunteer(id, volunteerId);
             return Ok(res);

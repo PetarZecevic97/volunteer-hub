@@ -47,6 +47,8 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Organization")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<Organization>), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Organization>> CreateOrganization([FromBody] OrganizationCreate organization)
         {
             if (User.FindFirst("id").Value != organization.Id)
@@ -70,6 +72,7 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Organization")]
         [HttpPut("{id}", Name = "PutOrganization")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Organization>> UpdateOrganization([FromRoute] string id, [FromBody] Organization organization)
         {
             if (User.FindFirst("id").Value != organization.Id)
@@ -97,6 +100,7 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Organization")]
         [HttpDelete("{id}", Name = "DeleteOrganization")]
         [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteOrganization(String id)
         {
             if (User.FindFirst("id").Value != id)

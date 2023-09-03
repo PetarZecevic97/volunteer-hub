@@ -52,6 +52,7 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Volunteer")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<VolunteerInfo>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<VolunteerInfo>> CreateVolunteer([FromBody] VolunteerInfo volunteer)
         {
             if (User.FindFirst("id").Value != volunteer.Id)
@@ -71,11 +72,9 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Volunteer")]
         [HttpPut("{id}", Name = "UpdateVolunteer")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<VolunteerInfo>> UpdateVolunteer([FromRoute] string id, [FromBody] VolunteerInfo volunteer)
         {
-            //Console.WriteLine("Ljeks pocetak");
-            //Console.WriteLine(volunteer.Id);
-            //Console.WriteLine("Ljeks kraj");
             if (User.FindFirst("id").Value != volunteer.Id)
             {
                 return new ContentResult
@@ -100,6 +99,7 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Volunteer")]
         [HttpDelete("{id}", Name = "DeleteProduct")]
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteVolunteer(string id)
         {
             if (User.FindFirst("id").Value != id)
