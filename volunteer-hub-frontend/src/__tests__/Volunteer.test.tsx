@@ -1,10 +1,9 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import Volunteer from "../pages/Volunteer";
-import { MemoryRouter, useParams } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import { getVolunteer } from "../actions/volunteerActions";
 
 const mockStore = configureMockStore([]);
 
