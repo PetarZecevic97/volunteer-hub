@@ -56,7 +56,12 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != volunteer.Id)
             {
-                return Forbid("ID value from jwt token does not match ID value from request body.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "ID value from jwt token does not match ID value from request body.",
+                    ContentType = "text/plain"
+                };
             }
             var product = await _service.CreateVolunteer(volunteer);
 
@@ -73,11 +78,21 @@ namespace VolunteerHubBackend.Controllers
             //Console.WriteLine("Ljeks kraj");
             if (User.FindFirst("id").Value != volunteer.Id)
             {
-                return Forbid("Cannot update other volunteer profile.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot update other volunteer profile.",
+                    ContentType = "text/plain"
+                };
             }
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid("ID value from Route must match ID value from jwt token.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "ID value from Route must match ID value from jwt token.",
+                    ContentType = "text/plain"
+                };
             }
             return Ok(await _service.UpdateVolunteer(volunteer));
         }
@@ -89,7 +104,12 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid("Cannot delete other volunteer profile.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot delete other volunteer profile.",
+                    ContentType = "text/plain"
+                };
             }
             return Ok(await _service.DeleteVolunteer(id));
         }

@@ -51,7 +51,12 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != organization.Id)
             {
-                return Forbid("ID value from jwt token does not match ID value from request body.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "ID value from jwt token does not match ID value from request body.",
+                    ContentType = "text/plain"
+                };
             }
             var res = await _organizationService.CreateOrganization(organization);
             if(res.Id == null)
@@ -69,11 +74,21 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != organization.Id)
             {
-                return Forbid("Cannot update other organization profile.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot update other organization profile.",
+                    ContentType = "text/plain"
+                };
             }
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid("ID value from Route must match ID value from jwt token.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "ID value from Route must match ID value from jwt token.",
+                    ContentType = "text/plain"
+                };
             }
             Organization  result = await _organizationService.UpdateOrganization(organization);
             return Ok(result);
@@ -86,7 +101,12 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != id)
             {
-                return Forbid("Cannot delete other organization profile.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot delete other organization profile.",
+                    ContentType = "text/plain"
+                };
             }
             await _organizationService.DeleteOrganization(id);
             return Ok("Organization deleted!");

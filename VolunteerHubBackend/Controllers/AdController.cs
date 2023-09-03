@@ -49,9 +49,17 @@ namespace VolunteerHubBackend.Controllers
         [ProducesResponseType(typeof(Ad), StatusCodes.Status201Created)]
         public async Task<ActionResult<Ad>> CreateAd([FromBody] AdCreate ad)
         {
+            //System.Diagnostics.Debug.WriteLine(User.FindFirst("id").Value);
+            //System.Diagnostics.Debug.WriteLine(ad.OrganizationId);
+
             if (User.FindFirst("id").Value != ad.OrganizationId)
             {
-                return Forbid("ID value from jwt token does not match OrganizationId value from request body.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "ID value from jwt token does not match OrganizationId value from request body.",
+                    ContentType = "text/plain"
+                };
             }
             var res = await _adService.CreateAd(ad);
             if(res.Id == null)
@@ -69,7 +77,12 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != ad.OrganizationId)
             {
-                return Forbid("Cannot update ad that is created by another organization.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot update ad that is created by another organization.",
+                    ContentType = "text/plain"
+                };
             }
             Ad  result = await _adService.UpdateAd(ad);
             return Ok(result);
@@ -83,12 +96,17 @@ namespace VolunteerHubBackend.Controllers
             var existingAd = await _adService.GetAdById(id);
             if (existingAd == null)
             {
-                return NotFound("Specified ad to delete from organization, does not exist.");
+                return NotFound();
             }
 
             if (User.FindFirst("id").Value != existingAd.OrganizationId)
             {
-                return Forbid("Cannot delete ad that is created by another organization.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot delete ad that is created by another organization.",
+                    ContentType = "text/plain"
+                };
             }
             await _adService.DeleteAd(id);
             return Ok("Ad deleted!");
@@ -101,19 +119,39 @@ namespace VolunteerHubBackend.Controllers
         {
             if (User.FindFirst("id").Value != volunteerId)
             {
-                return Forbid("Volunteer ID value from jwt token must match volunteer ID value from Route.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Volunteer ID value from jwt token must match volunteer ID value from Route.",
+                    ContentType = "text/plain"
+                };
             }
             if (User.FindFirst("id").Value != adVolunteer.VolunteerId)
             {
-                return Forbid("Volunteer ID value from jwt token must match volunteer ID value from request body.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Volunteer ID value from jwt token must match volunteer ID value from request body.",
+                    ContentType = "text/plain"
+                };
             }
             if (volunteerId != adVolunteer.VolunteerId)
             {
-                return Forbid("Volunteer ID value from request body must match volunteer ID value from Route.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Volunteer ID value from request body must match volunteer ID value from Route.",
+                    ContentType = "text/plain"
+                };
             }
             if (id != adVolunteer.AdId)
             {
-                return Forbid("Ad ID value from request body must match ad ID value from Route.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Ad ID value from request body must match ad ID value from Route.",
+                    ContentType = "text/plain"
+                };
             }
             var res = await _adService.AddVolunteer(adVolunteer);
             if (res.Id == null)
@@ -131,12 +169,17 @@ namespace VolunteerHubBackend.Controllers
             var existingAd = await _adService.GetAdById(id);
             if (existingAd == null)
             {
-                return NotFound("Specified ad to delete volunteer from, does not exist.");
+                return NotFound();
             }
 
             if (User.FindFirst("id").Value != volunteerId)
             {
-                return Forbid("Cannot delete other volunteer from ad.");
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot delete other volunteer from ad.",
+                    ContentType = "text/plain"
+                };
             }
 
             // TODO: Da li ovde treba provera da je volonter prijavljen na Add??
