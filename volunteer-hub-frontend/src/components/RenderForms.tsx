@@ -13,18 +13,16 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { FormControl, FormLabel, Radio, RadioGroup } from "@mui/material";
 
-// Pass the title and list of input fields you want generated and you shall receive th form.
-// One object of that list should contain name, labelName and default value (default value is optional)
-// Iterate through list and generate labels and input fields.
+// Generates a form based on the input parameters.
 export const renderForm = (
-  handleSubmit: (event: any) => void,
-  errorMessages: any,
-  inputFields: any,
-  title: string,
-  handleRedirect: (path: string) => void,
-  updateErrorMessage?,
-  handleSelect?,
-  handleCheckbox?
+  handleSubmit: (event: any) => void, // Function to handle form submission
+  errorMessages: any, // Error messages for form validation (not used in this code)
+  inputFields: any, // List of input fields to be generated in the form
+  title: string, // Title of the form
+  handleRedirect: (path: string) => void, // Function to handle redirection (used for links)
+  updateErrorMessage?, // Function to update error messages (not used in this code)
+  handleSelect?, // Function to handle radio button selection
+  handleCheckbox? // Function to handle checkbox selection
 ) => {
   return (
     <Container component="main" maxWidth="xs">
@@ -46,6 +44,7 @@ export const renderForm = (
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           {inputFields.map((input: any, index: any) => {
             if (input.type === "text") {
+              // Generate a text input field
               return (
                 <TextField
                   key={index}
@@ -65,17 +64,18 @@ export const renderForm = (
               );
             }
             if (input.type === "href") {
+              // Generate a hyperlink
               return (
                 <Grid item xs key={index}>
                   <Link 
-                  onClick={() => handleRedirect(input.name)
-                  }>
+                    onClick={() => handleRedirect(input.name)}>
                     {input.labelName}
                   </Link>
                 </Grid>
               );
             }
             if (input.type === "radio") {
+              // Generate a radio button group
               return (
                 <FormControl component="fieldset" key={index}>
                   <FormLabel component="legend">{input.labelName}</FormLabel>
@@ -97,13 +97,14 @@ export const renderForm = (
               );
             }
             if (input.type === "checkbox") {
+              // Generate a checkbox
               return (
                 <FormControlLabel
                   control={
                     <Checkbox 
-                    value={input.name} 
-                    color="primary" 
-                    onChange={handleCheckbox}
+                      value={input.name} 
+                      color="primary" 
+                      onChange={handleCheckbox}
                     />
                   }
                   key={index}

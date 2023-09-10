@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
-import { Container, Typography, Button, Grid, Paper } from "@mui/material";
+import { Container, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 
@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: theme.spacing(6),
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
     minHeight: "100vh",
@@ -21,18 +20,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   paper: {
-    padding: theme.spacing(4),
     background: "rgba(255, 255, 255, 0)",
   },
   header: {
-    marginBottom: theme.spacing(4),
   },
   slogan: {
-    marginBottom: theme.spacing(4),
     fontWeight: "bold",
   },
   button: {
-    marginTop: theme.spacing(3),
     backgroundColor: theme.palette.secondary.main,
     color: theme.palette.secondary.contrastText,
     "&:hover": {

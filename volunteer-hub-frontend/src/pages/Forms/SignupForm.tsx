@@ -14,9 +14,8 @@ import {
 } from "../../utility/Services/SessionService";
 import { AxiosError } from "axios";
 import { LoginError } from "../../components/Login/styles/LoginSC";
-import Slide from "@mui/material/Slide";
-import Snackbar from "@mui/material/Snackbar";
 
+// Define the structure of error messages.
 interface IErrorMessages {
   name: string;
   email?: string;
@@ -24,15 +23,19 @@ interface IErrorMessages {
   message: string;
 }
 
+// Define the Signup component.
 const Signup = () => {
+  // State variables to manage error messages, session info, and role.
   const [errorMessages, setErrorMessages] = useState<IErrorMessages[]>([]);
-
   const [sessionInfo, setSessionInfo] = useState(getUserInfo());
   const [role, setRole] = useState("");
   const [openError, setOpenError] = useState(false);
   const navigate = useNavigate();
 
+  // Create a user service instance for making web requests.
   const userService: WebRequestsInterface = getWebRequest();
+
+  // Check if the user is already logged in and redirect accordingly.
   useEffect(() => {
     if (checkIsLoggedIn()) {
       const role = sessionStorage.getItem("role");
@@ -44,10 +47,12 @@ const Signup = () => {
     }
   }, [sessionInfo]);
 
+  // Handle the form submission.
   const handleSubmit = async (event: any) => {
-    //Prevent page reload
+    // Prevent page reload.
     event.preventDefault();
 
+    // Extract form data.
     const username = event.currentTarget.username.value;
     const password = event.currentTarget.pass.value;
     const role = event.currentTarget.role.value;
@@ -61,29 +66,32 @@ const Signup = () => {
     };
 
     try {
+      // Sign up the user as an organization or volunteer based on the selected role.
       if (role === "Organization") {
         await userService.signUpAsOrganization(dataForSignup);
       } else {
         await userService.signUpAsVolunteer(dataForSignup);
       }
+
+      // Log in the user.
       await userService.logIn(username, password);
       const userStr = sessionStorage.getItem("user");
       const user = userStr ? JSON.parse(userStr) : undefined;
       const id = sessionStorage.getItem("id");
-      
 
       if (user && id) {
-        console.log(userStr);
+        // Update session info and user info.
         setUserInfo(user.username, user.email);
         setSessionInfo(getUserInfo());
       } else {
-        // email not found
+        // Handle the case where user or ID is not found.
         setErrorMessages([
           ...errorMessages,
           { name: "signup", message: "Invalid signup" },
         ]);
       }
     } catch (e) {
+      // Handle errors from the server response.
       const errorResponse = e as AxiosError;
       const errors = errorResponse?.response?.data?.errors;
       let errorsToAdd: IErrorMessages[] = [];
@@ -93,15 +101,20 @@ const Signup = () => {
       setErrorMessages([...errorsToAdd]);
     }
   };
+
+  // Handle redirection to different routes.
   const handleRedirect = (path: string) => {
     navigate("/" + path, { replace: true });
   };
+
+  // Handle the selection of a role (organization or volunteer).
   const handleSelect = (value: string) => {
     setRole(value);
   };
 
+  // Update error messages if present.
   const updateErrorMessage = (name: string, errorMessage: any) => {
-    console.log("Errors");
+    console.error("Errors occurred while trying to sign up");
     
     if (errorMessage !== undefined && errorMessages.length > 0) {
       return <LoginError>{errorMessage}</LoginError>;
@@ -109,11 +122,12 @@ const Signup = () => {
     return <></>;
   };
 
-
+  // Check if the user is already logged in and redirect accordingly.
   if (checkIsLoggedIn()) {
     navigate("/profile", { replace: true });
     return <></>;
   } else {
+    // Render the signup form.
     return (
       <Container component="main" maxWidth="xs">
         <Box
@@ -130,6 +144,7 @@ const Signup = () => {
             inputFieldsforSignup,
             "Sign up",
             handleRedirect,
+            null,
             handleSelect
           )}
           <Grid container spacing={2}>
