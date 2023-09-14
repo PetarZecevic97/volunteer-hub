@@ -1,5 +1,12 @@
 ## Setup
 
+### Prerequisites
+
+```python
+npm=9.8.1
+node=18.17.1
+```
+
 ### Windows
 
 In case you're running the app on a Windows system, you'll need to edit your `package.json` file,` change this line
