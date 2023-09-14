@@ -56,16 +56,6 @@ namespace VolunteerHubBackend.Controllers
         public async Task<ActionResult<VolunteerInfo>> CreateVolunteer([FromBody] VolunteerInfoCreate volunteerRequest)
 
         {
-            if (User.FindFirst("id").Value != volunteer.Id)
-            {
-                return new ContentResult
-                {
-                    StatusCode = StatusCodes.Status403Forbidden,
-                    Content = "ID value from jwt token does not match ID value from request body.",
-                    ContentType = "text/plain"
-                };
-            }
-            
             VolunteerInfo volunteer = new VolunteerInfo()
             {
                 Id = User.FindFirst("id").Value,
