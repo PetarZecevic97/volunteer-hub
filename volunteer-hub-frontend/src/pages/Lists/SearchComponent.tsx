@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import {
@@ -7,7 +8,6 @@ import {
   TextField,
   Button,
   Typography,
-  Grid,
 } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles"; // Import makeStyles from MUI

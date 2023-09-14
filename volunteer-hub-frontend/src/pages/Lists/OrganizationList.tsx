@@ -9,6 +9,7 @@ const OrganizationList = ({ getOrganizationListAction }: any) => {
 
   useEffect(() => {
     getOrganizationListAction();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fields = ["organizationName", "summary"];
@@ -17,7 +18,7 @@ const OrganizationList = ({ getOrganizationListAction }: any) => {
   function createData({id, organizationName, summary}: any) {
     return {id, organizationName, summary };
   }
-  const organizationListRows = organizationList.map(x => createData(x));
+  const organizationListRows = organizationList.map((x: any) => createData(x));
 
   return (
     <>

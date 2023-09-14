@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Typography, Avatar, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import creatorsData from "../components/About/Creators"; // Import the creators data
 import { Chip } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import { styled } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
   root: {

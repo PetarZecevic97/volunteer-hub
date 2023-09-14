@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
@@ -34,6 +35,7 @@ interface TablePaginationActionsProps {
   ) => void;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;

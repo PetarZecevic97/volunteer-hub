@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Avatar from "react-avatar";
@@ -19,7 +20,6 @@ const Ad = ({
   deleteAdVolunteerAction,
 }: any) => {
   const ad = useSelector((state: any) => state.ads.ad);
-  const state = useSelector((state: any) => state);
   const role = sessionStorage.getItem("role");
   const nullableId = sessionStorage.getItem("id");
   const { adId } = useParams();

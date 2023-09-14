@@ -27,6 +27,7 @@ const CreateVolunteerForm = ({ createProfileAction }: any) => {
     if (checkIsLoggedIn() && myVolData) {
       navigate('/profile', { replace: true });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myVolData]);
 
   const handleSubmit = async (event: any) => {

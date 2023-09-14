@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -118,6 +119,7 @@ const DebugPanel = () => {
 
     setUserInfo(username, email);
 
+    // eslint-disable-next-line array-callback-return
     flags.map(({ id, label, checked }, i) => {
       setDebugValue(checked, label);
     });

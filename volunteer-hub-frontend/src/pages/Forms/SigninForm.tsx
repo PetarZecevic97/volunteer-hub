@@ -24,6 +24,7 @@ const Signin = () => {
     if (checkIsLoggedIn()) {
       navigate('/profile', { replace: true });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionInfo]);
 
   const handleSubmit = async (event: any) => {

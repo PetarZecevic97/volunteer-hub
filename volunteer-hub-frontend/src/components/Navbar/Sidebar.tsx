@@ -32,7 +32,7 @@ const Sidebar = ({ logOutOfProfileAction }: any) => {
   const myProfile = useSelector((state: any) => state.profileData.myProfile);
   const [isLoggedIn, setIsLoggedIn] = useState(myProfile !== undefined);
   const [isBrowseOpen, setIsBrowseOpen] = useState(false);
-  const [isDebug, setIsDebug] = useState(
+  const [isDebug] = useState(
     !process.env.NODE_ENV || process.env.NODE_ENV === "development"
   );
   const role = sessionStorage.getItem("role");
