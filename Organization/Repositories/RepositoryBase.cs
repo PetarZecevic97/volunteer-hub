@@ -20,7 +20,6 @@ namespace Organization.Repositories.Interfaces
 
         public virtual async Task<IReadOnlyList<T>> GetAllAsync()
         {
-            Console.WriteLine("get all async repository");
             return await _dbContext.Set<T>().ToListAsync();
         }
 

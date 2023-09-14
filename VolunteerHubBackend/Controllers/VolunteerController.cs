@@ -52,12 +52,16 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Volunteer")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<VolunteerInfo>), StatusCodes.Status201Created)]
-        public async Task<ActionResult<VolunteerInfo>> CreateVolunteer([FromBody] VolunteerInfo volunteer)
+        public async Task<ActionResult<VolunteerInfo>> CreateVolunteer([FromBody] VolunteerInfoCreate volunteerRequest)
         {
-            if (User.FindFirst("id").Value != volunteer.Id)
+            VolunteerInfo volunteer = new VolunteerInfo()
             {
-                return Forbid();
-            }
+                Id = User.FindFirst("id").Value,
+                FirstName = volunteerRequest.FirstName,
+                LastName = volunteerRequest.LastName,
+                Email = User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value,
+                Skills = volunteerRequest.Skills
+            };
             var product = await _service.CreateVolunteer(volunteer);
 
             return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
@@ -68,9 +72,6 @@ namespace VolunteerHubBackend.Controllers
         [ProducesResponseType(typeof(VolunteerInfo), StatusCodes.Status200OK)]
         public async Task<ActionResult<VolunteerInfo>> UpdateVolunteer([FromRoute] string id, [FromBody] VolunteerInfo volunteer)
         {
-            //Console.WriteLine("Ljeks pocetak");
-            //Console.WriteLine(volunteer.Id);
-            //Console.WriteLine("Ljeks kraj");
             if (User.FindFirst("id").Value != volunteer.Id)
             {
                 return Forbid();

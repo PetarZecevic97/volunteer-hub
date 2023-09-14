@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using VolunteerHubBackend.Entities;
+using Notification.Entities;
 
-namespace VolunteerHubBackend.Services.Interfaces
+namespace Notification.Services.Interfaces
 {
     public interface IVolunteerService
     {

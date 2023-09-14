@@ -57,8 +57,11 @@ namespace VolunteerHubBackend.Services
             if (response.IsSuccessStatusCode)
             {
                 newProduct = await response.Content.ReadFromJsonAsync<Ad>();
-                var eventMessage = new AdNotificationEvent(newProduct.Id, newProduct.Title);
-                await _publishEndpoint.Publish(eventMessage);
+                if (newProduct.IsEmergency)
+                {
+                    var eventMessage = new AdNotificationEvent(newProduct.Id, newProduct.Title);
+                    await _publishEndpoint.Publish(eventMessage);
+                }
             }
             return newProduct ?? throw new Exception();
         }
