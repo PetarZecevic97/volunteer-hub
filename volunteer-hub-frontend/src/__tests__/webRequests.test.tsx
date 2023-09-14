@@ -1,5 +1,4 @@
 import http from "../utility/Http";
-import jwt from "jwt-decode";
 import { WebRequest } from "../webRequests/webRequests";
 
 // Mock the axios module
