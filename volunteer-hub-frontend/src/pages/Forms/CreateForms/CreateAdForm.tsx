@@ -44,7 +44,11 @@ const CreateAdForm = ({ createAdAction }: any) => {
         isEmergency: isEmergency,
         organizationId: id,
       }
-      await createAdAction(dataForCreate);
+      try {
+        await createAdAction(dataForCreate);
+      } catch (error) {
+        console.log(error)
+      }
     } else {
       setErrorMessages({ name: "create ad", message: "Invalid createAd" });
     }

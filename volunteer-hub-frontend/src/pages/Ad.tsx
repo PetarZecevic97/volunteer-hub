@@ -167,7 +167,7 @@ const Ad = ({
               </Typography>
               <Typography variant="body1" sx={{ color: "#fff" }}>
                 Skills necessary:{" "}
-                {ad ? ad.skills.substring(1, ad.skills.length - 1) : ""}
+                {ad ? ad.skills.substring(0, ad.skills.length) : ""}
               </Typography>
               <Typography variant="body1" sx={{ color: "#fff" }}>
                 Location: {ad ? ad.location : ""}

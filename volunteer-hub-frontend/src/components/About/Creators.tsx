@@ -53,8 +53,8 @@ const creatorsData: CreatorData[] = [
     name: "Nikola Peric",
     avatar: DzoniAvatar,
     profilePicture: DzoniPhoto,
-    title: "Compiler Engineer",
-    firm: "FIS",
+    title: "Software Engineer",
+    firm: "Syrmia",
     description:
       "Nikola Peric is a math major and precision-driven mind. Currently crafting compiler tools at FIS, his meticulous nature and devotion to detail shine through. Nikola's fusion of mathematics and coding expertise results in flawlessly crafted solutions that embody his pursuit of perfection.",
   },
