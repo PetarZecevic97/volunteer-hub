@@ -14,14 +14,14 @@ const OrganizationList = ({ getOrganizationListAction }: any) => {
   const fields = ["organizationName", "summary"];
   const avatarName = "organizationName";
 
-  function createData({organizationName, summary}: any) {
-    return { organizationName, summary };
+  function createData({id, organizationName, summary}: any) {
+    return {id, organizationName, summary };
   }
   const organizationListRows = organizationList.map(x => createData(x));
 
   return (
     <>
-      <ListTemplate rows={organizationListRows} fields={fields} avatarName={avatarName}/>
+      <ListTemplate entityName={"organization"} rows={organizationListRows} fields={fields} avatarName={avatarName}/>
     </>
     );
 };

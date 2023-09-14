@@ -34,21 +34,36 @@ namespace VolunteerHubBackend.Controllers
 
         [HttpGet("{id}", Name = "GetAd")]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Ad>> GetAdById(string id)
         {
             var result = await _adService.GetAdById(id);
             if (result.Id == null)
             {
                 return NotFound(result);
-            }
+            } 
             return Ok(result);
         }
 
         [Authorize(Roles = "Organization")]
         [HttpPost]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Ad>> CreateAd([FromBody] AdCreate ad)
         {
+            System.Diagnostics.Debug.WriteLine(User.FindFirst("id").Value);
+            System.Diagnostics.Debug.WriteLine(ad.OrganizationId);
+
+            if (User.FindFirst("id").Value != ad.OrganizationId)
+            {
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "ID value from jwt token does not match OrganizationId value from request body.",
+                    ContentType = "text/plain"
+                };
+            }
             var res = await _adService.CreateAd(ad);
             if(res.Id == null)
             {
@@ -61,11 +76,17 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Organization")]
         [HttpPut("{id}", Name = "PutAd")]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Ad>> UpdateAd([FromBody] Ad ad)
         {
             if (User.FindFirst("id").Value != ad.OrganizationId)
             {
-                return Forbid();
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot update ad that is created by another organization.",
+                    ContentType = "text/plain"
+                };
             }
             Ad  result = await _adService.UpdateAd(ad);
             return Ok(result);
@@ -73,13 +94,25 @@ namespace VolunteerHubBackend.Controllers
 
         [Authorize(Roles = "Organization")]
         [HttpDelete("{id}", Name = "DeleteAd")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteAd(String id)
         {
             var existingAd = await _adService.GetAdById(id);
+            if (existingAd == null)
+            {
+                return NotFound();
+            }
+
             if (User.FindFirst("id").Value != existingAd.OrganizationId)
             {
-                return Forbid();
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot delete ad that is created by another organization.",
+                    ContentType = "text/plain"
+                };
             }
             await _adService.DeleteAd(id);
             return Ok("Ad deleted!");
@@ -88,11 +121,45 @@ namespace VolunteerHubBackend.Controllers
         [Authorize(Roles = "Volunteer")]
         [HttpPost("{id}/{volunteerId}", Name = "AddVolunteer")]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Ad), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Ad>> AddVolunteer([FromBody] AdVolunteerCreate adVolunteer, [FromRoute] string id, [FromRoute] string volunteerId)
         {
             if (User.FindFirst("id").Value != volunteerId)
             {
-                return Forbid();
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Volunteer ID value from jwt token must match volunteer ID value from Route.",
+                    ContentType = "text/plain"
+                };
+            }
+            if (User.FindFirst("id").Value != adVolunteer.VolunteerId)
+            {
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Volunteer ID value from jwt token must match volunteer ID value from request body.",
+                    ContentType = "text/plain"
+                };
+            }
+            if (volunteerId != adVolunteer.VolunteerId)
+            {
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Volunteer ID value from request body must match volunteer ID value from Route.",
+                    ContentType = "text/plain"
+                };
+            }
+            if (id != adVolunteer.AdId)
+            {
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Ad ID value from request body must match ad ID value from Route.",
+                    ContentType = "text/plain"
+                };
             }
             var res = await _adService.AddVolunteer(adVolunteer);
             if (res.Id == null)
@@ -102,14 +169,27 @@ namespace VolunteerHubBackend.Controllers
             return Ok(res);
         }
 
+        [Authorize(Roles = "Volunteer")]
         [HttpDelete("{id}/{volunteerId}", Name = "DeleteVolunteer")]
         [ProducesResponseType(typeof(Ad), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContentResult), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteVolunteer(string id, string volunteerId)
         {
             var existingAd = await _adService.GetAdById(id);
-            if (User.FindFirst("id").Value != volunteerId && User.FindFirst("id").Value != existingAd.OrganizationId)
+            if (existingAd == null)
             {
-                return Forbid();
+                return NotFound();
+            }
+
+            if (User.FindFirst("id").Value != volunteerId)
+            {
+                return new ContentResult
+                {
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Content = "Cannot delete other volunteer from ad.",
+                    ContentType = "text/plain"
+                };
             }
             var res = await _adService.DeleteVolunteer(id, volunteerId);
             return Ok(res);
