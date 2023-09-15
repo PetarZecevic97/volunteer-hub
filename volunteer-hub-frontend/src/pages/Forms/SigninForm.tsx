@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import Alert from "@mui/material/Alert";
+import Grid from "@mui/material/Grid";
 
 import { WebRequestsInterface } from "../../webRequests/webRequests-int";
 import getWebRequest from "../../webRequests/webRequestsProvider";
 import { inputFieldsforSignin } from "../../utility/formInputFields";
 import { renderForm } from "../../components/RenderForms";
-import {checkIsLoggedIn, getUserInfo, setUserInfo} from "../../utility/Services/SessionService";
+import {
+  checkIsLoggedIn,
+  getUserInfo,
+  setUserInfo,
+} from "../../utility/Services/SessionService";
+import { AxiosError } from "axios";
+import { Box, Container } from "@mui/system";
 
 interface IErrorMessages {
   name?: string;
@@ -20,51 +28,70 @@ const Signin = () => {
   const navigate = useNavigate();
 
   const userService: WebRequestsInterface = getWebRequest();
+
   useEffect(() => {
     if (checkIsLoggedIn()) {
-      navigate('/profile', { replace: true });
+      navigate("/profile", { replace: true });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionInfo]);
 
   const handleSubmit = async (event: any) => {
-    //Prevent page reload
+    // Prevent page reload
     event.preventDefault();
-    const password = event.currentTarget.password.value;    
+    const password = event.currentTarget.password.value;
     const username = event.currentTarget.username.value;
 
-    // Find user login info
-    await userService.logIn(username, password);
-    const userStr = sessionStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : undefined;
-    const id = sessionStorage.getItem('id');
+    try {
+      // Find user login info
+      await userService.logIn(username, password);
+      const userStr = sessionStorage.getItem("user");
+      const user = userStr ? JSON.parse(userStr) : undefined;
+      const id = sessionStorage.getItem("id");
 
-    if (user && id) {
-      setUserInfo(user.name, user.email);
-      setSessionInfo(getUserInfo());
-      
-    } else {
-      // email not found
-      setErrorMessages({ name: "login", message: "Invalid login" });
+      if (user && id) {
+        setUserInfo(user.name, user.email);
+        setSessionInfo(getUserInfo());
+      } else {
+        // email not found
+        setErrorMessages({ name: "login", message: "Invalid login" });
+      }
+    } catch (error) {
+      // Handle axios error
+      setErrorMessages({ name: "login", message: "Malformed login data" });
     }
   };
 
   const handleRedirect = (path: string) => {
-    navigate('/' + path, {replace:true})
-  }
-  
-  if (checkIsLoggedIn()) {
-    return <></>
-  } else {
-    return renderForm(
-      handleSubmit, 
-      errorMessages, 
-      inputFieldsforSignin, 
-      "Log in", 
-      handleRedirect
-    );
-  }
+    navigate("/" + path, { replace: true });
+  };
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {renderForm(
+          handleSubmit,
+          errorMessages,
+          inputFieldsforSignin,
+          "Log in",
+          handleRedirect
+        )}
+        <Grid container spacing={2}>
+          {errorMessages && errorMessages.message && (
+            <Grid item xs={12} key={errorMessages.name}>
+              <Alert severity="error">{errorMessages.message}</Alert>
+            </Grid>
+          )}
+        </Grid>
+      </Box>
+    </Container>
+  );
 };
 
 export default Signin;
-

@@ -40,9 +40,9 @@ export const inputFieldsforCreateAdForm = [
 export const inputFieldsforUpdateAdForm = [
     {type:"text", name:"title", labelName: "Title", errorName: "title"},
     {type:"text", name:"summary", labelName: "Summary", errorName: "summary"},
-    {type:"text", name:"location", labelName: "Location: ", errorName: "location"},
-    {type:"text", name:"skills", labelName: "Skills necessary: ", errorName: "skills"},
-    {type:"checkbox", name:"isOpen", labelName: "Status: ", errorName: "isOpen"},
+    {type:"text", name:"location", labelName: "Location ", errorName: "location"},
+    {type:"text", name:"skills", labelName: "Skills necessary ", errorName: "skills"},
+    {type:"checkbox", name:"isOpen", labelName: "Is the Application Open? ", errorName: "isOpen"},
 ];
 
 export const inputFieldsforCreateVolunteerForm = [

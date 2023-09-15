@@ -102,7 +102,7 @@ const Signup = () => {
 
       const errorsBackup = errorResponse?.response?.data;
       for (let key in errorsBackup) {
-        errorsToAdd.push({ name: "signup", message: errorsBackup[key][0] });
+        errorsToAdd.push({ name: "signup", message: errors[key][0] });
       }
 
       setErrorMessages([...errorsToAdd]);
