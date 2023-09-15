@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,7 +12,12 @@ import { PageContainer } from "../components/Profile/styles/ProfileSC";
 import { getProfileData } from "../actions/profileActions";
 import { nullifyCurrentAd } from "../actions/adActions";
 
-const Profile = ({ getProfileDataAction, nullifyCurrentAdAction, role, id }: any) => {
+const Profile = ({
+  getProfileDataAction,
+  nullifyCurrentAdAction,
+  role,
+  id,
+}: any) => {
   useEffect(() => {
     if (id && role) {
       getProfileDataAction(id, role);

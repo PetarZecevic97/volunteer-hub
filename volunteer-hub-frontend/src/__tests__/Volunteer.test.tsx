@@ -40,14 +40,10 @@ describe("Volunteer Component", () => {
 
     // Wait for the component to load
     await waitFor(() => {
-      expect(screen.getByText("First name: John")).toBeInTheDocument();
-    });
-    await waitFor(() => {
-      expect(screen.getByText("Last name: Doe")).toBeInTheDocument();
+      expect(screen.getByText("John Doe")).toBeInTheDocument();
     });
     await waitFor(() => {
       expect(screen.getByText("Skills: Skill1, Skill2")).toBeInTheDocument();
     });
   });
-
 });

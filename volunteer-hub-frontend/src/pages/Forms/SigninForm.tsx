@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
@@ -12,7 +13,6 @@ import {
   getUserInfo,
   setUserInfo,
 } from "../../utility/Services/SessionService";
-import { AxiosError } from "axios";
 import { Box, Container } from "@mui/system";
 
 interface IErrorMessages {

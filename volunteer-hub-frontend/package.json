@@ -77,10 +77,9 @@
   },
   "jest": {
     "coverageThreshold": {
-        "global": {
-            "lines": 80
-        }
+      "global": {
+        "lines": 80
+      }
     }
-}
-  
+  }
 }

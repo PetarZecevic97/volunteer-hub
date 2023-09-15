@@ -3,7 +3,6 @@ import { makeStyles } from "@mui/styles";
 import { Container, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -22,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     background: "rgba(255, 255, 255, 0)",
   },
-  header: {
-  },
+  header: {},
   slogan: {
     fontWeight: "bold",
   },
@@ -40,8 +38,8 @@ const Home = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const handleNavigate = (path: string) => {
-    navigate('/' + path, {replace:true})
-  }
+    navigate("/" + path, { replace: true });
+  };
 
   return (
     <div className={classes.root}>
@@ -61,7 +59,12 @@ const Home = () => {
           a difference or an organization seeking passionate volunteers, we're
           here to help you connect.
         </Typography>
-        <Button variant="contained" className={classes.button} size="large" onClick={()=>handleNavigate("sign-in")}>
+        <Button
+          variant="contained"
+          className={classes.button}
+          size="large"
+          onClick={() => handleNavigate("sign-in")}
+        >
           Get Started
         </Button>
       </Container>

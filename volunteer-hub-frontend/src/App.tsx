@@ -4,12 +4,11 @@ import MainThemeProvider from "./components/Providers/MainThemeProvider";
 import { CssBaseline, CircularProgress } from "@mui/material";
 import Sidebar from "./components/Navbar/Sidebar";
 // it could be your App.tsx file or theme file that is included in your tsconfig.json
-import { Theme } from '@mui/material/styles';
+import { Theme } from "@mui/material/styles";
 
-declare module '@mui/styles/defaultTheme' {
+declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
-
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -28,7 +27,7 @@ const CreateVolunteerForm = lazy(
   () => import("./pages/Forms/CreateForms/CreateVolunteerForm")
 );
 const CreateAdForm = lazy(
-() => import("./pages/Forms/CreateForms/CreateAdForm")
+  () => import("./pages/Forms/CreateForms/CreateAdForm")
 );
 const UpdateAdForm = lazy(
   () => import("./pages/Forms/UpdateForms/UpdateAdForm")

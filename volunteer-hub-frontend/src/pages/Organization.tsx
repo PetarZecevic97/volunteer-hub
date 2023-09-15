@@ -20,9 +20,7 @@ const Organization = ({ getOrganizationAction }: any) => {
   function chooseRightOrg() {
     return organizationId ? currentOrganization : myProfileOrganization;
   }
-  const [rightOrganization, setRightOrganization] = useState(
-    chooseRightOrg()
-  );
+  const [rightOrganization, setRightOrganization] = useState(chooseRightOrg());
 
   useEffect(() => {
     if (organizationId && !currentOrganization) {
