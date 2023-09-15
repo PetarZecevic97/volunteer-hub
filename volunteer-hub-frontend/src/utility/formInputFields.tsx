@@ -42,7 +42,7 @@ export const inputFieldsforUpdateAdForm = [
     {type:"text", name:"summary", labelName: "Summary", errorName: "summary"},
     {type:"text", name:"location", labelName: "Location: ", errorName: "location"},
     {type:"text", name:"skills", labelName: "Skills necessary: ", errorName: "skills"},
-    {type:"text", name:"isOpen", labelName: "Status: ", errorName: "isOpen"},
+    {type:"checkbox", name:"isOpen", labelName: "Status: ", errorName: "isOpen"},
 ];
 
 export const inputFieldsforCreateVolunteerForm = [
