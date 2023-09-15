@@ -27,6 +27,7 @@ const CreateOrganizationForm = ({ createProfileAction }: any) => {
     if (checkIsLoggedIn() && myOrganization) {
       navigate('/profile', { replace: true });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myOrganization]);
 
   const handleSubmit = async (event: any) => {

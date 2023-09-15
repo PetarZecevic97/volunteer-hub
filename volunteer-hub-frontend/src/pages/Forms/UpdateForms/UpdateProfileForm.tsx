@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import UpdateOrganizationForm from "./UpdateOrganizationForm";
 import UpdateVolunteerForm from "./UpdateVolunteerForm";
 import { PageContainer } from '../../../components/Profile/styles/ProfileSC';
-import { getProfileData } from "../../../actions/profileActions";
 
 const UpdateProfileForm = () => {
   const role = sessionStorage.getItem('role');

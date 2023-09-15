@@ -3,6 +3,13 @@ import React, { lazy, Suspense } from "react";
 import MainThemeProvider from "./components/Providers/MainThemeProvider";
 import { CssBaseline, CircularProgress } from "@mui/material";
 import Sidebar from "./components/Navbar/Sidebar";
+// it could be your App.tsx file or theme file that is included in your tsconfig.json
+import { Theme } from '@mui/material/styles';
+
+declare module '@mui/styles/defaultTheme' {
+  interface DefaultTheme extends Theme {}
+}
+
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));

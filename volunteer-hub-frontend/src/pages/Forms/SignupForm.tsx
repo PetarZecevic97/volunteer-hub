@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
@@ -13,7 +14,6 @@ import {
   setUserInfo,
 } from "../../utility/Services/SessionService";
 import { AxiosError } from "axios";
-import { LoginError } from "../../components/Login/styles/LoginSC";
 
 // Define the structure of error messages.
 interface IErrorMessages {
@@ -45,6 +45,7 @@ const Signup = () => {
         navigate("/create-volunteer-form", { replace: true });
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionInfo]);
 
   // Handle the form submission.
@@ -113,14 +114,6 @@ const Signup = () => {
   };
 
   // Update error messages if present.
-  const updateErrorMessage = (name: string, errorMessage: any) => {
-    console.error("Errors occurred while trying to sign up");
-    
-    if (errorMessage !== undefined && errorMessages.length > 0) {
-      return <LoginError>{errorMessage}</LoginError>;
-    }
-    return <></>;
-  };
 
   // Check if the user is already logged in and redirect accordingly.
   if (checkIsLoggedIn()) {

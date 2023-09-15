@@ -29,7 +29,7 @@
       "lastName": "Doe",
       "skills": [
         "math",
-        "sviranje kurcu"
+        "sviranje harmonikom"
       ]
     }
   ],
@@ -37,7 +37,7 @@
     {
       "id": 1,
       "username": "jox123",
-      "password": "cepismrdi",
+      "password": "13jfl",
       "isAdmin": false,
       "role": "volunteer",
       "email": "jox123@gmail.com"
@@ -52,25 +52,25 @@
     },
     {
       "id": 3,
-      "username": "HRKuracHub",
-      "password": "sisamkurac123",
+      "username": "HRVolunteerHub",
+      "password": "sisamVolunteer123",
       "isAdmin": false,
       "role": "organization",
-      "email": "HRKuracHub@gmail.com"
+      "email": "HRVolunteerHub@gmail.com"
     },
     {
-      "email": "kurac@kuracInc.bu",
-      "password": "kurcomir",
+      "email": "Volunteer@VolunteerInc.bu",
+      "password": "Volontomir",
       "id": 4
     },
     {
-      "email": "kurac@kuracInc.bu",
-      "password": "kurcomir",
+      "email": "Volunteer@VolunteerInc.bu",
+      "password": "Volontomir",
       "id": 5
     },
     {
-      "email": "kurac@kuracInc.bu",
-      "password": "kurcomir",
+      "email": "Volunteer@VolunteerInc.bu",
+      "password": "Volontomir",
       "id": 6
     }
   ]

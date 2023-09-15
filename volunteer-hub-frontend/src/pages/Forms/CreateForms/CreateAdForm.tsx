@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { connect, useSelector } from "react-redux";
 
@@ -29,6 +29,7 @@ const CreateAdForm = ({ createAdAction }: any) => {
     if (checkIsLoggedIn() && myAd && myAd.id) {
       navigate('/ad/' + myAd.id, { replace: true });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myAd]);
 
   const handleSubmit = async (event: any) => {
@@ -44,7 +45,11 @@ const CreateAdForm = ({ createAdAction }: any) => {
         isEmergency: isEmergency,
         organizationId: id,
       }
-      await createAdAction(dataForCreate);
+      try {
+        await createAdAction(dataForCreate);
+      } catch (error) {
+        console.log(error)
+      }
     } else {
       setErrorMessages({ name: "create ad", message: "Invalid createAd" });
     }
