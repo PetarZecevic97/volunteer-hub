@@ -8,7 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Notifaction.Services;
 using Notification.EventBusConsumers;
+using Notification.MailClient;
+using Notification.Notification;
+using Notification.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +32,10 @@ namespace Notification
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IVolunteerService, VolunteerService>();
+            services.AddScoped<IMailClientService, SMTPClientService>();
+            services.AddScoped<INotificationService, NotificationService>();
+
             services.AddMassTransit(config =>
             {
                 config.AddConsumer<AdNotificationConsumer>();

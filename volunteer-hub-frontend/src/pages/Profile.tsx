@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { NavLink as Link } from "react-router-dom";

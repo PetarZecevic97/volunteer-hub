@@ -27,7 +27,6 @@ namespace Ads.Persistence
             var ad3 = new AdEntity(System.Guid.NewGuid().ToString(), "Matrix is it you?", "Do we live in a matrix (that's a rethorical question of course we do)", "teoreticari, zavere", true, "Stara Pazova", "xyz987");
             var ad4 = new AdEntity(System.Guid.NewGuid().ToString(), "Napravite nam kulji opis", "Los nam je opis, molim vas pomagajte kako znate i mozete", "umjetnik u opisu", true, "Nis", "www333");
             var ad5 = new AdEntity(System.Guid.NewGuid().ToString(), "Aj jos jedan pls", "Treba nam jos jedan opis quicky plzz", "second hand artist", true, "Uzice", "bnm789");
-
             return new List<AdEntity> { ad1, ad2, ad3, ad4, ad5 };
         }
 	}

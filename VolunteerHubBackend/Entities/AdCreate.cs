@@ -9,5 +9,6 @@ namespace VolunteerHubBackend.Entities
         public string Skills { get; set; }
         public string Location { get; set; }
         public string OrganizationId { get; set; }
+        public bool IsEmergency { get; set; }
     }
 }

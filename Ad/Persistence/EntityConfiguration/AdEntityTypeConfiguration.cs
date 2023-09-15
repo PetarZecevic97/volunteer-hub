@@ -29,6 +29,10 @@ namespace Ads.Persistence.EntityConfiguration
                 .HasColumnType("BIT")
                 .HasColumnName("is_open");
 
+            builder.Property<bool>("IsEmergency")
+                .HasColumnType("BIT")
+                .HasColumnName("is_emergency");
+
             builder.Property<string>("OrganizationId")
                 .HasColumnType("VARCHAR(1000)")
                 .HasColumnName("organization_id");

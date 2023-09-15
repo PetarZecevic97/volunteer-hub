@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Typography, Avatar, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import creatorsData from "../components/About/Creators"; // Import the creators data
