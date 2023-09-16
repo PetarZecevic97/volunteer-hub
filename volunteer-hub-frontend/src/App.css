@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
 
 * {
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -12,7 +12,7 @@ primary-color {
 }
 
 secondary-color {
-  color: #ffbb00
+  color: #ffbb00;
 }
 
 .home,
@@ -30,7 +30,7 @@ secondary-color {
 }
 
 .home {
-  background-image: url('./images/img-1.jpg');
+  background-image: url("./images/img-1.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -39,7 +39,7 @@ secondary-color {
 }
 
 .services {
-  background-image: url('./images/img-2.jpg');
+  background-image: url("./images/img-2.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -48,7 +48,7 @@ secondary-color {
 }
 
 .products {
-  background-image: url('./images/img-3.jpg');
+  background-image: url("./images/img-3.jpg");
   background-position: center;
   background-size: fill;
   background-repeat: no-repeat;
@@ -57,7 +57,7 @@ secondary-color {
 }
 
 .contact-us {
-  background-image: url('./images/img-4.jpg');
+  background-image: url("./images/img-4.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -66,7 +66,7 @@ secondary-color {
 }
 
 .sign-up {
-  background-image: url('./images/img-7.jpg');
+  background-image: url("./images/img-7.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -75,7 +75,7 @@ secondary-color {
 }
 
 .marketing {
-  background-image: url('./images/img-6.jpg');
+  background-image: url("./images/img-6.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -84,7 +84,7 @@ secondary-color {
 }
 
 .consulting {
-  background-image: url('./images/img-5.jpg');
+  background-image: url("./images/img-5.jpg");
   background-position: bottom;
   background-size: cover;
   background-repeat: no-repeat;

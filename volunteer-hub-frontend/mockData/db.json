@@ -18,19 +18,13 @@
       "id": 1,
       "firstName": "John",
       "lastName": "Doe",
-      "skills": [
-        "math",
-        "science"
-      ]
+      "skills": ["math", "science"]
     },
     {
       "id": 2,
       "firstName": "Jane",
       "lastName": "Doe",
-      "skills": [
-        "math",
-        "sviranje kurcu"
-      ]
+      "skills": ["math", "sviranje kurcu"]
     }
   ],
   "users": [

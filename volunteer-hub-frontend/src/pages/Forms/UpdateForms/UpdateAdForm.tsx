@@ -20,8 +20,10 @@ interface IErrorMessages {
 const UpdateAdForm = ({ getAdAction, updateAdAction }: any) => {
   const myAd = useSelector((state: any) => state.ads.ad);
   const [errorMessages, setErrorMessages] = useState<IErrorMessages>();
+  const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate();
   const { adId } = useParams();
+  
 
   const setDefault = () => myAd ? inputFieldsforUpdateAdForm.map(x => {
                                                                         return {...x, default: myAd[x.name]}
@@ -53,7 +55,7 @@ const UpdateAdForm = ({ getAdAction, updateAdAction }: any) => {
         title: event.currentTarget.title.value,
         summary: event.currentTarget.summary.value,
         skills: event.currentTarget.skills.value,
-        isOpen: event.currentTarget.isOpen.value === "true",
+        isOpen: isOpen,
         location: event.currentTarget.location.value,
         openedDate: myAd.openedDate,
         organizationId: id,
@@ -67,6 +69,9 @@ const UpdateAdForm = ({ getAdAction, updateAdAction }: any) => {
   const handleRedirect = (path: string) => {
     navigate('/' + path, {replace:true})
   }
+  const handleCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsOpen(event.target.checked);
+  };
   const updateErrorMessage = (name: string, errors: any) => {
     console.log("Errors");
     let errorMessages: string[] = [];
@@ -89,7 +94,10 @@ const UpdateAdForm = ({ getAdAction, updateAdAction }: any) => {
       errorMessages, 
       inputFieldsWithDefault, 
       "Update your ad",
-      handleRedirect
+      handleRedirect,
+      null,
+      null,
+      handleCheckbox
     );
   } else {
     return updateErrorMessage("Nisi org", errorMessages);

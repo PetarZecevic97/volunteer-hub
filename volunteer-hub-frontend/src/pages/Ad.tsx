@@ -106,21 +106,6 @@ const Ad = ({
             >
               Update this ad
             </Button>
-
-            <Button
-              component={Link}
-              to=""
-              variant="contained"
-              sx={{
-                bgcolor: "#673ab7", // Light Purple color
-                color: "#fff",
-                "&:hover": {
-                  bgcolor: "#512da8", // Darker Purple color on hover
-                },
-              }}
-            >
-              Check out who applied!
-            </Button>
             <Button
               component={Link}
               to="/profile"

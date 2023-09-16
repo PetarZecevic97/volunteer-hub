@@ -1,16 +1,16 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import Home from '../pages/Home';
-import { MemoryRouter, useNavigate } from 'react-router-dom'; // Import useNavigate
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import Home from "../pages/Home";
+import { MemoryRouter, useNavigate } from "react-router-dom"; // Import useNavigate
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
   useNavigate: jest.fn(),
 }));
 
-describe('Home Component', () => {
-  it('renders successfully', () => {
+describe("Home Component", () => {
+  it("renders successfully", () => {
     const theme = createTheme();
 
     render(
@@ -37,7 +37,7 @@ describe('Home Component', () => {
       </ThemeProvider>
     );
 
-    const button = screen.getByText('Get Started');
+    const button = screen.getByText("Get Started");
 
     expect(button).toBeInTheDocument();
   });
@@ -55,14 +55,13 @@ describe('Home Component', () => {
       </ThemeProvider>
     );
 
-    const button = screen.getByText('Get Started');
+    const button = screen.getByText("Get Started");
 
     fireEvent.click(button);
 
     // Ensure that navigate was called with the expected path
-    expect(navigate).toHaveBeenCalledWith('/sign-in', { replace: true });
+    expect(navigate).toHaveBeenCalledWith("/sign-in", { replace: true });
   });
 
   // Add more test cases as needed
-
 });

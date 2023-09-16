@@ -5,10 +5,10 @@ export class WebRequestMock implements WebRequestsInterface {
 
     signUpAsOrganization(organization: any): any {
         return 'OK';
-     }
-     signUpAsVolunteer(volunteer: any): any {
+    }
+    signUpAsVolunteer(volunteer: any): any {
         return 'OK';
-     }
+    }
     logIn(userName: string, password: string): any {
         const params: any = {};
         if (userName !== "") {
@@ -22,7 +22,7 @@ export class WebRequestMock implements WebRequestsInterface {
             { params }
         );
         return tmp.then(v => v.data.id).catch(e => undefined);
-     }
+    }
     async getAllOrganizations() {
         return await axios.get((process.env.REACT_APP_MOCK_SERVER_URL as string) + '/organizations');
     }

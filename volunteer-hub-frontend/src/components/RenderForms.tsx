@@ -68,8 +68,7 @@ export const renderForm = (
               // Generate a hyperlink
               return (
                 <Grid item xs key={index}>
-                  <Link 
-                    onClick={() => handleRedirect(input.name)}>
+                  <Link onClick={() => handleRedirect(input.name)}>
                     {input.labelName}
                   </Link>
                 </Grid>
@@ -85,14 +84,16 @@ export const renderForm = (
                     name={input.name}
                     onChange={(event) => handleSelect(event.target.value)}
                   >
-                    {input.choices.map((choice: string, choiceIndex: number) => (
-                      <FormControlLabel
-                        key={choiceIndex}
-                        value={choice}
-                        control={<Radio />}
-                        label={choice}
-                      />
-                    ))}
+                    {input.choices.map(
+                      (choice: string, choiceIndex: number) => (
+                        <FormControlLabel
+                          key={choiceIndex}
+                          value={choice}
+                          control={<Radio />}
+                          label={choice}
+                        />
+                      )
+                    )}
                   </RadioGroup>
                 </FormControl>
               );
@@ -102,9 +103,9 @@ export const renderForm = (
               return (
                 <FormControlLabel
                   control={
-                    <Checkbox 
-                      value={input.name} 
-                      color="primary" 
+                    <Checkbox
+                      value={input.name}
+                      color="primary"
                       onChange={handleCheckbox}
                     />
                   }

@@ -1,8 +1,8 @@
-import http from '../utility/Http';
-import { WebRequest } from '../webRequests/webRequests';
+import http from "../utility/Http";
+import { WebRequest } from "../webRequests/webRequests";
 
 // Mock the http module
-jest.mock('../utility/Http', () => ({
+jest.mock("../utility/Http", () => ({
   post: jest.fn(),
   get: jest.fn(),
   put: jest.fn(),
@@ -10,9 +10,9 @@ jest.mock('../utility/Http', () => ({
 }));
 
 // Mock the jwt-decode module
-jest.mock('jwt-decode', () => jest.fn());
+jest.mock("jwt-decode", () => jest.fn());
 
-describe('WebRequest', () => {
+describe("WebRequest", () => {
   let webRequest: WebRequest;
 
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe('WebRequest', () => {
     jest.clearAllMocks();
   });
 
-  it('should sign up as an organization', async () => {
+  it("should sign up as an organization", async () => {
     const organization = {}; // Provide organization data
     const response = {}; // Provide the expected response
 
