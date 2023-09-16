@@ -13,6 +13,7 @@ import {
   IconButton,
   Box,
   CssBaseline,
+  TableHead,
 } from "@mui/material";
 import { PageContainer } from "../../components/Profile/styles/ProfileSC";
 import SearchComponent from "./SearchComponent";
@@ -131,10 +132,11 @@ const ListTemplate = ({ entityName, rows, fields, avatarName }: any) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [shownRows, setShownRows] = useState(rows);
+  const [cellWidth, setCellWidth] = useState(`calc(100% / ${fields.length})`);
 
   useEffect(() => {
     setShownRows(rows);
-  }, [rows]);
+  }, [rows, fields.length]);
 
   const getRefreshedRows = () => {
     return rows;
@@ -182,56 +184,74 @@ const ListTemplate = ({ entityName, rows, fields, avatarName }: any) => {
             color: "#fff", // Set the text color to white
           }}
         >
-<TableContainer component={Paper}>
-  <CssBaseline />
-  <Table stickyHeader aria-label="sticky table">
-    <TableBody>
-      {shownRows
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        .map((row, index) => (
-          <Link
-            to={`/${entityName}/${row.id}`}
-            key={row.id}
-            style={{ textDecoration: "none", display: "block" }}
-          >
-            <TableRow
-              hover
-              role="checkbox"
-              tabIndex={-1}
-              key={index}
-              sx={{
-                "&:hover": { bgcolor: "#aaa3e0" },
-                cursor: "pointer",
-                display: "block",
-                width: "100%",
-              }}
-              onClick={() => {
-                console.log("Row clicked:", row);
-              }}
-            >
-              {fields.map((column, columnIndex) => {
-                const value = row[column];
-                const cellWidth = `calc(100% / ${fields.length})`; // Calculate equal width
+          <TableContainer component={Paper} sx={{ width: "100%" }}>
+            <CssBaseline />
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {fields.map((field, index) => (
+                    <TableCell
+                      key={index}
+                      sx={{
+                        backgroundColor: "#7600ff",
+                        color: "#fff",
+                        width: cellWidth,
+                        borderBottom: "1px solid #ccc",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {field}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {shownRows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, rowIndex) => (
+                    <Link
+                      to={`/${entityName}/${row.id}`}
+                      key={row.id}
+                      style={{ textDecoration: "none", display: "block" }}
+                    >
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={rowIndex}
+                        sx={{
+                          "&:hover": { bgcolor: "#aaa3e0" },
+                          cursor: "pointer",
+                          display: "flex", // Remove or adjust this line
+                          width: "250%",
+                        }}
+                        onClick={() => {
+                          console.log("Row clicked:", row);
+                        }}
+                      >
+                        {fields.map((column, columnIndex) => {
+                          const value = row[column];
 
-                return (
-                  <TableCell
-                    key={column.id}
-                    sx={{
-                      borderBottom: "1px solid #ccc",
-                      color: "#fff",
-                      width: cellWidth,
-                    }}
-                  >
-                    {value}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </Link>
-        ))}
-    </TableBody>
-  </Table>
-</TableContainer>
+                          return (
+                            <TableCell
+                              key={columnIndex}
+                              sx={{
+                                borderBottom: "1px solid #ccc",
+                                color: "#fff",
+                                display: "flex",
+                                width: cellWidth, // Remove or adjust this line
+                              }}
+                            >
+                              {value}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    </Link>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
