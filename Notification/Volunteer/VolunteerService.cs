@@ -1,5 +1,5 @@
-﻿using VolunteerHubBackend.Entities;
-using VolunteerHubBackend.Services.Interfaces;
+﻿using Notification.Entities;
+using Notification.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
@@ -8,7 +8,7 @@ using System;
 using System.Net.Http.Json;
 using System.Collections.Generic;
 
-namespace VolunteerHubBackend.Services
+namespace Notifaction.Services
 {
     public class VolunteerService : IVolunteerService
     {

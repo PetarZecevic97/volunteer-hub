@@ -12,6 +12,7 @@ namespace VolunteerHubBackend.Entities
         public bool IsOpen { get; set; }
         public string Location { get; set; }
         public string OrganizationId { get; set; }
+        public bool IsEmergency { get; set; }
         public List<AdVolunteer> Volunteers { get; set; }
         public DateTime OpenedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }

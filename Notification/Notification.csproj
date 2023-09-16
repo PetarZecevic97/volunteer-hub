@@ -18,4 +18,14 @@
     <ProjectReference Include="..\Common\EventBus.Messages\EventBus.Messages.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="MailClient\" />
+    <None Remove="Volunteer\" />
+    <None Remove="Notification\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MailClient\" />
+    <Folder Include="Volunteer\" />
+    <Folder Include="Notification\" />
+  </ItemGroup>
 </Project>
